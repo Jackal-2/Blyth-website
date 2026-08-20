@@ -123,6 +123,11 @@ img {
   width: auto;
 }
 
+.brand-logo-full {
+  height: 34px;
+  width: auto;
+}
+
 .nav-links {
   display: flex;
   align-items: center;
@@ -326,7 +331,7 @@ img {
 .hero-glow {
   position: absolute;
   top: 100px;
-  left: calc(50% - -100px);
+  left: calc(50% - 2px);
   width: 380px;
   height: 380px;
   border-radius: 50%;
@@ -344,7 +349,7 @@ img {
 .hero-glow-teal {
   position: absolute;
   top: 320px;
-  left: calc(50% - 500px);
+  left: calc(50% - 330px);
   width: 260px;
   height: 260px;
   border-radius: 50%;
@@ -356,7 +361,6 @@ img {
 .hero-brandmark {
   position: relative;
   z-index: 1;
-  margin-left: -200px;
 }
 
 .hero-logo-full {

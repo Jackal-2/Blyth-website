@@ -14,8 +14,7 @@ export default function Navbar() {
     <header className="navbar">
       <div className="container navbar-inner">
         <Link href="/" className="brand">
-          <Image src="/images/logo-mark.png" alt="Blyth" width={32} height={41} priority />
-          BLYTH
+          <Image src="/images/logo-full-trim.png" alt="Blyth" width={666} height={240} priority className="brand-logo-full" />
         </Link>
 
         <nav className="nav-links">

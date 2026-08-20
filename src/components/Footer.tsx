@@ -16,8 +16,7 @@ export default function Footer() {
         <div className="footer-top">
           <div className="footer-brand">
             <Link href="/" className="brand">
-              <Image src="/images/logo-mark.png" alt="Blyth" width={32} height={41} />
-              BLYTH
+              <Image src="/images/logo-full-trim.png" alt="Blyth" width={666} height={240} className="brand-logo-full" />
             </Link>
             <div className="footer-links-secondary">
               {SECONDARY_LINKS.map((link) => (

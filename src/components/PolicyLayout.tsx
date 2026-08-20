@@ -1,4 +1,8 @@
-import type { ReactNode } from "react";
+"use client";
+
+import { Children, type ReactNode } from "react";
+import { Fade } from "react-awesome-reveal";
+import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
 export default function PolicyLayout({
   title,
@@ -9,14 +13,27 @@ export default function PolicyLayout({
   updated: string;
   children: ReactNode;
 }) {
+  const reducedMotion = usePrefersReducedMotion();
+  const duration = reducedMotion ? 1 : 600;
+  const damping = reducedMotion ? 0 : 90 / duration;
+
   return (
     <main className="policy-page">
       <div className="container">
-        <div className="policy-header">
-          <h1 className="policy-title">{title}</h1>
-          <p className="policy-updated">Last update: {updated}</p>
+        <Fade direction="up" triggerOnce={false} fraction={0.2} duration={duration}>
+          <div className="policy-header">
+            <h1 className="policy-title">{title}</h1>
+            <p className="policy-updated">Last update: {updated}</p>
+          </div>
+        </Fade>
+
+        <div className="policy-content">
+          <Fade cascade damping={damping} direction="up" triggerOnce={false} fraction={0.15} duration={duration}>
+            {Children.map(children, (child) => (
+              <div>{child}</div>
+            ))}
+          </Fade>
         </div>
-        <div className="policy-content">{children}</div>
       </div>
     </main>
   );
