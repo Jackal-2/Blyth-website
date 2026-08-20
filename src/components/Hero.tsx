@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { Fade } from "react-awesome-reveal";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
-import { RibbonStarIcon } from "./icons";
 
 export default function Hero() {
   const reducedMotion = usePrefersReducedMotion();
@@ -33,16 +32,6 @@ export default function Hero() {
                 Get Started
               </Link>
             </div>
-
-            <div className="hero-trust-badge">
-              <span className="hero-trust-badge-icon">
-                <RibbonStarIcon />
-              </span>
-              <span className="hero-trust-badge-text">
-                <strong>5.0 Rating</strong>
-                <span>From 1,000+ neighbors</span>
-              </span>
-            </div>
           </Fade>
         </div>
 
@@ -57,11 +46,6 @@ export default function Hero() {
                 className="hero-logo-full"
                 aria-hidden="true"
               />
-            </div>
-
-            <div className="hero-pin-badge">
-              <span className="hero-pin-dot" aria-hidden="true" />
-              <span>Helpers near you</span>
             </div>
           </div>
         </Fade>
