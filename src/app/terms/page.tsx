@@ -128,14 +128,6 @@ export default function TermsOfServicePage() {
             <li>Your continued use of Blyth after updated Terms become effective means that you accept the revised Terms.</li>
           </ul>
         </div>
-
-        <div className="policy-subsection">
-          <h3>3.3 Contact Us</h3>
-          <p>
-            If you have questions about these Terms or need assistance with your account, contact us at{" "}
-            <a href="mailto:support@blythapp.com">support@blythapp.com</a>.
-          </p>
-        </div>
       </section>
     </PolicyLayout>
   );

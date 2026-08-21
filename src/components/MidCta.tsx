@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { Fade } from "react-awesome-reveal";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
@@ -18,11 +17,6 @@ export default function MidCta() {
             <p className="mid-cta-sub">
               From home repairs to errands, find the right person for the job — right in your neighborhood.
             </p>
-            <div className="hero-cta">
-              <Link href="/#get-app" className="btn btn-accent">
-                Get Started
-              </Link>
-            </div>
           </div>
         </Fade>
 

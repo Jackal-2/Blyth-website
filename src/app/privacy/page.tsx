@@ -72,14 +72,6 @@ export default function PrivacyPolicyPage() {
           matter to the other party or be needed for legal or dispute purposes.
         </p>
       </section>
-
-      <section className="policy-section">
-        <h2>Contact Us</h2>
-        <p>
-          Questions about these terms, your privacy, or a request to access or delete your data? Reach us at{" "}
-          <a href="mailto:support@blythapp.com">support@blythapp.com</a>.
-        </p>
-      </section>
     </PolicyLayout>
   );
 }

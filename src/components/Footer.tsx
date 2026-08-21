@@ -52,7 +52,7 @@ export default function Footer() {
 
         <hr className="footer-rule" />
 
-        <p className="footer-copyright">Copyright &copy;2025 Blyth. All rights reserved.</p>
+        <p className="footer-copyright">Copyright &copy;2026 Blyth. All rights reserved.</p>
       </div>
     </footer>
   );

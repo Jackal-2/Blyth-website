@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import PageReveal from "@/components/PageReveal";
 
 export const metadata: Metadata = {
   title: "Support — Blyth",
@@ -32,30 +33,32 @@ export default function SupportPage() {
   return (
     <main className="policy-page">
       <div className="container">
-        <div className="policy-header">
-          <h1 className="policy-title">Support</h1>
-          <p className="policy-updated">We&rsquo;re here to help with anything Blyth-related.</p>
-        </div>
+        <PageReveal>
+          <div className="policy-header">
+            <h1 className="policy-title">Support</h1>
+            <p className="policy-updated">We&rsquo;re here to help with anything Blyth-related.</p>
+          </div>
+        </PageReveal>
 
         <div className="policy-content">
-          <section className="policy-section">
-            <h2>Contact us</h2>
-            <p>
-              The fastest way to reach us is by email at{" "}
-              <a href="mailto:support@blythapp.com">support@blythapp.com</a>. We typically respond within one
-              business day.
-            </p>
-          </section>
+          <PageReveal cascade delay={90}>
+            <section className="policy-section">
+              <h2>Contact us</h2>
+              <p>
+                The fastest way to reach us is by email at support [at] blythapp.com.
+              </p>
+            </section>
 
-          <section className="policy-section">
-            <h2>Common questions</h2>
-            {FAQS.map((faq) => (
-              <div className="policy-subsection" key={faq.question}>
-                <h3>{faq.question}</h3>
-                <p>{faq.answer}</p>
-              </div>
-            ))}
-          </section>
+            <section className="policy-section">
+              <h2>FAQs</h2>
+              {FAQS.map((faq) => (
+                <div className="policy-subsection" key={faq.question}>
+                  <h3>{faq.question}</h3>
+                  <p>{faq.answer}</p>
+                </div>
+              ))}
+            </section>
+          </PageReveal>
         </div>
       </div>
     </main>

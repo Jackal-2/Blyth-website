@@ -89,6 +89,15 @@ img {
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
 }
 
+/* Press feedback — "goes in" while held, springs back out on release. Comes
+   after the :hover rules so it wins the cascade when a button is both
+   hovered and actively pressed at the same time. */
+.btn-accent:active,
+.btn-light:active {
+  transform: scale(0.95);
+  transition: transform 0.1s ease;
+}
+
 /* Navbar */
 
 .navbar {
@@ -138,11 +147,24 @@ img {
 }
 
 .nav-links a {
+  position: relative;
   transition: color 0.15s ease;
 }
 
-.nav-links a:hover {
+.nav-links a:hover,
+.nav-links a.active {
   color: var(--accent);
+}
+
+.nav-links a.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -8px;
+  height: 2px;
+  border-radius: 1px;
+  background: var(--accent);
 }
 
 .navbar-actions {
@@ -158,6 +180,12 @@ img {
   border-radius: 8px;
   padding: 8px 10px;
   color: var(--text);
+  transition: transform 0.15s ease;
+}
+
+.nav-menu-btn:active {
+  transform: scale(0.9);
+  transition: transform 0.1s ease;
 }
 
 @media (max-width: 860px) {
@@ -244,6 +272,12 @@ img {
   border-radius: 10px;
   padding: 8px 16px;
   font-weight: 600;
+  transition: transform 0.15s ease;
+}
+
+.store-pill:active {
+  transform: scale(0.95);
+  transition: transform 0.1s ease;
 }
 
 .store-pill svg {
@@ -344,6 +378,7 @@ img {
   );
   filter: blur(10px);
   z-index: 0;
+  pointer-events: none;
 }
 
 .hero-glow-teal {
@@ -356,6 +391,7 @@ img {
   background: radial-gradient(circle, rgba(45, 212, 191, 0.35) 0%, rgba(45, 212, 191, 0) 70%);
   filter: blur(6px);
   z-index: 0;
+  pointer-events: none;
 }
 
 .hero-brandmark {
@@ -683,8 +719,6 @@ img {
   font-size: 13.5px;
   color: var(--text-muted);
 }
-
-/* Scattered collage layout on wide viewports */
 @media (min-width: 901px) {
   .testimonials-grid {
     position: relative;
@@ -708,38 +742,33 @@ img {
   }
 
   .testimonial-card--2 {
-    left: 14.5%;
+    left: 23.5%;
     top: -5.5%;
     width: 40.8%;
-    z-index: 1;
   }
 
   .testimonial-card--3 {
     left: 65.85%;
     top: -15.5%;
     width: 29.2%;
-    z-index: 3;
   }
 
   .testimonial-card--4 {
     left: 2.75%;
-    top: 47.8%;
+    top: 57.8%;
     width: 30.8%;
-    z-index: 2;
   }
 
   .testimonial-card--5 {
-    left: -20.95%;
+    left: -7.95%;
     top: -1.4%;
     width: 29.2%;
-    z-index: 1;
   }
 
   .testimonial-card--6 {
-    left: 89.95%;
-    top: 40.5%;
+    left: 75.95%;
+    top: 50.5%;
     width: 29.2%;
-    z-index: 1;
   }
 }
 
@@ -898,7 +927,29 @@ img {
   }
 }
 
-/* ============ Policy pages (Privacy / Terms) ============ */
+/* ============ Policy pages (Privacy / Terms / Support) ============ */
+
+@keyframes page-reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-reveal {
+  animation: page-reveal-up 600ms ease both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-reveal {
+    animation-duration: 1ms;
+    animation-delay: 0ms !important;
+  }
+}
 
 .policy-page {
   padding: 64px 0 100px;
@@ -967,222 +1018,4 @@ img {
 
 .policy-subsection {
   margin-top: 28px;
-}
-
-/* ============ Admin login ============ */
-
-.admin-login {
-  min-height: 100vh;
-  display: grid;
-  grid-template-columns: minmax(320px, 34%) 1fr;
-}
-
-.admin-login-panel {
-  position: relative;
-  overflow: hidden;
-  background: var(--bg);
-  padding: 40px;
-  display: flex;
-  flex-direction: column;
-}
-
-.admin-login-glow {
-  position: absolute;
-  top: -120px;
-  left: -100px;
-  width: 480px;
-  height: 480px;
-  border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    rgba(255, 190, 90, 0.32) 0%,
-    rgba(240, 155, 80, 0.18) 40%,
-    rgba(210, 120, 50, 0) 72%
-  );
-  filter: blur(10px);
-  z-index: 0;
-}
-
-.admin-login-brand {
-  position: relative;
-  z-index: 1;
-  display: inline-flex;
-  align-self: flex-start;
-}
-
-.admin-login-brand-img {
-  height: 34px;
-  width: auto;
-}
-
-.admin-login-panel-content {
-  position: relative;
-  z-index: 1;
-  margin-top: auto;
-  max-width: 360px;
-}
-
-.admin-login-shield {
-  display: inline-flex;
-  color: var(--accent-light);
-  opacity: 0.9;
-  margin-bottom: 22px;
-}
-
-.admin-login-panel-heading {
-  font-size: 34px;
-  font-weight: 800;
-  line-height: 1.15;
-  color: var(--text);
-  margin-bottom: 14px;
-}
-
-.admin-login-panel-sub {
-  font-size: 15px;
-  line-height: 1.6;
-  color: var(--text-muted);
-}
-
-.admin-login-form-side {
-  background: #faf7f2;
-  color: #171008;
-  display: flex;
-  flex-direction: column;
-  padding: 32px 48px;
-}
-
-.admin-login-topbar {
-  display: flex;
-  justify-content: flex-start;
-}
-
-.admin-login-return {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 14px;
-  font-weight: 600;
-  color: #6b6559;
-}
-
-.admin-login-return:hover {
-  color: #171008;
-}
-
-.admin-login-form-wrap {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  width: 100%;
-  max-width: 420px;
-  margin: 0 auto;
-}
-
-.admin-login-heading {
-  font-size: 26px;
-  font-weight: 800;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-  color: #171008;
-}
-
-.admin-login-sub {
-  margin-top: 10px;
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: #8a8171;
-}
-
-.admin-login-form {
-  width: 100%;
-  margin-top: 36px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.admin-login-field {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  width: 100%;
-  border: 1px solid #ded6c6;
-  border-radius: 10px;
-  background: #fff;
-  padding: 14px 16px;
-}
-
-.admin-login-field-icon {
-  display: flex;
-  color: #a39a89;
-  flex-shrink: 0;
-}
-
-.admin-login-field input {
-  flex: 1;
-  border: none;
-  outline: none;
-  background: transparent;
-  font-size: 15px;
-  color: #171008;
-  font-family: var(--font-sans);
-}
-
-.admin-login-field input::placeholder {
-  color: #a39a89;
-}
-
-.admin-login-show {
-  border: none;
-  background: none;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  color: #8a8171;
-  cursor: pointer;
-  flex-shrink: 0;
-}
-
-.admin-login-show:hover {
-  color: var(--accent);
-}
-
-.admin-login-submit {
-  margin-top: 8px;
-  width: 100%;
-  border-radius: 10px;
-  padding: 15px 22px;
-  font-size: 15px;
-  justify-content: space-between;
-}
-
-.admin-login-footer {
-  display: flex;
-  justify-content: space-between;
-  font-size: 12.5px;
-  color: #8a8171;
-}
-
-.admin-login-help {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-
-@media (max-width: 860px) {
-  .admin-login {
-    grid-template-columns: 1fr;
-  }
-  .admin-login-panel {
-    display: none;
-  }
-  .admin-login-form-side {
-    padding: 24px 24px 32px;
-  }
 }

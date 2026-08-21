@@ -29,7 +29,7 @@ const LEFT_ITEMS = [
   {
     icon: <ReceiptIcon />,
     title: "Secure Payments & Earnings",
-    body: "Request, complete, and pay for transactions through a structured order system. Helpers can track their earnings and withdrawals.",
+    body: "Neighbors can request and pay for items and services through a structured order system. Helpers can track their earnings and withdrawals.",
   },
 ];
 
@@ -37,7 +37,7 @@ const RIGHT_ITEMS = [
   {
     icon: <BriefcaseIcon />,
     title: "Buy & Book Locally",
-    body: "Browse products or book services directly from people nearby, with no shipping or unnecessary middlemen.",
+    body: "Browse products or book services directly from people nearby.",
   },
   {
     icon: <ChatHandsIcon />,
@@ -47,19 +47,13 @@ const RIGHT_ITEMS = [
   {
     icon: <ShieldCheckIcon />,
     title: "Trusted & Verified",
-    body: "ID and bank verification help build trust, with verified badges for registered businesses.",
+    body: "Trust starts with verification. All helpers undergo identity verification to join our community, while registered businesses receive a badge.",
   },
 ];
 
-// Static "scattered ring" offsets — purely positional, not part of the reveal animation.
 const LEFT_OFFSETS = ["translate(10px, 10px)", "translate(-80px, 35px)", "translate(10px, 50px)"];
 const RIGHT_OFFSETS = ["translate(110px, -40px)", "translate(190px, 10px)", "translate(90px, 80px)"];
 
-// react-awesome-reveal drives the left + right items (6 total), cascading ~200ms apart. The
-// center phone column has its own heterogeneous content (icon card / phone image / icon card)
-// which hit a reproducible bug in react-awesome-reveal's cascade (some items got permanently
-// stuck at opacity 0), so it keeps the site's original hand-rolled IntersectionObserver reveal
-// instead.
 const STEP_MS = 200;
 const LEFT_DELAYS = [0, STEP_MS, STEP_MS * 2];
 const RIGHT_DELAYS = [STEP_MS * 3, STEP_MS * 4, STEP_MS * 5];
