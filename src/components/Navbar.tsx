@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const NAV_LINKS = [
   { label: "Home", href: "/" },
@@ -13,15 +14,46 @@ const NAV_LINKS = [
 ];
 
 // "/#features" is an in-page anchor on the home page rather than a distinct
-// route, so it never gets an active state of its own — Home already covers it.
-function isActive(pathname: string, href: string) {
-  if (href.startsWith("/#")) return false;
-  if (href === "/") return pathname === "/";
+// route. `scrolledToFeatures` (driven by an IntersectionObserver on the
+// #features section, homepage only) tells us to highlight it instead of Home
+// while that section is in view.
+function isActive(pathname: string, href: string, scrolledToFeatures: boolean) {
+  if (href === "/#features") return scrolledToFeatures;
+  if (href === "/") return pathname === "/" && !scrolledToFeatures;
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
 export default function Navbar() {
   const pathname = usePathname();
+  const [scrolledToFeatures, setScrolledToFeatures] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  // Reset menu/scrollspy state when the route changes. Adjusting state during
+  // render (rather than in an effect) is the pattern React recommends for
+  // "state that depends on a prop changing" — it avoids an extra render pass.
+  const [prevPathname, setPrevPathname] = useState(pathname);
+  if (pathname !== prevPathname) {
+    setPrevPathname(pathname);
+    setMenuOpen(false);
+    setScrolledToFeatures(false);
+  }
+
+  useEffect(() => {
+    if (pathname !== "/") return;
+
+    const section = document.getElementById("features");
+    if (!section) return;
+
+    // A thin horizontal band through the middle of the viewport — the active
+    // link flips to Features once the section crosses it, and back to Home
+    // once it scrolls past.
+    const observer = new IntersectionObserver(([entry]) => setScrolledToFeatures(entry.isIntersecting), {
+      rootMargin: "-45% 0px -45% 0px",
+    });
+
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, [pathname]);
 
   return (
     <header className="navbar">
@@ -32,7 +64,7 @@ export default function Navbar() {
 
         <nav className="nav-links">
           {NAV_LINKS.map((link) => {
-            const active = isActive(pathname, link.href);
+            const active = isActive(pathname, link.href, scrolledToFeatures);
             return (
               <Link
                 key={link.href}
@@ -50,12 +82,44 @@ export default function Navbar() {
           <Link href="/#get-app" className="btn btn-accent">
             Get Started
           </Link>
-          <button className="nav-menu-btn" aria-label="Open menu" type="button">
+          <button
+            className="nav-menu-btn"
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={menuOpen}
+            type="button"
+            onClick={() => setMenuOpen((open) => !open)}
+          >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-              <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+              {menuOpen ? (
+                <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+              ) : (
+                <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+              )}
             </svg>
           </button>
         </div>
+
+        {menuOpen ? (
+          <nav className="nav-mobile-menu">
+            {NAV_LINKS.map((link) => {
+              const active = isActive(pathname, link.href, scrolledToFeatures);
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={active ? "active" : undefined}
+                  aria-current={active ? "page" : undefined}
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
+            <Link href="/#get-app" className="btn btn-accent nav-mobile-cta" onClick={() => setMenuOpen(false)}>
+              Get Started
+            </Link>
+          </nav>
+        ) : null}
       </div>
     </header>
   );

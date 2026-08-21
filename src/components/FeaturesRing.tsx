@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { Fade } from "react-awesome-reveal";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import {
@@ -107,7 +107,11 @@ export default function FeaturesRing() {
               delay={withDelay(LEFT_DELAYS[0])}
             >
               {LEFT_ITEMS.map((item, i) => (
-                <div className="feature-item" key={item.title} style={{ transform: LEFT_OFFSETS[i] }}>
+                <div
+                  className="feature-item"
+                  key={item.title}
+                  style={{ "--ring-offset": LEFT_OFFSETS[i] } as CSSProperties}
+                >
                   <span className="feature-icon">{item.icon}</span>
                   <div>
                     <h3>{item.title}</h3>
@@ -159,7 +163,11 @@ export default function FeaturesRing() {
               delay={withDelay(RIGHT_DELAYS[0])}
             >
               {RIGHT_ITEMS.map((item, i) => (
-                <div className="feature-item" key={item.title} style={{ transform: RIGHT_OFFSETS[i] }}>
+                <div
+                  className="feature-item"
+                  key={item.title}
+                  style={{ "--ring-offset": RIGHT_OFFSETS[i] } as CSSProperties}
+                >
                   <span className="feature-icon">{item.icon}</span>
                   <div>
                     <h3>{item.title}</h3>

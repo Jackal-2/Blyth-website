@@ -188,12 +188,43 @@ img {
   transition: transform 0.1s ease;
 }
 
+.nav-mobile-menu {
+  display: none;
+}
+
 @media (max-width: 860px) {
   .nav-links {
     display: none;
   }
   .nav-menu-btn {
     display: inline-flex;
+  }
+  .navbar-inner {
+    flex-wrap: wrap;
+  }
+  .nav-mobile-menu {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    flex-basis: 100%;
+    gap: 2px;
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+  }
+  .nav-mobile-menu a {
+    padding: 10px 4px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #e7e7e7;
+    transition: color 0.15s ease;
+  }
+  .nav-mobile-menu a.active {
+    color: var(--accent);
+  }
+  .nav-mobile-cta {
+    margin-top: 10px;
+    width: 100%;
   }
 }
 
@@ -261,6 +292,30 @@ img {
   text-align: center;
   font-size: 12.5px;
   color: var(--text-faint);
+}
+
+.footer-bottom {
+  position: relative;
+}
+
+.footer-signature {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  font-size: 12.5px;
+  color: #555555;
+}
+
+@media (max-width: 640px) {
+  .footer-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  .footer-signature {
+    position: static;
+  }
 }
 
 /* Store badges (rendered as CSS, no external image dependency) */
@@ -472,6 +527,7 @@ img {
   display: flex;
   gap: 16px;
   max-width: 320px;
+  transform: var(--ring-offset, none);
 }
 
 .feature-icon {
@@ -838,6 +894,35 @@ img {
   font-size: 50px;
   font-weight: 800;
   color: #fff;
+}
+
+@media (max-width: 700px) {
+  .mid-cta-inner {
+    justify-content: center;
+    text-align: center;
+  }
+  .mid-cta-heading,
+  .mid-cta-sub {
+    max-width: 100%;
+  }
+  .mid-cta-badge {
+    width: 100%;
+    max-width: 320px;
+    height: 160px;
+    border-radius: 0 0 160px 160px;
+    gap: 16px;
+    margin-top: 0;
+    align-self: center;
+  }
+  .mid-cta-badge img {
+    height: 76px;
+  }
+  .mid-cta-badge-divider {
+    height: 68px;
+  }
+  .mid-cta-badge-word {
+    font-size: 30px;
+  }
 }
 
 /* ============ Bottom CTA banner ============ */
