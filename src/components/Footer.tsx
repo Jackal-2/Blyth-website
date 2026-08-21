@@ -35,7 +35,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Image src="/images/app-store.png" alt="" width={34} height={34} className="store-pill-icon" aria-hidden="true" />
+              <Image src="/images/app-store.png" alt="" width={50} height={50} className="store-pill-icon" aria-hidden="true" />
               <span className="store-pill-text">Download for iOS</span>
             </a>
             <a
@@ -44,7 +44,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Image src="/images/playstore.png" alt="" width={34} height={34} className="store-pill-icon" aria-hidden="true" />
+              <Image src="/images/playstore.png" alt="" width={50} height={50} className="store-pill-icon" aria-hidden="true" />
               <span className="store-pill-text">Download for Android</span>
             </a>
           </div>
