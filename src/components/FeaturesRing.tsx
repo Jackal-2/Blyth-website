@@ -1,8 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { Fade } from "react-awesome-reveal";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import {
   BellIcon,
@@ -58,8 +59,48 @@ const STEP_MS = 200;
 const LEFT_DELAYS = [0, STEP_MS, STEP_MS * 2];
 const RIGHT_DELAYS = [STEP_MS * 3, STEP_MS * 4, STEP_MS * 5];
 
+// Matches the `max-width: 1080px` breakpoint in globals.css where the ring
+// collapses into a single-column list.
+const MOBILE_QUERY = "(max-width: 1080px)";
+
+type FeatureListProps = {
+  items: { icon: ReactNode; title: string; body: string }[];
+  offsets: string[];
+  direction: "left" | "right";
+  delay: number;
+  isMobile: boolean;
+  cascadeDamping: number;
+  duration: number;
+};
+
+function FeatureList({ items, offsets, direction, delay, isMobile, cascadeDamping, duration }: FeatureListProps) {
+  const children = items.map((item, i) => (
+    <div className="feature-item" key={item.title} style={{ "--ring-offset": offsets[i] } as CSSProperties}>
+      <span className="feature-icon">{item.icon}</span>
+      <div>
+        <h3>{item.title}</h3>
+        <p>{item.body}</p>
+      </div>
+    </div>
+  ));
+
+  // On mobile the list order is flattened (see the `order` rules in
+  // globals.css) and every item reveals together with the phone image
+  // instead of on its own scroll position, so the individually-cascading
+  // Fade is skipped in favor of the shared `.features-ring.in-view` CSS
+  // transition (also in globals.css).
+  if (isMobile) return <>{children}</>;
+
+  return (
+    <Fade cascade damping={cascadeDamping} direction={direction} triggerOnce={false} fraction={0.2} duration={duration} delay={delay}>
+      {children}
+    </Fade>
+  );
+}
+
 export default function FeaturesRing() {
   const reducedMotion = usePrefersReducedMotion();
+  const isMobile = useMediaQuery(MOBILE_QUERY);
   const duration = reducedMotion ? 1 : 500;
   const cascadeDamping = reducedMotion ? 0 : STEP_MS / duration;
   const withDelay = (ms: number) => (reducedMotion ? 0 : ms);
@@ -97,29 +138,15 @@ export default function FeaturesRing() {
           </div>
 
           <div className="features-col">
-            <Fade
-              cascade
-              damping={cascadeDamping}
+            <FeatureList
+              items={LEFT_ITEMS}
+              offsets={LEFT_OFFSETS}
               direction="left"
-              triggerOnce={false}
-              fraction={0.2}
-              duration={duration}
               delay={withDelay(LEFT_DELAYS[0])}
-            >
-              {LEFT_ITEMS.map((item, i) => (
-                <div
-                  className="feature-item"
-                  key={item.title}
-                  style={{ "--ring-offset": LEFT_OFFSETS[i] } as CSSProperties}
-                >
-                  <span className="feature-icon">{item.icon}</span>
-                  <div>
-                    <h3>{item.title}</h3>
-                    <p>{item.body}</p>
-                  </div>
-                </div>
-              ))}
-            </Fade>
+              isMobile={isMobile}
+              cascadeDamping={cascadeDamping}
+              duration={duration}
+            />
           </div>
 
           <div className="features-phone-col">
@@ -153,29 +180,15 @@ export default function FeaturesRing() {
           </div>
 
           <div className="features-col features-col-right">
-            <Fade
-              cascade
-              damping={cascadeDamping}
+            <FeatureList
+              items={RIGHT_ITEMS}
+              offsets={RIGHT_OFFSETS}
               direction="right"
-              triggerOnce={false}
-              fraction={0.2}
-              duration={duration}
               delay={withDelay(RIGHT_DELAYS[0])}
-            >
-              {RIGHT_ITEMS.map((item, i) => (
-                <div
-                  className="feature-item"
-                  key={item.title}
-                  style={{ "--ring-offset": RIGHT_OFFSETS[i] } as CSSProperties}
-                >
-                  <span className="feature-icon">{item.icon}</span>
-                  <div>
-                    <h3>{item.title}</h3>
-                    <p>{item.body}</p>
-                  </div>
-                </div>
-              ))}
-            </Fade>
+              isMobile={isMobile}
+              cascadeDamping={cascadeDamping}
+              duration={duration}
+            />
           </div>
         </div>
       </div>

@@ -651,8 +651,19 @@ img {
     align-items: center;
     text-align: center;
   }
+  /* These items skip their own scroll-triggered Fade on mobile (see
+     FeatureList in FeaturesRing.tsx) and instead reveal together with the
+     phone image, driven by the same .features-ring.in-view state as
+     .features-phone-col above. */
   .features-col .feature-item,
   .features-col-right .feature-item {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .features-ring.in-view .features-col .feature-item,
+  .features-ring.in-view .features-col-right .feature-item {
+    opacity: 1;
     transform: none;
   }
   .features-rings {
@@ -678,6 +689,15 @@ img {
   }
   .features-phone-bottom {
     order: 3;
+  }
+}
+
+@media (max-width: 1080px) and (prefers-reduced-motion: reduce) {
+  .features-col .feature-item,
+  .features-col-right .feature-item {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }
 
