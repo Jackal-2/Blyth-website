@@ -658,6 +658,27 @@ img {
   .features-rings {
     display: none;
   }
+
+  /* Drop the desktop "ring" arrangement for a plain list: the phone image
+     leads, then every feature item follows underneath it in one column. */
+  .features-phone-col {
+    order: 1;
+  }
+  .features-col {
+    order: 2;
+  }
+  .features-col-right {
+    order: 3;
+  }
+  .phone-frame {
+    order: 1;
+  }
+  .features-phone-top {
+    order: 2;
+  }
+  .features-phone-bottom {
+    order: 3;
+  }
 }
 
 /* ============ Trust bar ============ */
@@ -867,8 +888,12 @@ img {
 
 .mid-cta-badge {
   width: 560px;
-  height: 280px;
-  border-radius: 0 0 280px 280px;
+  aspect-ratio: 2 / 1;
+  /* Percentage radii (rather than a fixed px value) keep this a true
+     semicircle at any width — horizontal 50% + vertical 100% on a 2:1 box is
+     the standard fluid half-circle technique, so it can never look
+     "squashed" no matter what width the responsive rules below give it. */
+  border-radius: 0 0 50% 50% / 0 0 100% 100%;
   background: #000;
   display: flex;
   align-items: center;
@@ -905,11 +930,19 @@ img {
   .mid-cta-sub {
     max-width: 100%;
   }
-  .mid-cta-badge {
+  /* react-awesome-reveal's <Fade> wraps the badge in its own unstyled div,
+     which becomes the actual flex item here — since it has no explicit
+     width it shrinks to fit its content instead of filling the row, which
+     left .mid-cta-badge sizing itself from that indefinite width (and
+     falling back to a much smaller aspect-ratio-derived size). Giving the
+     wrapper a definite, centered width fixes that. */
+  .mid-cta-inner > div:has(.mid-cta-badge) {
     width: 100%;
-    max-width: 320px;
-    height: 160px;
-    border-radius: 0 0 160px 160px;
+    display: flex;
+    justify-content: center;
+  }
+  .mid-cta-badge {
+    width: min(100%, 320px);
     gap: 16px;
     margin-top: 0;
     align-self: center;
