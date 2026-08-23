@@ -13,11 +13,6 @@ const FAQS = [
       "Blyth is available on iOS and Android. Use the “Get the App” links in the footer or the bottom of the home page to open the App Store or Google Play.",
   },
   {
-    question: "How do I contact a Helper or a neighbor?",
-    answer:
-      "Once you've found a listing you're interested in, you can message the other person directly from within the app to coordinate details before booking.",
-  },
-  {
     question: "How do I report a problem with an order or an account?",
     answer:
       "Open the order or profile in question from the app and use the Report option, or email us directly and we'll look into it.",
@@ -36,7 +31,9 @@ export default function SupportPage() {
         <PageReveal>
           <div className="policy-header">
             <h1 className="policy-title">Support</h1>
-            <p className="policy-updated">We&rsquo;re here to help with anything Blyth-related.</p>
+            <p className="policy-updated">
+              We&rsquo;re here to help with anything Blyth-related.
+            </p>
           </div>
         </PageReveal>
 
@@ -45,7 +42,8 @@ export default function SupportPage() {
             <section className="policy-section">
               <h2>Contact us</h2>
               <p>
-                The fastest way to reach us is by email at support [at] blythapp.com.
+                The fastest way to reach us is by email at support [at]
+                blythapp.com.
               </p>
             </section>
 
