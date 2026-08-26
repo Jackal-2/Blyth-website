@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { Fade } from "react-awesome-reveal";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
+import TiltedCard from "./TiltedCard";
 
 export default function BottomCta() {
   const reducedMotion = usePrefersReducedMotion();
@@ -26,7 +27,7 @@ export default function BottomCta() {
             <p className="bottom-cta-download-label">Get the App</p>
             <div className="bottom-cta-badges">
               <a
-                className="store-pill store-pill-white"
+                className="store-pill store-pill-white cursor-target"
                 href="https://apps.apple.com"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -42,7 +43,7 @@ export default function BottomCta() {
                 <span className="store-pill-text">Download for iOS</span>
               </a>
               <a
-                className="store-pill store-pill-white"
+                className="store-pill store-pill-white cursor-target"
                 href="https://play.google.com"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -70,20 +71,54 @@ export default function BottomCta() {
             duration={phonesDuration}
           >
             <div className="bottom-cta-phone bottom-cta-phone-back">
-              <Image
-                src="/images/screen-discover.png"
-                alt="Discover screen in the Blyth app"
-                width={220}
-                height={440}
-              />
+              {reducedMotion ? (
+                <Image
+                  src="/images/screen-discover.png"
+                  alt="Discover screen in the Blyth app"
+                  width={220}
+                  height={440}
+                />
+              ) : (
+                <div className="phone-tilted-card">
+                  <TiltedCard
+                    imageSrc="/images/screen-discover.png"
+                    altText="Discover screen in the Blyth app"
+                    containerHeight="100%"
+                    containerWidth="100%"
+                    imageHeight="100%"
+                    imageWidth="100%"
+                    rotateAmplitude={10}
+                    scaleOnHover={1.04}
+                    showMobileWarning={false}
+                    showTooltip={false}
+                  />
+                </div>
+              )}
             </div>
             <div className="bottom-cta-phone bottom-cta-phone-front">
-              <Image
-                src="/images/screen-provider.png"
-                alt="Provider profile screen in the Blyth app"
-                width={220}
-                height={440}
-              />
+              {reducedMotion ? (
+                <Image
+                  src="/images/screen-provider.png"
+                  alt="Provider profile screen in the Blyth app"
+                  width={220}
+                  height={440}
+                />
+              ) : (
+                <div className="phone-tilted-card">
+                  <TiltedCard
+                    imageSrc="/images/screen-provider.png"
+                    altText="Provider profile screen in the Blyth app"
+                    containerHeight="100%"
+                    containerWidth="100%"
+                    imageHeight="100%"
+                    imageWidth="100%"
+                    rotateAmplitude={10}
+                    scaleOnHover={1.04}
+                    showMobileWarning={false}
+                    showTooltip={false}
+                  />
+                </div>
+              )}
             </div>
           </Fade>
         </div>

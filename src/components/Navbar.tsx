@@ -58,7 +58,7 @@ export default function Navbar() {
   return (
     <header className="navbar">
       <div className="container navbar-inner">
-        <Link href="/" className="brand">
+        <Link href="/" className="brand cursor-target">
           <Image src="/images/logo-full-trim.png" alt="Blyth" width={666} height={240} priority className="brand-logo-full" />
         </Link>
 
@@ -69,7 +69,7 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={active ? "active" : undefined}
+                className={`cursor-target${active ? " active" : ""}`}
                 aria-current={active ? "page" : undefined}
               >
                 {link.label}
@@ -79,11 +79,11 @@ export default function Navbar() {
         </nav>
 
         <div className="navbar-actions">
-          <Link href="/#get-app" className="btn btn-accent">
+          <Link href="/#get-app" className="btn btn-accent cursor-target">
             Get Started
           </Link>
           <button
-            className="nav-menu-btn"
+            className="nav-menu-btn cursor-target"
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
             type="button"
@@ -107,7 +107,7 @@ export default function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={active ? "active" : undefined}
+                  className={`cursor-target${active ? " active" : ""}`}
                   aria-current={active ? "page" : undefined}
                   onClick={() => setMenuOpen(false)}
                 >
@@ -115,7 +115,7 @@ export default function Navbar() {
                 </Link>
               );
             })}
-            <Link href="/#get-app" className="btn btn-accent nav-mobile-cta" onClick={() => setMenuOpen(false)}>
+            <Link href="/#get-app" className="btn btn-accent nav-mobile-cta cursor-target" onClick={() => setMenuOpen(false)}>
               Get Started
             </Link>
           </nav>

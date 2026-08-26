@@ -2,12 +2,23 @@
 
 import { Fade } from "react-awesome-reveal";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
+import CountUp from "./CountUp";
 
-const STATS = [
-  { value: "100%", label: "Helper Verifications" },
-  { value: "24/7", label: "Support & Safety" },
+type Stat = {
+  label: string;
+  // Numeric stats animate with CountUp; `suffix` is appended as static text
+  // right after the counted number (e.g. to=100 + suffix "%" -> "100%").
+  to?: number;
+  suffix?: string;
+  // Non-numeric stats (nothing to count) just render `value` as-is.
+  value?: string;
+};
+
+const STATS: Stat[] = [
+  { to: 100, suffix: "%", label: "Helper Verifications" },
+  { to: 24, suffix: "/7", label: "Support & Safety" },
   { value: "Secure", label: "Escrow Payments" },
-  { value: "5.0★", label: "Rated Experience" },
+  { to: 5, suffix: ".0★", label: "Rated Experience" },
 ];
 
 export default function TrustBar() {
@@ -29,7 +40,20 @@ export default function TrustBar() {
           <Fade cascade damping={damping} direction="up" triggerOnce={false} fraction={0.2} duration={duration}>
             {STATS.map((stat) => (
               <div key={stat.label}>
-                <p className="trust-stat-value">{stat.value}</p>
+                <p className="trust-stat-value">
+                  {stat.to !== undefined ? (
+                    reducedMotion ? (
+                      `${stat.to}${stat.suffix ?? ""}`
+                    ) : (
+                      <>
+                        <CountUp to={stat.to} duration={1.4} />
+                        {stat.suffix}
+                      </>
+                    )
+                  ) : (
+                    stat.value
+                  )}
+                </p>
                 <p className="trust-stat-label">{stat.label}</p>
               </div>
             ))}

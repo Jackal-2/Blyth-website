@@ -5,6 +5,7 @@ import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 
 import { Fade } from "react-awesome-reveal";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
+import TiltedCard from "./TiltedCard";
 import {
   BellIcon,
   BriefcaseIcon,
@@ -53,7 +54,7 @@ const RIGHT_ITEMS = [
 ];
 
 const LEFT_OFFSETS = ["translate(10px, 10px)", "translate(-80px, 35px)", "translate(10px, 50px)"];
-const RIGHT_OFFSETS = ["translate(110px, -40px)", "translate(190px, 10px)", "translate(90px, 80px)"];
+const RIGHT_OFFSETS = ["translate(110px, -40px)", "translate(115px, 10px)", "translate(90px, 80px)"];
 
 const STEP_MS = 200;
 const LEFT_DELAYS = [0, STEP_MS, STEP_MS * 2];
@@ -163,7 +164,24 @@ export default function FeaturesRing() {
             </div>
 
             <div className="phone-frame">
-              <Image src="/images/screen-home.png" alt="Home screen in the Blyth app" width={260} height={540} />
+              {reducedMotion ? (
+                <Image src="/images/screen-home.png" alt="Home screen in the Blyth app" width={260} height={540} />
+              ) : (
+                <div className="phone-tilted-card">
+                  <TiltedCard
+                    imageSrc="/images/screen-home.png"
+                    altText="Home screen in the Blyth app"
+                    containerHeight="100%"
+                    containerWidth="100%"
+                    imageHeight="100%"
+                    imageWidth="100%"
+                    rotateAmplitude={10}
+                    scaleOnHover={1.04}
+                    showMobileWarning={false}
+                    showTooltip={false}
+                  />
+                </div>
+              )}
             </div>
 
             <div className="features-phone-bottom">

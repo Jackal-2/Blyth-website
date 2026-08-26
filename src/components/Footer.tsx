@@ -15,12 +15,12 @@ export default function Footer() {
       <div className="container">
         <div className="footer-top">
           <div className="footer-brand">
-            <Link href="/" className="brand">
+            <Link href="/" className="brand cursor-target">
               <Image src="/images/logo-full-trim.png" alt="Blyth" width={666} height={240} className="brand-logo-full" />
             </Link>
             <div className="footer-links-secondary">
               {SECONDARY_LINKS.map((link) => (
-                <Link key={link.href} href={link.href}>
+                <Link key={link.href} href={link.href} className="cursor-target">
                   {link.label}
                 </Link>
               ))}
@@ -30,7 +30,7 @@ export default function Footer() {
           <div className="footer-download">
             <p className="footer-download-heading">Get the App</p>
             <a
-              className="store-pill store-pill-dark"
+              className="store-pill store-pill-dark cursor-target"
               href="https://apps.apple.com"
               target="_blank"
               rel="noopener noreferrer"
@@ -39,7 +39,7 @@ export default function Footer() {
               <span className="store-pill-text">Download for iOS</span>
             </a>
             <a
-              className="store-pill store-pill-dark"
+              className="store-pill store-pill-dark cursor-target"
               href="https://play.google.com"
               target="_blank"
               rel="noopener noreferrer"
