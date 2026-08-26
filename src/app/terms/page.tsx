@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import PolicyLayout from "@/components/PolicyLayout";
 
 export const metadata: Metadata = {
@@ -103,12 +104,32 @@ export default function TermsOfServicePage() {
         </div>
 
         <div className="policy-subsection">
-          <h3>2.2 Disputes</h3>
+          <h3>2.2 Payment &amp; Orders</h3>
+          <ul>
+            <li>
+              A default payment method is required before you can request a
+              booking or purchase. Requesting places a hold on your card for the
+              order total &mdash; you are not charged until the helper confirms
+              the order, at which point the hold is captured.
+            </li>
+            <li>
+              If a helper does not confirm an order, the hold is released and
+              you are not charged.
+            </li>
+          </ul>
+        </div>
+
+        <div className="policy-subsection">
+          <h3>2.3 Disputes</h3>
           <ul>
             <li>
               If a neighbor does not provide the confirmation code within a
               reasonable period after an item has been delivered or a service
               has been completed, the helper may submit a dispute through Blyth.
+            </li>
+            <li>
+              A neighbor may similarly report an order that was charged but
+              never delivered or completed.
             </li>
             <li>
               Blyth may review information and evidence provided by either
@@ -121,11 +142,16 @@ export default function TermsOfServicePage() {
               either party. Blyth&rsquo;s review does not guarantee a particular
               outcome.
             </li>
+            <li>
+              Refunds issued on an order that has already been charged do not
+              include the platform fee or card processing fee. Those fees cover
+              costs already incurred and are non-refundable.
+            </li>
           </ul>
         </div>
 
         <div className="policy-subsection">
-          <h3>2.3 Prohibited Listings</h3>
+          <h3>2.4 Prohibited Listings</h3>
           <ul>
             <li>
               You may not list, sell, request, or provide illegal goods or
@@ -142,8 +168,10 @@ export default function TermsOfServicePage() {
               requirements.
             </li>
             <li>
-              See our Community Guidelines for additional rules regarding
-              prohibited content, goods, and services.
+              See our{" "}
+              <Link href="/community-guidelines">Community Guidelines</Link>{" "}
+              for additional rules regarding prohibited content, goods, and
+              services.
             </li>
           </ul>
         </div>

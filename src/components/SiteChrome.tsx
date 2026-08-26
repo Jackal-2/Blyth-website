@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 import { usePathname } from "next/navigation";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
-import TargetCursor from "./TargetCursor";
+import ClickSpark from "./ClickSpark";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
 export default function SiteChrome({ children }: { children: ReactNode }) {
@@ -16,21 +16,24 @@ export default function SiteChrome({ children }: { children: ReactNode }) {
     return <>{children}</>;
   }
 
-  return (
+  const content = (
     <>
-      {!reducedMotion && (
-        <TargetCursor
-          targetSelector=".cursor-target"
-          spinDuration={2}
-          hideDefaultCursor={true}
-          parallaxOn={true}
-          cursorColor="#ffffff"
-          cursorColorOnTarget="#D98A3D"
-        />
-      )}
       <Navbar />
       {children}
       <Footer />
     </>
+  );
+
+  // Skipped for prefers-reduced-motion, same as the cursor effect it
+  // replaces — it's a much lighter one-off burst than a continuous
+  // animated cursor, but it's still decorative motion.
+  if (reducedMotion) {
+    return content;
+  }
+
+  return (
+    <ClickSpark sparkColor="#D98A3D" sparkSize={10} sparkRadius={15} sparkCount={8} duration={400}>
+      {content}
+    </ClickSpark>
   );
 }

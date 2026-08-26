@@ -260,7 +260,8 @@ img {
 
 .footer-links-secondary {
   display: flex;
-  gap: 20px;
+  flex-wrap: wrap;
+  gap: 10px 20px;
   font-size: 14px;
   color: var(--text-muted);
 }
@@ -755,6 +756,13 @@ img {
   margin-top: 4px;
   font-size: 14px;
   color: var(--text-muted);
+}
+
+@media (max-width: 640px) {
+  .trust-stats {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
 }
 
 /* ============ Testimonials ============ */
