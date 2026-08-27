@@ -28,6 +28,9 @@ export default function Navbar() {
   const [scrolledToFeatures, setScrolledToFeatures] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
+  // Reset menu/scrollspy state when the route changes. Adjusting state during
+  // render (rather than in an effect) is the pattern React recommends for
+  // "state that depends on a prop changing" — it avoids an extra render pass.
   const [prevPathname, setPrevPathname] = useState(pathname);
   if (pathname !== prevPathname) {
     setPrevPathname(pathname);
@@ -35,12 +38,27 @@ export default function Navbar() {
     setScrolledToFeatures(false);
   }
 
+  // Clicking Home while already on "/" is a same-URL Link click — Next
+  // doesn't treat it as a navigation, so the pathname-change reset above
+  // never runs and the scrollspy effect below never re-fires. Without this,
+  // clicking Home while scrolled past #features does nothing: no scroll,
+  // and the nav bar keeps Features highlighted instead of Home.
+  const handleNavClick = (href: string) => {
+    if (href === "/" && pathname === "/") {
+      setScrolledToFeatures(false);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
   useEffect(() => {
     if (pathname !== "/") return;
 
     const section = document.getElementById("features");
     if (!section) return;
 
+    // A thin horizontal band through the middle of the viewport — the active
+    // link flips to Features once the section crosses it, and back to Home
+    // once it scrolls past.
     const observer = new IntersectionObserver(([entry]) => setScrolledToFeatures(entry.isIntersecting), {
       rootMargin: "-45% 0px -45% 0px",
     });
@@ -65,6 +83,7 @@ export default function Navbar() {
                 href={link.href}
                 className={`cursor-target${active ? " active" : ""}`}
                 aria-current={active ? "page" : undefined}
+                onClick={() => handleNavClick(link.href)}
               >
                 {link.label}
               </Link>
@@ -103,7 +122,10 @@ export default function Navbar() {
                   href={link.href}
                   className={`cursor-target${active ? " active" : ""}`}
                   aria-current={active ? "page" : undefined}
-                  onClick={() => setMenuOpen(false)}
+                  onClick={() => {
+                    setMenuOpen(false);
+                    handleNavClick(link.href);
+                  }}
                 >
                   {link.label}
                 </Link>
