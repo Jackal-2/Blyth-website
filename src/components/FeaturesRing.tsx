@@ -24,12 +24,12 @@ const LEFT_ITEMS = [
   {
     icon: <CheckCircleIcon />,
     title: "Confirmation-Based Completion",
-    body: "A confirmation code verifies that the service or item was received before the order is marked complete and the Helper's earnings are released.",
+    body: "A confirmation code verifies the order before it's marked complete and the Helper is paid.",
   },
   {
     icon: <ReceiptIcon />,
     title: "Secure Payments & Earnings",
-    body: "Neighbors can request and pay for items and services through a structured order system. Helpers can track their earnings and withdrawals.",
+    body: "Pay for items and services through a structured order system, with clear tracking of earnings and withdrawals.",
   },
 ];
 
@@ -50,7 +50,6 @@ const RIGHT_ITEMS = [
     body: "Trust starts with verification. All helpers undergo identity verification to join our community, while registered businesses receive a badge.",
   },
 ];
-
 
 const LEFT_OFFSETS = ["translate(-20px, 10px)", "translate(-40px, 35px)", "translate(-20px, 50px)"];
 const RIGHT_OFFSETS = ["translate(20px, 10px)", "translate(40px, 35px)", "translate(20px, 50px)"];
