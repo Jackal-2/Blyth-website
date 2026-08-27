@@ -668,28 +668,52 @@ img {
     text-align: center;
   }
 
-  /* A plain translateY fade reads as barely-there motion next to the
-     desktop ring's full off-screen slide (see FeaturesRing.tsx's Fade
-     direction="left"/"right") — someone comparing the two side by side
-     (e.g. a wide-but-short windowed browser vs. the same page fullscreen)
-     can easily read this collapsed layout as "not sliding in" even though
-     it is animating. Keep the vertical rise but add a real horizontal
-     component, mirroring the left/right slide direction each column has
-     on desktop, so the motion reads the same way at every width. */
+  /* Confirmed on the live site: this reveal plays fine in Chrome but not
+     in Safari when the window isn't fullscreen (i.e. this collapsed
+     layout). The desktop ring's per-item reveal — react-awesome-reveal's
+     Fade, an @keyframes + `animation` under the hood — DOES play
+     correctly in Safari (that's the "fullscreen works" case). The one
+     material difference here was that this collapsed layout used a plain
+     `transition` triggered by toggling a class from a React state update
+     (the IntersectionObserver callback below), instead of an `animation`.
+     Safari has a long-standing bug class around `transition`s that start
+     from a class-toggle rather than an inline style change — they can get
+     coalesced with the initial style and skip straight to the end state,
+     i.e. items just appear with no visible slide. Switching to the same
+     @keyframes/`animation` mechanism the already-working desktop path
+     uses (rather than guessing at transition timing fixes) sidesteps that
+     bug class entirely. */
+  @keyframes feature-slide-in-left {
+    from { opacity: 0; transform: translate(-28px, 16px); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes feature-slide-in-right {
+    from { opacity: 0; transform: translate(28px, 16px); }
+    to { opacity: 1; transform: none; }
+  }
   .features-col .feature-item {
     opacity: 0;
     transform: translate(-28px, 16px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
   }
   .features-col-right .feature-item {
     opacity: 0;
     transform: translate(28px, 16px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
   }
-  .features-ring.in-view .features-col .feature-item,
+  .features-ring.in-view .features-col .feature-item {
+    animation: feature-slide-in-left 0.6s ease forwards;
+  }
   .features-ring.in-view .features-col-right .feature-item {
-    opacity: 1;
-    transform: none;
+    animation: feature-slide-in-right 0.6s ease forwards;
+  }
+  /* Stagger to match the desktop cascade's 200ms step (see STEP_MS in
+     FeaturesRing.tsx) instead of all three items snapping in at once. */
+  .features-ring.in-view .features-col .feature-item:nth-child(2),
+  .features-ring.in-view .features-col-right .feature-item:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  .features-ring.in-view .features-col .feature-item:nth-child(3),
+  .features-ring.in-view .features-col-right .feature-item:nth-child(3) {
+    animation-delay: 0.4s;
   }
   .features-rings {
     display: none;
@@ -722,7 +746,7 @@ img {
   .features-col-right .feature-item {
     opacity: 1;
     transform: none;
-    transition: none;
+    animation: none;
   }
 }
 
