@@ -668,11 +668,23 @@ img {
     text-align: center;
   }
 
-  .features-col .feature-item,
+  /* A plain translateY fade reads as barely-there motion next to the
+     desktop ring's full off-screen slide (see FeaturesRing.tsx's Fade
+     direction="left"/"right") — someone comparing the two side by side
+     (e.g. a wide-but-short windowed browser vs. the same page fullscreen)
+     can easily read this collapsed layout as "not sliding in" even though
+     it is animating. Keep the vertical rise but add a real horizontal
+     component, mirroring the left/right slide direction each column has
+     on desktop, so the motion reads the same way at every width. */
+  .features-col .feature-item {
+    opacity: 0;
+    transform: translate(-28px, 16px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
   .features-col-right .feature-item {
     opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
+    transform: translate(28px, 16px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
   }
   .features-ring.in-view .features-col .feature-item,
   .features-ring.in-view .features-col-right .feature-item {
