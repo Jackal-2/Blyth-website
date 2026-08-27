@@ -221,7 +221,7 @@ export default function TermsOfServicePage() {
               <Link href="/community-guidelines">Community Guidelines</Link>{" "}
               for additional rules regarding prohibited content, goods, and
               services, and our{" "}
-              <Link href="/dmca">DMCA / Copyright Policy</Link> for how to
+              <Link href="/dmca">Copyright Policy</Link> for how to
               report copyright infringement.
             </li>
           </ul>

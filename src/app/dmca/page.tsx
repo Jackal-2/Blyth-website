@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import PolicyLayout from "@/components/PolicyLayout";
 
 export const metadata: Metadata = {
-  title: "DMCA / Copyright Policy — Blyth",
-  description: "How to report copyright infringement on Blyth, and how we respond.",
+  title: "Copyright Policy — Blyth",
+  description:
+    "How to report copyright infringement on Blyth, and how we respond.",
 };
 
 // Static on purpose — see the comment on src/app/terms/page.tsx. Kept in
@@ -11,21 +12,21 @@ export const metadata: Metadata = {
 // Documents page and Blyth-Backend/scripts/seedLegalDocuments.ts.
 export default function DmcaPolicyPage() {
   return (
-    <PolicyLayout title="DMCA / Copyright policy" updated="Aug 27, 2026">
+    <PolicyLayout title="Copyright Policy" updated="Aug 27, 2026">
       <section className="policy-section">
         <p>
-          Blyth respects the intellectual property rights of others and
-          expects everyone who uses the platform to do the same. This policy
-          explains how to report content on Blyth that you believe infringes
-          your copyright, and how we respond to those reports.
+          Blyth respects the intellectual property rights of others and expects
+          everyone who uses the platform to do the same. This policy explains
+          how to report content on Blyth that you believe infringes your
+          copyright, and how we respond to those reports.
         </p>
       </section>
 
       <section className="policy-section">
         <h2>1. Reporting Infringing Content</h2>
         <p>
-          If you believe content on Blyth &mdash; a listing, photo, message,
-          or other material &mdash; infringes your copyright, you (or your
+          If you believe content on Blyth &mdash; a listing, photo, message, or
+          other material &mdash; infringes your copyright, you (or your
           authorized agent) may send a written notice to our Designated Agent
           that includes all of the following:
         </p>
@@ -34,17 +35,22 @@ export default function DmcaPolicyPage() {
             A physical or electronic signature of the copyright owner or a
             person authorized to act on their behalf.
           </li>
-          <li>Identification of the copyrighted work you claim has been infringed.</li>
+          <li>
+            Identification of the copyrighted work you claim has been infringed.
+          </li>
           <li>
             Identification of the material you claim is infringing, and
-            information reasonably sufficient for us to locate it on Blyth
-            (for example, a link or a description of the listing).
+            information reasonably sufficient for us to locate it on Blyth (for
+            example, a link or a description of the listing).
           </li>
-          <li>Your contact information, including your address, telephone number, and email address.</li>
+          <li>
+            Your contact information, including your address, telephone number,
+            and email address.
+          </li>
           <li>
             A statement that you have a good faith belief the use of the
-            material is not authorized by the copyright owner, its agent, or
-            the law.
+            material is not authorized by the copyright owner, its agent, or the
+            law.
           </li>
           <li>
             A statement, made under penalty of perjury, that the above
@@ -60,26 +66,29 @@ export default function DmcaPolicyPage() {
         <ul>
           <li>Email: copyright@blythapp.com</li>
         </ul>
-        <p>We can only act on a complete, valid notice &mdash; an incomplete one may delay our response.</p>
+        <p>
+          We can only act on a complete, valid notice &mdash; an incomplete one
+          may delay our response.
+        </p>
       </section>
 
       <section className="policy-section">
         <h2>3. What Happens Next</h2>
         <p>
-          Upon receiving a valid notice, we will remove or disable access to
-          the reported content and notify the user who posted it, including a
-          copy of the notice where appropriate. Removing content in response
-          to a notice is not an admission by Blyth or the user that
-          infringement occurred.
+          Upon receiving a valid notice, we will remove or disable access to the
+          reported content and notify the user who posted it, including a copy
+          of the notice where appropriate. Removing content in response to a
+          notice is not an admission by Blyth or the user that infringement
+          occurred.
         </p>
       </section>
 
       <section className="policy-section">
         <h2>4. Counter-Notification</h2>
         <p>
-          If you believe content you posted was removed or disabled by
-          mistake or misidentification, you may submit a counter-notification
-          to our Designated Agent that includes:
+          If you believe content you posted was removed or disabled by mistake
+          or misidentification, you may submit a counter-notification to our
+          Designated Agent that includes:
         </p>
         <ul>
           <li>Your physical or electronic signature.</li>
@@ -101,10 +110,10 @@ export default function DmcaPolicyPage() {
           </li>
         </ul>
         <p>
-          If we receive a valid counter-notification, we may restore the
-          content within 10 to 14 business days unless the original
-          complainant notifies us that they&rsquo;ve filed a court action
-          seeking to restrain the user from the infringing activity.
+          If we receive a valid counter-notification, we may restore the content
+          within 10 to 14 business days unless the original complainant notifies
+          us that they&rsquo;ve filed a court action seeking to restrain the
+          user from the infringing activity.
         </p>
       </section>
 
@@ -119,19 +128,18 @@ export default function DmcaPolicyPage() {
       <section className="policy-section">
         <h2>6. Misrepresentation</h2>
         <p>
-          Anyone who knowingly makes a material misrepresentation in a notice
-          or counter-notification may be liable for damages, including costs
-          and attorneys&rsquo; fees incurred by us or the accused user as a
-          result.
+          Anyone who knowingly makes a material misrepresentation in a notice or
+          counter-notification may be liable for damages, including costs and
+          attorneys&rsquo; fees incurred by us or the accused user as a result.
         </p>
       </section>
 
       <section className="policy-section">
         <h2>7. Other Intellectual Property Concerns</h2>
         <p>
-          For an intellectual property concern that isn&rsquo;t about
-          copyright &mdash; a trademark issue, for example &mdash; contact
-          support@blythapp.com and we&rsquo;ll route it appropriately.
+          For an intellectual property concern that isn&rsquo;t about copyright
+          &mdash; a trademark issue, for example &mdash; contact
+          support[at]blythapp.com and we&rsquo;ll route it appropriately.
         </p>
       </section>
     </PolicyLayout>

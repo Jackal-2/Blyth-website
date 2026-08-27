@@ -7,7 +7,7 @@ const SECONDARY_LINKS = [
   { label: "Support", href: "/support" },
   { label: "Privacy Policy", href: "/privacy" },
   { label: "Terms of Service", href: "/terms" },
-  { label: "DMCA / Copyright", href: "/dmca" },
+  { label: "Copyright Policy", href: "/dmca" },
 ];
 
 export default function Footer() {

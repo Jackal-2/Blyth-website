@@ -36,7 +36,7 @@ export default function CommunityGuidelinesPage() {
           <li>
             Anything that infringes another party&rsquo;s intellectual
             property or other legal rights. See our{" "}
-            <Link href="/dmca">DMCA / Copyright Policy</Link> for how to
+            <Link href="/dmca">Copyright Policy</Link> for how to
             report copyright infringement.
           </li>
         </ul>
