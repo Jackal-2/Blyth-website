@@ -113,9 +113,20 @@ export default function FeaturesRing() {
     const node = ringRef.current;
     if (!node) return;
 
+    // threshold is a fraction of THIS node's own height, and that height
+    // varies a lot: ~850px in the desktop ring layout vs. ~2000px+ once
+    // everything stacks into one column below the 1080px breakpoint (see
+    // globals.css). A 0.25 threshold demanding a quarter of a 2000px
+    // section be on screen at once needs ~500px of simultaneous overlap —
+    // fine in a tall fullscreen window, but unreachable in a shorter one
+    // (confirmed: a 1000x500 viewport tops out around 25% visible and
+    // never crosses the threshold), so the whole section — phone image,
+    // both columns — never reveals. A low threshold only needs a sliver
+    // of the section in view, so it isn't sensitive to how tall the
+    // current layout happens to be.
     const observer = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting), {
-      threshold: 0.25,
-      rootMargin: "0px 0px -60px 0px",
+      threshold: 0.05,
+      rootMargin: "0px 0px -40px 0px",
     });
 
     observer.observe(node);
