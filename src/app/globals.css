@@ -471,6 +471,18 @@ img {
   .hero-decor {
     display: none;
   }
+  /* .hero-glow / .hero-glow-teal are positioned with a fixed top offset
+     tuned for the desktop layout, where they sit behind .hero-decor's
+     image in the second grid column. Below this breakpoint .hero-inner
+     collapses to one column with the heading first, so that same fixed
+     offset lands the glow circles directly over the heading/paragraph
+     text instead of behind the now-hidden decor image. Hide them here
+     too — there's nothing left for them to accent once .hero-decor is
+     gone. */
+  .hero-glow,
+  .hero-glow-teal {
+    display: none;
+  }
 }
 
 /* ============ Section label / heading ============ */
@@ -984,7 +996,28 @@ img {
   gap: 26px;
   flex-shrink: 0;
   align-self: flex-start;
-  margin-top: -64px;
+  /* No negative margin by default — see the min-width query below for
+     why. */
+  margin-top: 0;
+}
+
+/* .mid-cta-inner is a wrapping flex row: the heading block (max-width
+   480px) + this badge (560px) + the 40px gap need ~1080px, plus the
+   .container's 64px of horizontal padding — call it ~1150px before the
+   row can hold both without wrapping. Below that, flex-wrap drops the
+   badge onto its own line under the text. The -64px pull-up above only
+   makes sense side-by-side with the text (an intentional slight overlap
+   with the divider line); on a wrapped/stacked badge it pulls the badge
+   up into the text sitting above it instead. Most tablets in portrait
+   (roughly 700-1150px) land in exactly this gap — wide enough to stay
+   out of the <700px "stacked" styling below, narrow enough to still
+   wrap. Keeping margin-top: 0 as the default and only opting into the
+   overlap once a row layout is confirmed avoids relying on a breakpoint
+   that has to be kept in sync with the row's actual content width. */
+@media (min-width: 1150px) {
+  .mid-cta-badge {
+    margin-top: -64px;
+  }
 }
 
 .mid-cta-badge img {
