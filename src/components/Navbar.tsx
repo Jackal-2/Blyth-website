@@ -28,9 +28,6 @@ export default function Navbar() {
   const [scrolledToFeatures, setScrolledToFeatures] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  // Reset menu/scrollspy state when the route changes. Adjusting state during
-  // render (rather than in an effect) is the pattern React recommends for
-  // "state that depends on a prop changing" — it avoids an extra render pass.
   const [prevPathname, setPrevPathname] = useState(pathname);
   if (pathname !== prevPathname) {
     setPrevPathname(pathname);
@@ -44,9 +41,6 @@ export default function Navbar() {
     const section = document.getElementById("features");
     if (!section) return;
 
-    // A thin horizontal band through the middle of the viewport — the active
-    // link flips to Features once the section crosses it, and back to Home
-    // once it scrolls past.
     const observer = new IntersectionObserver(([entry]) => setScrolledToFeatures(entry.isIntersecting), {
       rootMargin: "-45% 0px -45% 0px",
     });

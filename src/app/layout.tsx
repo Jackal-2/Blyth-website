@@ -17,9 +17,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en">
       <head>
-        {/* Prevent the browser from jumping to a leftover URL hash (e.g. #get-app
-            from a previous "Get Started" click) or restoring a prior scroll
-            position on reload — pages should always load at the top. */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
