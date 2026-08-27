@@ -51,18 +51,15 @@ const RIGHT_ITEMS = [
   },
 ];
 
-const LEFT_OFFSETS = ["translate(10px, 10px)", "translate(-80px, 35px)", "translate(10px, 50px)"];
-const RIGHT_OFFSETS = ["translate(110px, -40px)", "translate(115px, 10px)", "translate(90px, 80px)"];
+
+const LEFT_OFFSETS = ["translate(-20px, 10px)", "translate(-40px, 35px)", "translate(-20px, 50px)"];
+const RIGHT_OFFSETS = ["translate(20px, 10px)", "translate(40px, 35px)", "translate(20px, 50px)"];
 
 type FeatureListProps = {
   items: { icon: ReactNode; title: string; body: string }[];
   offsets: string[];
 };
 
-// Static — no scroll-triggered reveal. (Previously wrapped in
-// react-awesome-reveal's <Fade> on desktop and a scroll-triggered CSS
-// transition on the collapsed layout; removed at the user's request to
-// see the section without any animation.)
 function FeatureList({ items, offsets }: FeatureListProps) {
   return (
     <>

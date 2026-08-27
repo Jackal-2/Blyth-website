@@ -531,9 +531,40 @@ img {
 }
 
 .features-col {
-  display: flex;
-  flex-direction: column;
-  gap: 56px;
+  display: grid;
+  /* A fixed row-height floor, not just a matching gap, is what actually
+     makes left/right items line up. .features-col and .features-col-right
+     are two independent flex/flow containers, and their items have
+     different body-text lengths — with a plain flex column + gap, item[1]
+     on the left could start lower than item[1] on the right simply
+     because item[0] on the left is taller. minmax(114px, auto) — 114px
+     covers the tallest item currently in either column — means each row
+     is at least that tall in both columns regardless of its own content,
+     so row N starts at the same offset on both sides. It also makes both
+     columns the same total height, so .features-ring's align-items:
+     center (below) lands their top edges at the same point too. Should a
+     future item's body text need more than 114px, minmax's `auto` still
+     lets that one row grow — it just stops being the safety floor for
+     alignment, rather than clipping. */
+  grid-template-rows: repeat(3, minmax(114px, auto));
+  row-gap: 56px;
+  /* Without an explicit justify-items, a grid item capped by max-width
+     (.feature-item is capped at 320px) defaults to sitting at the start
+     edge of its own column. For the LEFT column that's the page-edge
+     side — far from the phone. For the RIGHT column "start" is its own
+     left edge, which is the side NEXT TO the phone. Same default, two
+     opposite real-world results: left items land ~138px from the phone,
+     right items land ~50px from it, just from layout, before either
+     side's translate() offset is even applied. Aligning both columns to
+     their inner (phone-facing) edge here makes the two sides start from
+     a matching baseline, so the same offset magnitudes on each side (see
+     FeaturesRing.tsx) produce an actually mirrored, equidistant result
+     instead of requiring very different numbers per side to compensate. */
+  justify-items: end;
+}
+
+.features-col-right {
+  justify-items: start;
 }
 
 .feature-item {
@@ -573,7 +604,6 @@ img {
   align-items: center;
   gap: 26px;
   position: relative;
-  /* Static — no scroll-triggered reveal (removed at the user's request). */
   opacity: 1;
   transform: none;
 }
@@ -649,6 +679,24 @@ img {
   object-fit: cover;
 }
 
+/* .features-ring's side columns are `1fr` — flexible, so they shrink as
+   the viewport narrows — but each item's --ring-offset (set in
+   FeaturesRing.tsx) is a fixed px translate(), sized for a roomy column.
+   Below ~1300px wide, the column has shrunk enough that the same fixed
+   offset pushes items past the container/viewport edge — confirmed: a
+   1290px window overflows horizontally, 1300px doesn't. This is still
+   comfortably above the 1080px breakpoint where the layout collapses to
+   a single stacked column, so it's a distinct middle range: still the
+   3-column ring, just too narrow for the current offsets specifically.
+   Cancel the scatter in that range only, so the ring layout stays intact
+   without overflowing; the full offsets (and the "yardstick" look they
+   were tuned against) still apply everywhere they were confirmed safe. */
+@media (min-width: 1081px) and (max-width: 1300px) {
+  .feature-item {
+    transform: none;
+  }
+}
+
 @media (max-width: 1080px) {
   .features-ring {
     grid-template-columns: 1fr;
@@ -665,10 +713,10 @@ img {
     flex-direction: column;
     align-items: center;
     text-align: center;
+    transform: none;
   }
 
-  /* Static — no scroll-triggered reveal (removed at the user's request;
-     items just render in place, no fade/slide-in). */
+
   .features-col .feature-item,
   .features-col-right .feature-item {
     opacity: 1;
@@ -678,8 +726,6 @@ img {
     display: none;
   }
 
-  /* Drop the desktop "ring" arrangement for a plain list: the phone image
-     leads, then every feature item follows underneath it in one column. */
   .features-phone-col {
     order: 1;
   }
