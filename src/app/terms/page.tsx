@@ -8,13 +8,14 @@ export const metadata: Metadata = {
     "The terms that govern your access to and use of the Blyth platform.",
 };
 
+
 export default function TermsOfServicePage() {
   return (
-    <PolicyLayout title="Terms of service" updated="Aug 8, 2026">
+    <PolicyLayout title="Terms of service" updated="Aug 27, 2026">
       <section className="policy-section">
-        <h2>Welcome to Blyth</h2>
+        <h2>Welcome to BLYTH</h2>
         <p>
-         These Terms of Service (&ldquo;Terms&rdquo;) govern
+          Welcome to Blyth. These Terms of Service (&ldquo;Terms&rdquo;) govern
           your access to and use of the Blyth platform. By creating an account
           or using Blyth, you agree to these Terms. If you do not agree, please
           do not use the platform.
@@ -57,32 +58,39 @@ export default function TermsOfServicePage() {
           <ul>
             <li>
               You must be at least 18 years old to create and maintain a Blyth
-              account. We may use the date of birth you provide during
-              registration to confirm that you meet this requirement.
+              account. We use the date of birth you provide during registration
+              to confirm that you meet this requirement, and we may ask you to
+              reverify your age if we have reason to believe it&rsquo;s
+              inaccurate.
             </li>
             <li>
-              Helpers must complete identity verification before publishing
-              listings. This may include providing a government-issued
-              identification document, a selfie, and a linked bank account for
-              verification and payment purposes.
+              Helpers must complete identity verification before publishing any
+              listing. This requires submitting a valid government-issued photo
+              ID, a live selfie for identity matching, and a linked and verified
+              bank account. Blyth will not allow a helper account to publish
+              listings until this verification is complete.
             </li>
             <li>
-              If you register as a business, you may also be required to provide
-              business registration information and an Employer Identification
-              Number (EIN).
+              If you register as a business, you must also provide business
+              registration information and a valid Employer Identification
+              Number (EIN) before your business listings go live.
             </li>
             <li>
-              You are responsible for providing accurate, current information
-              and for keeping your account credentials secure. You may not
-              impersonate another person or create an account using false or
-              misleading information.
+              You are responsible for providing accurate, current information,
+              and you must keep your account credentials &mdash; including your
+              password and any verification codes sent to you &mdash; secure and
+              confidential. You must not share your login credentials with
+              anyone else, must not impersonate another person or create an
+              account using false or misleading information, and must notify us
+              immediately at support[at]blythapp.com if you believe your account
+              has been compromised or accessed without your permission.
             </li>
           </ul>
         </div>
       </section>
 
       <section className="policy-section">
-        <h2>2. Order and security</h2>
+        <h2>2. Orders, Payments &amp; Security</h2>
 
         <div className="policy-subsection">
           <h3>2.1 Orders &amp; Confirmation Codes</h3>
@@ -116,20 +124,61 @@ export default function TermsOfServicePage() {
               If a helper does not confirm an order, the hold is released and
               you are not charged.
             </li>
+            <li>
+              Once a neighbor enters the correct confirmation code, Blyth
+              typically releases the helper&rsquo;s eligible earnings for payout
+              within 2 business days. If an order becomes subject to a dispute,
+              fraud review, or other investigation under Section 2.4, the payout
+              is placed on hold until that review is resolved.
+            </li>
           </ul>
         </div>
 
         <div className="policy-subsection">
-          <h3>2.3 Disputes</h3>
+          <h3>2.3 Fraud &amp; Scam Prevention</h3>
           <ul>
             <li>
-              If a neighbor does not provide the confirmation code within a
-              reasonable period after an item has been delivered or a service
-              has been completed, the helper may submit a dispute through Blyth.
+              Blyth uses several safeguards to reduce the risk of scams,
+              including: helper identity verification (Section 1.3), a card
+              hold that isn&rsquo;t captured until a helper confirms an order,
+              confirmation codes that release payout only after a neighbor
+              confirms they actually received what they paid for, and staff
+              review of disputes and reported accounts.
             </li>
             <li>
-              A neighbor may similarly report an order that was charged but
-              never delivered or completed.
+              Keep all communication, payment, and booking on Blyth. We cannot
+              verify, protect, or refund a payment made outside the app, and a
+              request to move a conversation or payment off-platform is itself a
+              common warning sign of a scam.
+            </li>
+            <li>
+              Never share your password, one-time verification codes, or full
+              bank account details with another user. Blyth staff will never ask
+              you for your password or a one-time code over chat, email, or
+              phone.
+            </li>
+            <li>
+              If you suspect a listing, message, or account is fraudulent,
+              report it immediately using the Report option in the app, or by
+              contacting support[at]blythapp.com. Blyth may restrict, suspend, or
+              remove an account while we investigate a report.
+            </li>
+          </ul>
+        </div>
+
+        <div className="policy-subsection">
+          <h3>2.4 Disputes</h3>
+          <ul>
+            <li>
+              If a neighbor does not provide the confirmation code within 7 days
+              after an item was delivered or a scheduled service was completed,
+              the helper may file a dispute directly from the order in the app,
+              or by contacting support[at]blythapp.com.
+            </li>
+            <li>
+              A neighbor who was charged for an order that was never delivered
+              or completed may similarly file a dispute, within 14 days of the
+              charge, using the same options.
             </li>
             <li>
               Blyth may review information and evidence provided by either
@@ -151,7 +200,7 @@ export default function TermsOfServicePage() {
         </div>
 
         <div className="policy-subsection">
-          <h3>2.4 Prohibited Listings</h3>
+          <h3>2.5 Prohibited Listings</h3>
           <ul>
             <li>
               You may not list, sell, request, or provide illegal goods or
@@ -171,7 +220,9 @@ export default function TermsOfServicePage() {
               See our{" "}
               <Link href="/community-guidelines">Community Guidelines</Link>{" "}
               for additional rules regarding prohibited content, goods, and
-              services.
+              services, and our{" "}
+              <Link href="/dmca">DMCA / Copyright Policy</Link> for how to
+              report copyright infringement.
             </li>
           </ul>
         </div>
@@ -215,6 +266,15 @@ export default function TermsOfServicePage() {
             </li>
           </ul>
         </div>
+      </section>
+
+      <section className="policy-section">
+        <h2>4. Contact Us</h2>
+        <p>
+          Questions about these Terms, an order, or a dispute? Reach us at
+          support[at]blythapp.com, or use the Report option or an order&rsquo;s
+          dispute flow in the app.
+        </p>
       </section>
     </PolicyLayout>
   );

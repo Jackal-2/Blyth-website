@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import PolicyLayout from "@/components/PolicyLayout";
 
 export const metadata: Metadata = {
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
 // Restored to the last hardcoded static version.
 export default function CommunityGuidelinesPage() {
   return (
-    <PolicyLayout title="Community guidelines" updated="Aug 8, 2026">
+    <PolicyLayout title="Community guidelines" updated="Aug 27, 2026">
       <section className="policy-section">
         <p>
           These guidelines exist to keep Blyth a safe, trustworthy place for
@@ -34,7 +35,9 @@ export default function CommunityGuidelinesPage() {
           </li>
           <li>
             Anything that infringes another party&rsquo;s intellectual
-            property or other legal rights.
+            property or other legal rights. See our{" "}
+            <Link href="/dmca">DMCA / Copyright Policy</Link> for how to
+            report copyright infringement.
           </li>
         </ul>
       </section>
