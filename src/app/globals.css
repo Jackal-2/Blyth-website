@@ -573,22 +573,9 @@ img {
   align-items: center;
   gap: 26px;
   position: relative;
-  opacity: 0;
-  transform: translateY(40px) scale(0.94);
-  transition: opacity 0.7s ease, transform 0.7s ease;
-}
-
-.features-ring.in-view .features-phone-col {
+  /* Static — no scroll-triggered reveal (removed at the user's request). */
   opacity: 1;
-  transform: translateY(0) scale(1);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .features-phone-col {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
+  transform: none;
 }
 
 .features-phone-top,
@@ -680,52 +667,12 @@ img {
     text-align: center;
   }
 
-  /* Confirmed on the live site: this reveal plays fine in Chrome but not
-     in Safari when the window isn't fullscreen (i.e. this collapsed
-     layout). The desktop ring's per-item reveal — react-awesome-reveal's
-     Fade, an @keyframes + `animation` under the hood — DOES play
-     correctly in Safari (that's the "fullscreen works" case). The one
-     material difference here was that this collapsed layout used a plain
-     `transition` triggered by toggling a class from a React state update
-     (the IntersectionObserver callback below), instead of an `animation`.
-     Safari has a long-standing bug class around `transition`s that start
-     from a class-toggle rather than an inline style change — they can get
-     coalesced with the initial style and skip straight to the end state,
-     i.e. items just appear with no visible slide. Switching to the same
-     @keyframes/`animation` mechanism the already-working desktop path
-     uses (rather than guessing at transition timing fixes) sidesteps that
-     bug class entirely. */
-  @keyframes feature-slide-in-left {
-    from { opacity: 0; transform: translate(-28px, 16px); }
-    to { opacity: 1; transform: none; }
-  }
-  @keyframes feature-slide-in-right {
-    from { opacity: 0; transform: translate(28px, 16px); }
-    to { opacity: 1; transform: none; }
-  }
-  .features-col .feature-item {
-    opacity: 0;
-    transform: translate(-28px, 16px);
-  }
+  /* Static — no scroll-triggered reveal (removed at the user's request;
+     items just render in place, no fade/slide-in). */
+  .features-col .feature-item,
   .features-col-right .feature-item {
-    opacity: 0;
-    transform: translate(28px, 16px);
-  }
-  .features-ring.in-view .features-col .feature-item {
-    animation: feature-slide-in-left 0.6s ease forwards;
-  }
-  .features-ring.in-view .features-col-right .feature-item {
-    animation: feature-slide-in-right 0.6s ease forwards;
-  }
-  /* Stagger to match the desktop cascade's 200ms step (see STEP_MS in
-     FeaturesRing.tsx) instead of all three items snapping in at once. */
-  .features-ring.in-view .features-col .feature-item:nth-child(2),
-  .features-ring.in-view .features-col-right .feature-item:nth-child(2) {
-    animation-delay: 0.2s;
-  }
-  .features-ring.in-view .features-col .feature-item:nth-child(3),
-  .features-ring.in-view .features-col-right .feature-item:nth-child(3) {
-    animation-delay: 0.4s;
+    opacity: 1;
+    transform: none;
   }
   .features-rings {
     display: none;
@@ -750,15 +697,6 @@ img {
   }
   .features-phone-bottom {
     order: 3;
-  }
-}
-
-@media (max-width: 1080px) and (prefers-reduced-motion: reduce) {
-  .features-col .feature-item,
-  .features-col-right .feature-item {
-    opacity: 1;
-    transform: none;
-    animation: none;
   }
 }
 
