@@ -107,25 +107,45 @@ export default function FeaturesRing() {
   const withDelay = (ms: number) => (reducedMotion ? 0 : ms);
 
   const ringRef = useRef<HTMLDivElement>(null);
+  const sentinelRef = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
 
   useEffect(() => {
-    const node = ringRef.current;
+    // Deliberately observe a small fixed-size sentinel pinned to the top
+    // of the ring, NOT the ring itself. A percentage threshold on the
+    // ring is a fraction of ITS OWN height, and that height varies a lot
+    // — ~850px in the desktop ring layout vs. ~2000px+ once everything
+    // stacks into one column below the 1080px breakpoint (see
+    // globals.css) — so the same threshold means a very different amount
+    // of actual on-screen pixels depending on layout, orientation, and
+    // window/device size. That's fragile in a way that's hard to fully
+    // cover: it broke on a short windowed browser, and separately on an
+    // iPad in landscape (shorter viewport, same tall collapsed layout,
+    // less scroll room to ever get a big enough slice of a 2000px section
+    // on screen at once) — two different-looking symptoms, same root
+    // cause. A tiny sentinel has a fixed, tiny height regardless of any
+    // of that, so any nonzero threshold on it means "basically zero
+    // pixels," making the trigger consistent across every window size,
+    // orientation, and device without needing another per-case tweak.
+    const node = sentinelRef.current;
     if (!node) return;
 
-    // threshold is a fraction of THIS node's own height, and that height
-    // varies a lot: ~850px in the desktop ring layout vs. ~2000px+ once
-    // everything stacks into one column below the 1080px breakpoint (see
-    // globals.css). A 0.25 threshold demanding a quarter of a 2000px
-    // section be on screen at once needs ~500px of simultaneous overlap —
-    // fine in a tall fullscreen window, but unreachable in a shorter one
-    // (confirmed: a 1000x500 viewport tops out around 25% visible and
-    // never crosses the threshold), so the whole section — phone image,
-    // both columns — never reveals. A low threshold only needs a sliver
-    // of the section in view, so it isn't sensitive to how tall the
-    // current layout happens to be.
-    const observer = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting), {
-      threshold: 0.05,
+    // Trigger once and stay revealed — don't mirror isIntersecting back to
+    // false. Anything below the fold shifting after the sentinel first
+    // crosses into view (a font swap, an image finishing loading, any
+    // reflow) can un-intersect a 1px sentinel for a moment; mirroring that
+    // meant the section could revert to hidden and, if the final scroll
+    // position never happens to re-cross the sentinel again, stay hidden
+    // for good. Reveal is a one-way door here — once shown, it can't be
+    // knocked back into the hidden state by something unrelated shifting
+    // the page around it.
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setInView(true);
+        observer.disconnect();
+      }
+    }, {
+      threshold: 0,
       rootMargin: "0px 0px -40px 0px",
     });
 
@@ -144,6 +164,10 @@ export default function FeaturesRing() {
         </h2>
 
         <div className={`features-ring${inView ? " in-view" : ""}`} ref={ringRef}>
+          {/* Trigger point for the IntersectionObserver above — see the
+              comment there for why this observes a 1px sentinel instead of
+              the (height-variable) ring itself. */}
+          <div ref={sentinelRef} aria-hidden="true" style={{ position: "absolute", top: 0, left: 0, width: "100%", height: 1 }} />
           <div className="features-rings" aria-hidden="true">
             <span style={{ width: 640, height: 640 }} />
             <span style={{ width: 460, height: 460 }} />
