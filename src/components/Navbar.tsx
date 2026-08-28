@@ -38,15 +38,25 @@ export default function Navbar() {
     setScrolledToFeatures(false);
   }
 
-  // Clicking Home while already on "/" is a same-URL Link click — Next
-  // doesn't treat it as a navigation, so the pathname-change reset above
-  // never runs and the scrollspy effect below never re-fires. Without this,
-  // clicking Home while scrolled past #features does nothing: no scroll,
-  // and the nav bar keeps Features highlighted instead of Home.
+  // Clicking Home or Features while already on "/" is a same-URL Link
+  // click — Next doesn't treat it as a navigation, so the pathname-change
+  // reset above never runs and the scrollspy effect below never re-fires.
+  // Without this, clicking either link while already on "/" does nothing:
+  // no scroll, and the nav bar doesn't update which link is highlighted.
+  // (Navigating in from a *different* page still works without this, since
+  // that's a real route change and Next's Link scrolls to the #hash itself.)
   const handleNavClick = (href: string) => {
     if (href === "/" && pathname === "/") {
       setScrolledToFeatures(false);
       window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+    if (href === "/#features" && pathname === "/") {
+      const section = document.getElementById("features");
+      if (section) {
+        setScrolledToFeatures(true);
+        section.scrollIntoView({ behavior: "smooth" });
+      }
     }
   };
 

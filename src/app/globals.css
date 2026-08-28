@@ -25,7 +25,15 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: var(--font-sans);
-  overflow-x: hidden;
+  /* `hidden` (rather than `clip`) on only one axis quietly forces the other
+     axis's overflow to `auto` too — per spec, "visible" on one axis is
+     computed as "auto" whenever the other axis isn't visible, even if it
+     was explicitly written as `visible`. That turns body into its own
+     scroll container, which breaks `position: sticky` on .navbar (it just
+     scrolls away instead of sticking). `clip` clips horizontal overflow the
+     same way `hidden` did, without establishing a scroll container or
+     tripping that pairing rule. */
+  overflow-x: clip;
 }
 
 a {
@@ -584,6 +592,26 @@ img {
   align-items: center;
   justify-content: center;
   color: var(--accent);
+  animation: feature-icon-pulse 2.6s ease-in-out infinite;
+}
+
+/* Staggered per position within each column/group so the row of icons
+   breathes unevenly rather than pulsing in lockstep. */
+.feature-item:nth-of-type(2) .feature-icon {
+  animation-delay: 0.5s;
+}
+.feature-item:nth-of-type(3) .feature-icon {
+  animation-delay: 1s;
+}
+
+@keyframes feature-icon-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 35%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 0 8px color-mix(in srgb, var(--accent) 0%, transparent);
+  }
 }
 
 .feature-item h3 {
@@ -1166,6 +1194,9 @@ img {
   .page-reveal {
     animation-duration: 1ms;
     animation-delay: 0ms !important;
+  }
+  .feature-icon {
+    animation: none;
   }
 }
 
