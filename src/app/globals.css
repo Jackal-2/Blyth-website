@@ -311,8 +311,9 @@ img {
   position: absolute;
   right: 0;
   bottom: 0;
-  font-size: 12.5px;
+  font-size: 12px;
   color: #555555;
+  font-style: italic;
 }
 
 @media (max-width: 640px) {
@@ -327,7 +328,7 @@ img {
   }
 }
 
-/* Store badges (rendered as CSS, no external image dependency) */
+
 
 .store-pill {
   display: inline-flex;
@@ -595,8 +596,7 @@ img {
   animation: feature-icon-pulse 2.6s ease-in-out infinite;
 }
 
-/* Staggered per position within each column/group so the row of icons
-   breathes unevenly rather than pulsing in lockstep. */
+
 .feature-item:nth-of-type(2) .feature-icon {
   animation-delay: 0.5s;
 }

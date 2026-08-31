@@ -55,7 +55,7 @@ export default function Footer() {
 
         <div className="footer-bottom">
           <p className="footer-copyright">Copyright &copy;2026 Blyth. All rights reserved.</p>
-          <span className="footer-signature">caxapok</span>
+          <span className="footer-signature">Caxapok</span>
         </div>
       </div>
     </footer>
