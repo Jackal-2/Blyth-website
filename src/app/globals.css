@@ -311,9 +311,8 @@ img {
   position: absolute;
   right: 0;
   bottom: 0;
-  font-size: 12px;
+  font-size: 12.5px;
   color: #555555;
-  font-style: italic;
 }
 
 @media (max-width: 640px) {
@@ -328,7 +327,7 @@ img {
   }
 }
 
-
+/* Store badges (rendered as CSS, no external image dependency) */
 
 .store-pill {
   display: inline-flex;
@@ -473,6 +472,7 @@ img {
 @media (max-width: 980px) {
   .hero-inner {
     grid-template-columns: 1fr;
+    padding: 0 24px;
   }
   .hero-heading {
     font-size: 42px;
@@ -511,6 +511,12 @@ img {
   font-size: 36px;
   font-weight: 800;
   line-height: 1.2;
+}
+
+@media (max-width: 640px) {
+  .section-heading {
+    font-size: 28px;
+  }
 }
 
 .section-heading-sub {
@@ -596,7 +602,8 @@ img {
   animation: feature-icon-pulse 2.6s ease-in-out infinite;
 }
 
-
+/* Staggered per position within each column/group so the row of icons
+   breathes unevenly rather than pulsing in lockstep. */
 .feature-item:nth-of-type(2) .feature-icon {
   animation-delay: 0.5s;
 }
@@ -730,6 +737,12 @@ img {
     grid-template-columns: 1fr;
     justify-items: center;
     text-align: center;
+    /* The 760px min-height (set above) exists to keep the 3-column ring's
+       phone column vertically centered against the two side columns —
+       once this breakpoint collapses everything to a single stacked
+       column there's no side-by-side alignment left to preserve, so the
+       fixed floor just adds dead space above/below the stacked content. */
+    min-height: 0;
   }
   .features-col,
   .features-col-right {
@@ -1125,6 +1138,7 @@ img {
 .bottom-cta-badges {
   margin-top: 14px;
   display: flex;
+  flex-wrap: wrap;
   gap: 12px;
 }
 
@@ -1173,6 +1187,12 @@ img {
   }
 }
 
+@media (max-width: 640px) {
+  .bottom-cta-heading {
+    font-size: 30px;
+  }
+}
+
 /* ============ Policy pages (Privacy / Terms / Support) ============ */
 
 @keyframes page-reveal-up {
@@ -1217,6 +1237,12 @@ img {
   margin-top: 10px;
   font-size: 14px;
   color: var(--text-muted);
+}
+
+@media (max-width: 640px) {
+  .policy-title {
+    font-size: 32px;
+  }
 }
 
 .policy-content {
@@ -1267,4 +1293,177 @@ img {
 
 .policy-subsection {
   margin-top: 28px;
+}
+
+/* Helper public profile (/helpers/[id]) — the page a shared "Share My
+   Profile" link resolves to for anyone, app or no app. */
+
+.helper-page {
+  padding: 64px 0 100px;
+}
+
+.helper-card {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  padding: 32px;
+  border-radius: 24px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+
+.helper-avatar {
+  flex-shrink: 0;
+  width: 84px;
+  height: 84px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent-light);
+  font-size: 32px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.helper-identity {
+  flex: 1;
+  min-width: 200px;
+}
+
+.helper-name {
+  font-size: 28px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.helper-verified-badge {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent-light);
+  background: var(--accent-soft);
+  border-radius: 999px;
+  padding: 5px 12px;
+}
+
+.helper-meta {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.helper-rating {
+  color: var(--accent-light);
+  font-weight: 700;
+}
+
+.helper-open-app {
+  flex-shrink: 0;
+}
+
+@media (max-width: 560px) {
+  .helper-card {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+  }
+  .helper-open-app {
+    align-self: stretch;
+    text-align: center;
+  }
+}
+
+.helper-listings {
+  margin-top: 48px;
+}
+
+.helper-listings h2 {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.helper-empty {
+  margin-top: 16px;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.helper-listing-grid {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 16px;
+}
+
+.helper-listing-card {
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+
+.helper-listing-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+}
+
+.helper-listing-image {
+  aspect-ratio: 4 / 3;
+  background: var(--surface-2);
+}
+
+.helper-listing-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.helper-listing-image-placeholder {
+  width: 100%;
+  height: 100%;
+}
+
+.helper-listing-body {
+  padding: 12px 14px;
+}
+
+.helper-listing-title {
+  font-size: 14px;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.helper-listing-price {
+  margin-top: 4px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.helper-cta {
+  margin-top: 40px;
+  padding: 28px;
+  border-radius: 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.helper-cta p {
+  font-size: 14px;
+  color: var(--text-muted);
 }

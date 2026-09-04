@@ -170,10 +170,7 @@ const ClickSpark = ({
           position: "absolute",
           top: 0,
           left: 0,
-          // Paints above every button/link (including solid-background ones
-          // like .btn-accent) so a tap shows the full spark burst instead of
-          // the part hidden behind the element's own background.
-          // pointerEvents stays 'none' so this never blocks the real click.
+          // Paints above buttons/links; pointerEvents 'none' keeps clicks passing through.
           zIndex: 9999,
           pointerEvents: "none",
         }}

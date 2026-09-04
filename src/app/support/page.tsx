@@ -42,7 +42,7 @@ export default function SupportPage() {
             <section className="policy-section">
               <h2>Contact us</h2>
               <p>
-                The fastest way to reach us is by email at support[at]blythapp.com.
+                Need help or have a question? Email us at support[at]blythapp.com and we&rsquo;ll get back to you as soon as we can.
               </p>
             </section>
 

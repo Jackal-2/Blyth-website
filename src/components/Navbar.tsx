@@ -13,12 +13,8 @@ const NAV_LINKS = [
   { label: "Terms of Service", href: "/terms" },
 ];
 
-// "/#features" is an in-page anchor on the home page rather than a distinct
-// route. `scrolledToFeatures` (driven by an IntersectionObserver on the
-// #features section, homepage only) tells us to highlight it instead of Home
-// while that section is in view.
 function isActive(pathname: string, href: string, scrolledToFeatures: boolean) {
-  if (href === "/#features") return scrolledToFeatures;
+  if (href === "/#features") return pathname === "/" && scrolledToFeatures;
   if (href === "/") return pathname === "/" && !scrolledToFeatures;
   return pathname === href || pathname.startsWith(`${href}/`);
 }
@@ -28,9 +24,6 @@ export default function Navbar() {
   const [scrolledToFeatures, setScrolledToFeatures] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  // Reset menu/scrollspy state when the route changes. Adjusting state during
-  // render (rather than in an effect) is the pattern React recommends for
-  // "state that depends on a prop changing" — it avoids an extra render pass.
   const [prevPathname, setPrevPathname] = useState(pathname);
   if (pathname !== prevPathname) {
     setPrevPathname(pathname);
@@ -38,13 +31,6 @@ export default function Navbar() {
     setScrolledToFeatures(false);
   }
 
-  // Clicking Home or Features while already on "/" is a same-URL Link
-  // click — Next doesn't treat it as a navigation, so the pathname-change
-  // reset above never runs and the scrollspy effect below never re-fires.
-  // Without this, clicking either link while already on "/" does nothing:
-  // no scroll, and the nav bar doesn't update which link is highlighted.
-  // (Navigating in from a *different* page still works without this, since
-  // that's a real route change and Next's Link scrolls to the #hash itself.)
   const handleNavClick = (href: string) => {
     if (href === "/" && pathname === "/") {
       setScrolledToFeatures(false);
@@ -66,12 +52,12 @@ export default function Navbar() {
     const section = document.getElementById("features");
     if (!section) return;
 
-    // A thin horizontal band through the middle of the viewport — the active
-    // link flips to Features once the section crosses it, and back to Home
-    // once it scrolls past.
-    const observer = new IntersectionObserver(([entry]) => setScrolledToFeatures(entry.isIntersecting), {
-      rootMargin: "-45% 0px -45% 0px",
-    });
+    const observer = new IntersectionObserver(
+      ([entry]) => setScrolledToFeatures(entry.isIntersecting),
+      {
+        rootMargin: "-45% 0px -45% 0px",
+      },
+    );
 
     observer.observe(section);
     return () => observer.disconnect();
@@ -81,7 +67,14 @@ export default function Navbar() {
     <header className="navbar">
       <div className="container navbar-inner">
         <Link href="/" className="brand cursor-target">
-          <Image src="/images/logo-full-trim.png" alt="Blyth" width={666} height={240} priority className="brand-logo-full" />
+          <Image
+            src="/images/logo-full-trim.png"
+            alt="Blyth"
+            width={666}
+            height={240}
+            priority
+            className="brand-logo-full"
+          />
         </Link>
 
         <nav className="nav-links">
@@ -114,9 +107,19 @@ export default function Navbar() {
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
               {menuOpen ? (
-                <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                <path
+                  d="M6 6l12 12M18 6L6 18"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
               ) : (
-                <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                <path
+                  d="M4 6h16M4 12h16M4 18h16"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
               )}
             </svg>
           </button>
@@ -141,7 +144,11 @@ export default function Navbar() {
                 </Link>
               );
             })}
-            <Link href="/#get-app" className="btn btn-accent nav-mobile-cta cursor-target" onClick={() => setMenuOpen(false)}>
+            <Link
+              href="/#get-app"
+              className="btn btn-accent nav-mobile-cta cursor-target"
+              onClick={() => setMenuOpen(false)}
+            >
               Get Started
             </Link>
           </nav>

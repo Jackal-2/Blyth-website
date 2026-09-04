@@ -6,18 +6,14 @@ export const metadata: Metadata = {
   description: "How Blyth collects, uses, and protects your information.",
 };
 
-// Static on purpose — see the comment on src/app/terms/page.tsx. This used
-// to fetch from Blyth-Backend's /legal/privacy endpoint, which only worked
-// on localhost since the deployed site has no reachable backend. Restored
-// to the last hardcoded static version.
 export default function PrivacyPolicyPage() {
   return (
-    <PolicyLayout title="Privacy policy" updated="Aug 27, 2026">
+    <PolicyLayout title="Privacy policy" updated="Sep 1, 2026">
       <section className="policy-section">
         <h2>Welcome to Blyth</h2>
         <p>
-          Welcome to Blyth! We&rsquo;re building a trusted marketplace that
-          makes it easy for neighbors to connect with reliable local helpers.
+          We&rsquo;re building a trusted marketplace that makes it easy for
+          neighbors to connect with reliable local helpers.
         </p>
         <p>
           Your privacy matters to us. This Privacy Policy explains what
@@ -52,18 +48,20 @@ export default function PrivacyPolicyPage() {
             to investigate a report or dispute.
           </li>
           <li>
-            <strong>Identity and payout information (helpers only)</strong>
-            &mdash; a government ID photo, a selfie, and your bank account and
-            routing number; helpers verifying as a business also submit a
-            business registration number and EIN. Used to verify your identity,
-            confirm you&rsquo;re eligible to publish listings, and pay out your
-            earnings.
+            <strong>Identity verification information</strong> &mdash; a
+            government ID photo and a live selfie. Helpers submit this to
+            publish listings, along with a linked bank account for payout,
+            and a business registration number and EIN if verifying as a
+            business. A neighbor submits the same ID photo and selfie only
+            when booking a specific option a helper has chosen to require it
+            for. Used to verify identity, confirm you&rsquo;re eligible to
+            publish or book, and pay out helper earnings.
           </li>
           <li>
             <strong>Location information</strong> &mdash; your approximate
-            location, and any address you enter for a listing, booking, or
-            delivery. Used to show you nearby listings and connect neighbors and
-            helpers who are actually near each other.
+            location, and any address you enter for a listing, or booking. Used
+            to show you nearby listings and connect neighbors and helpers who
+            are actually near each other.
           </li>
           <li>
             <strong>Usage and device information</strong> &mdash; basic

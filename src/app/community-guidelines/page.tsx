@@ -8,10 +8,7 @@ export const metadata: Metadata = {
     "The rules that keep Blyth a safe, trustworthy marketplace for neighbors and helpers.",
 };
 
-// Static on purpose — see the comment on src/app/terms/page.tsx. This used
-// to fetch from Blyth-Backend's /legal/guidelines endpoint, which only
-// worked on localhost since the deployed site has no reachable backend.
-// Restored to the last hardcoded static version.
+// Static content — the dynamic /legal/guidelines fetch was reverted.
 export default function CommunityGuidelinesPage() {
   return (
     <PolicyLayout title="Community guidelines" updated="Aug 27, 2026">

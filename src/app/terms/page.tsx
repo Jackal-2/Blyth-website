@@ -8,17 +8,16 @@ export const metadata: Metadata = {
     "The terms that govern your access to and use of the Blyth platform.",
 };
 
-
 export default function TermsOfServicePage() {
   return (
-    <PolicyLayout title="Terms of service" updated="Aug 27, 2026">
+    <PolicyLayout title="Terms of service" updated="Sep 1, 2026">
       <section className="policy-section">
         <h2>Welcome to BLYTH</h2>
         <p>
-          Welcome to Blyth. These Terms of Service (&ldquo;Terms&rdquo;) govern
-          your access to and use of the Blyth platform. By creating an account
-          or using Blyth, you agree to these Terms. If you do not agree, please
-          do not use the platform.
+          These Terms of Service (&ldquo;Terms&rdquo;) govern your access to and
+          use of the Blyth platform. By creating an account or using Blyth, you
+          agree to these Terms. If you do not agree, please do not use the
+          platform.
         </p>
       </section>
 
@@ -69,6 +68,15 @@ export default function TermsOfServicePage() {
               ID, a live selfie for identity matching, and a linked and verified
               bank account. Blyth will not allow a helper account to publish
               listings until this verification is complete.
+            </li>
+            <li>
+              Some helpers require a neighbor to complete this same identity
+              verification &mdash; a government-issued photo ID and a live
+              selfie &mdash; before that neighbor can request a specific
+              booking option. This is the helper&rsquo;s own choice per
+              listing, shown on the listing and again at checkout, and only
+              ever applies to the booking option(s) they&rsquo;ve chosen to
+              require it for. It never applies to buying an item.
             </li>
             <li>
               If you register as a business, you must also provide business
@@ -125,6 +133,13 @@ export default function TermsOfServicePage() {
               you are not charged.
             </li>
             <li>
+              Once an order is confirmed and the hold is captured, cancelling
+              it has a cost: whoever cancels &mdash; neighbor or helper &mdash;
+              is responsible for the full card processing fee on that order,
+              since that cost is not refunded by our payment processor once
+              charged.
+            </li>
+            <li>
               Once a neighbor enters the correct confirmation code, Blyth
               typically releases the helper&rsquo;s eligible earnings for payout
               within 2 business days. If an order becomes subject to a dispute,
@@ -139,8 +154,9 @@ export default function TermsOfServicePage() {
           <ul>
             <li>
               Blyth uses several safeguards to reduce the risk of scams,
-              including: helper identity verification (Section 1.3), a card
-              hold that isn&rsquo;t captured until a helper confirms an order,
+              including: identity verification for helpers, and for a
+              neighbor where a listing requires it (Section 1.3), a card hold
+              that isn&rsquo;t captured until a helper confirms an order,
               confirmation codes that release payout only after a neighbor
               confirms they actually received what they paid for, and staff
               review of disputes and reported accounts.
@@ -160,8 +176,8 @@ export default function TermsOfServicePage() {
             <li>
               If you suspect a listing, message, or account is fraudulent,
               report it immediately using the Report option in the app, or by
-              contacting support[at]blythapp.com. Blyth may restrict, suspend, or
-              remove an account while we investigate a report.
+              contacting support[at]blythapp.com. Blyth may restrict, suspend,
+              or remove an account while we investigate a report.
             </li>
           </ul>
         </div>
@@ -192,9 +208,10 @@ export default function TermsOfServicePage() {
               outcome.
             </li>
             <li>
-              Refunds issued on an order that has already been charged do not
-              include the platform fee or card processing fee. Those fees cover
-              costs already incurred and are non-refundable.
+              If a dispute is resolved in the neighbor&rsquo;s favor, they
+              receive a full refund with nothing withheld &mdash; including the
+              protection fee. The helper is responsible for the card
+              processing fee on that order instead.
             </li>
           </ul>
         </div>
@@ -218,11 +235,10 @@ export default function TermsOfServicePage() {
             </li>
             <li>
               See our{" "}
-              <Link href="/community-guidelines">Community Guidelines</Link>{" "}
-              for additional rules regarding prohibited content, goods, and
-              services, and our{" "}
-              <Link href="/dmca">Copyright Policy</Link> for how to
-              report copyright infringement.
+              <Link href="/community-guidelines">Community Guidelines</Link> for
+              additional rules regarding prohibited content, goods, and
+              services, and our <Link href="/dmca">Copyright Policy</Link> for
+              how to report copyright infringement.
             </li>
           </ul>
         </div>

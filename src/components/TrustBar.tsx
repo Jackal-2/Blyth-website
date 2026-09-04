@@ -6,8 +6,7 @@ import CountUp from "./CountUp";
 
 type Stat = {
   label: string;
-  // Numeric stats animate with CountUp; `suffix` is appended as static text
-  // right after the counted number (e.g. to=100 + suffix "%" -> "100%").
+  // Numeric stats animate with CountUp; `suffix` is static text appended after.
   to?: number;
   suffix?: string;
   // Non-numeric stats (nothing to count) just render `value` as-is.

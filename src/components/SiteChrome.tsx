@@ -17,9 +17,7 @@ export default function SiteChrome({ children }: { children: ReactNode }) {
     </>
   );
 
-  // Skipped for prefers-reduced-motion, same as the cursor effect it
-  // replaces — it's a much lighter one-off burst than a continuous
-  // animated cursor, but it's still decorative motion.
+  // Decorative motion — skipped for prefers-reduced-motion.
   if (reducedMotion) {
     return content;
   }

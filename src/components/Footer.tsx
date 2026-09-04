@@ -17,11 +17,21 @@ export default function Footer() {
         <div className="footer-top">
           <div className="footer-brand">
             <Link href="/" className="brand cursor-target">
-              <Image src="/images/logo-full-trim.png" alt="Blyth" width={666} height={240} className="brand-logo-full" />
+              <Image
+                src="/images/logo-full-trim.png"
+                alt="Blyth"
+                width={666}
+                height={240}
+                className="brand-logo-full"
+              />
             </Link>
             <div className="footer-links-secondary">
               {SECONDARY_LINKS.map((link) => (
-                <Link key={link.href} href={link.href} className="cursor-target">
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="cursor-target"
+                >
                   {link.label}
                 </Link>
               ))}
@@ -36,7 +46,14 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Image src="/images/app-store.png" alt="" width={50} height={50} className="store-pill-icon" aria-hidden="true" />
+              <Image
+                src="/images/app-store.png"
+                alt=""
+                width={50}
+                height={50}
+                className="store-pill-icon"
+                aria-hidden="true"
+              />
               <span className="store-pill-text">Download for iOS</span>
             </a>
             <a
@@ -45,7 +62,14 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Image src="/images/playstore.png" alt="" width={50} height={50} className="store-pill-icon" aria-hidden="true" />
+              <Image
+                src="/images/playstore.png"
+                alt=""
+                width={50}
+                height={50}
+                className="store-pill-icon"
+                aria-hidden="true"
+              />
               <span className="store-pill-text">Download for Android</span>
             </a>
           </div>
@@ -54,7 +78,9 @@ export default function Footer() {
         <hr className="footer-rule" />
 
         <div className="footer-bottom">
-          <p className="footer-copyright">Copyright &copy;2026 Blyth. All rights reserved.</p>
+          <p className="footer-copyright">
+            Copyright &copy;2026 Blyth. All rights reserved.
+          </p>
           <span className="footer-signature">Caxapok</span>
         </div>
       </div>

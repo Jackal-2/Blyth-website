@@ -2,17 +2,7 @@ import { Children, type ReactNode } from "react";
 
 const STEP_MS = 90;
 
-/**
- * Fades content up as soon as the page mounts — a plain CSS animation, not
- * gated by scroll position. Used on document-style pages (Privacy Policy,
- * Terms of Service, Support) where everything should appear together when the
- * page opens, unlike the scroll-triggered react-awesome-reveal `Fade` used on
- * the homepage's Features and Testimonials sections, which only plays each
- * part in as it's scrolled into view.
- *
- * Respects prefers-reduced-motion via the `.page-reveal` rule in globals.css,
- * so no client-side hook/JS branching is needed here.
- */
+// Fades content in on mount (CSS animation); respects prefers-reduced-motion via globals.css.
 export default function PageReveal({
   children,
   cascade = false,
