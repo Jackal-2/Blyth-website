@@ -16,7 +16,6 @@ export default function PolicyLayout({
         <PageReveal>
           <div className="policy-header">
             <h1 className="policy-title">{title}</h1>
-            <p className="policy-updated">Last update: {updated}</p>
           </div>
         </PageReveal>
 
@@ -25,6 +24,8 @@ export default function PolicyLayout({
             {children}
           </PageReveal>
         </div>
+
+        <p className="policy-updated policy-updated--footer">Last update: {updated}</p>
       </div>
     </main>
   );

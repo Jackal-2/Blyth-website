@@ -1239,6 +1239,11 @@ img {
   color: var(--text-muted);
 }
 
+.policy-updated--footer {
+  margin-top: 48px;
+  text-align: center;
+}
+
 @media (max-width: 640px) {
   .policy-title {
     font-size: 32px;

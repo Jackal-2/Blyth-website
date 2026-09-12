@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function TermsOfServicePage() {
   return (
-    <PolicyLayout title="Terms of service" updated="Sep 1, 2026">
+    <PolicyLayout title="Terms of service" updated="Sep 10, 2026">
       <section className="policy-section">
         <h2>Welcome to BLYTH</h2>
         <p>
@@ -135,9 +135,19 @@ export default function TermsOfServicePage() {
             <li>
               Once an order is confirmed and the hold is captured, cancelling
               it has a cost: whoever cancels &mdash; neighbor or helper &mdash;
-              is responsible for the full card processing fee on that order,
-              since that cost is not refunded by our payment processor once
-              charged.
+              is responsible for Blyth&rsquo;s service fee on that order,
+              which is non-refundable once charged.
+            </li>
+            <li>
+              Blyth&rsquo;s service fee for a helper has two parts: a
+              platform commission, and a share of the payment
+              processor&rsquo;s own transaction fee. Helpers pay no platform
+              commission on their first $250 in lifetime completed sales;
+              once completed sales pass that amount, the commission applies
+              to sales above it. The payment processor&rsquo;s own
+              transaction fee applies to every sale, including those within
+              this free tier, and is split between the neighbor and the
+              helper.
             </li>
             <li>
               Once a neighbor enters the correct confirmation code, Blyth
@@ -186,20 +196,26 @@ export default function TermsOfServicePage() {
           <h3>2.4 Disputes</h3>
           <ul>
             <li>
-              If a neighbor does not provide the confirmation code within 7 days
-              after an item was delivered or a scheduled service was completed,
-              the helper may file a dispute directly from the order in the app,
-              or by contacting support[at]blythapp.com.
+              If you have a problem with an order, either party may file a
+              dispute directly from the order in the app: any time before the
+              order is marked completed, or within 3 days after it&rsquo;s
+              marked completed. Once that 3-day window has passed, the order
+              can no longer be disputed by either party &mdash; this is one
+              reason to confirm an item or service is right, and share the
+              confirmation code, only once you&rsquo;re satisfied.
             </li>
             <li>
-              A neighbor who was charged for an order that was never delivered
-              or completed may similarly file a dispute, within 14 days of the
-              charge, using the same options.
+              While a dispute is open, the order&rsquo;s payout is placed on
+              hold, and no one else may file a further dispute on that order
+              until it&rsquo;s resolved.
             </li>
             <li>
-              Blyth may review information and evidence provided by either
-              party, including delivery records, messages, photos, or other
-              relevant information.
+              A Blyth staff member assigned to a dispute reviews the evidence
+              submitted by both parties and may also review the order&rsquo;s
+              own message thread between the neighbor and helper, and either
+              party&rsquo;s history of past disputes, before making a
+              decision. The staff member who begins reviewing a dispute is
+              the one who resolves it.
             </li>
             <li>
               After reviewing a dispute, Blyth may release eligible funds, issue
@@ -208,10 +224,12 @@ export default function TermsOfServicePage() {
               outcome.
             </li>
             <li>
-              If a dispute is resolved in the neighbor&rsquo;s favor, they
-              receive a full refund with nothing withheld &mdash; including the
-              protection fee. The helper is responsible for the card
-              processing fee on that order instead.
+              If a dispute is resolved in the neighbor&rsquo;s favor, the
+              neighbor is refunded in full, including Blyth&rsquo;s service
+              fee &mdash; since that cost isn&rsquo;t refunded by the payment
+              processor once charged, it&rsquo;s deducted from the
+              helper&rsquo;s earnings instead. If a dispute is resolved in
+              the helper&rsquo;s favor, no refund is issued.
             </li>
           </ul>
         </div>
