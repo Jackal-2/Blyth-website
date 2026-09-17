@@ -50,12 +50,12 @@ export default function PrivacyPolicyPage() {
           <li>
             <strong>Identity verification information</strong> &mdash; a
             government ID photo and a live selfie. Helpers submit this to
-            publish listings, along with a linked bank account for payout,
-            and a business registration number and EIN if verifying as a
-            business. A neighbor submits the same ID photo and selfie only
-            when booking a specific option a helper has chosen to require it
-            for. Used to verify identity, confirm you&rsquo;re eligible to
-            publish or book, and pay out helper earnings.
+            publish listings, along with a linked bank account for payout, and a
+            business registration number and EIN if verifying as a business. A
+            neighbor submits the same ID photo and selfie only when booking a
+            specific option a helper has chosen to require it for. Used to
+            verify identity, confirm you&rsquo;re eligible to publish or book,
+            and pay out helper earnings.
           </li>
           <li>
             <strong>Location information</strong> &mdash; your approximate
@@ -91,8 +91,8 @@ export default function PrivacyPolicyPage() {
           <h3>With other users</h3>
           <p>
             We share the minimum information necessary between a neighbor and a
-            helper to complete an order &mdash; for example, your name and
-            delivery or booking details.
+            helper to complete an order &mdash; for example, your name and order
+            details.
           </p>
         </div>
 

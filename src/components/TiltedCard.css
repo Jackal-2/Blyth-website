@@ -42,7 +42,7 @@
   top: 0;
   left: 0;
   object-fit: cover;
-  border-radius: 15px;
+  border-radius: 0.9375rem;
   will-change: transform;
   transform: translateZ(0);
 }
@@ -61,10 +61,10 @@
   position: absolute;
   left: 0;
   top: 0;
-  border-radius: 4px;
+  border-radius: 0.25rem;
   background-color: #fff;
-  padding: 4px 10px;
-  font-size: 10px;
+  padding: 0.25rem 0.625rem;
+  font-size: 0.625rem;
   color: #2d2d2d;
   opacity: 0;
   z-index: 3;
