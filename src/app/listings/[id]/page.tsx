@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import PageReveal from "@/components/PageReveal";
 import { fetchPublicListing } from "@/lib/listings";
@@ -89,9 +90,9 @@ export default async function ListingPage({ params }: { params: Params }) {
         <PageReveal cascade delay={90}>
           <div className="helper-cta">
             <p>Get the Blyth app to book, message, or see full listing details.</p>
-            <a className="btn btn-light" href="/#get-app">
+            <Link className="btn btn-light" href="/#get-app">
               Get the app
-            </a>
+            </Link>
           </div>
         </PageReveal>
       </div>

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import PageReveal from "@/components/PageReveal";
 import { fetchPublicPost } from "@/lib/posts";
@@ -69,9 +70,9 @@ export default async function FeedPostPage({ params }: { params: Params }) {
         <PageReveal cascade delay={90}>
           <div className="helper-cta">
             <p>Get the Blyth app to see more from {post.author.fullName} and the rest of the Feed.</p>
-            <a className="btn btn-light" href="/#get-app">
+            <Link className="btn btn-light" href="/#get-app">
               Get the app
-            </a>
+            </Link>
           </div>
         </PageReveal>
       </div>
