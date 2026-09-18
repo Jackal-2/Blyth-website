@@ -16,5 +16,10 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run lint
-      - run: npm run typecheck
+      # `next build` generates .next/types (the ambient LayoutProps/PageProps
+      # helpers Next.js's typed-routes feature uses in route files) as a side
+      # effect, before running its own internal type-check. A standalone
+      # `tsc --noEmit` has no way to generate those on its own, so it must run
+      # AFTER build, once .next/types already exists on disk — not before.
       - run: npm run build
+      - run: npm run typecheck
