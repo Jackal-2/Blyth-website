@@ -1,7 +1,6 @@
 "use client";
 
 import {
-  createElement,
   useCallback,
   useEffect,
   useMemo,
@@ -183,24 +182,20 @@ const TextType = ({
   const shouldHideCursor =
     hideCursorWhileTyping && (currentCharIndex < textArray[currentTextIndex].length || isDeleting);
 
-  return createElement(
-    Component,
-    {
-      ref: containerRef,
-      className: `text-type ${className}`,
-      ...props,
-    },
-    <span className="text-type__content" style={{ color: getCurrentTextColor() }}>
-      {displayedText}
-    </span>,
-    showCursor && (
-      <span
-        ref={cursorRef}
-        className={`text-type__cursor ${cursorClassName} ${shouldHideCursor ? "text-type__cursor--hidden" : ""}`}
-      >
-        {cursorCharacter}
+  return (
+    <Component ref={containerRef} className={`text-type ${className}`} {...props}>
+      <span className="text-type__content" style={{ color: getCurrentTextColor() }}>
+        {displayedText}
       </span>
-    )
+      {showCursor && (
+        <span
+          ref={cursorRef}
+          className={`text-type__cursor ${cursorClassName} ${shouldHideCursor ? "text-type__cursor--hidden" : ""}`}
+        >
+          {cursorCharacter}
+        </span>
+      )}
+    </Component>
   );
 };
 
