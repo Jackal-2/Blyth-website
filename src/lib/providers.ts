@@ -1,3 +1,5 @@
+import { fetchInternalById } from "./internalFetch";
+
 export interface PublicProviderListing {
   id: string;
   title: string;
@@ -11,21 +13,19 @@ export interface PublicProvider {
   fullName: string;
   businessVerified: boolean;
   memberSince: string;
+  avatarUrl: string | null;
+  coverImageUrl: string | null;
   rating: number;
   reviewCount: number;
   listings: PublicProviderListing[];
 }
 
-// Server-only; hits Blyth-Backend's public GET /providers/:id.
-const API_BASE = process.env.API_BASE_URL ?? "http://localhost:4000/api";
-
-export async function fetchPublicProvider(id: string): Promise<PublicProvider | null> {
-  try {
-    const res = await fetch(`${API_BASE}/providers/${id}`, { cache: "no-store" });
-    if (!res.ok) return null;
-    const data = await res.json();
-    return data.provider as PublicProvider;
-  } catch {
-    return null;
-  }
+// Server-only; hits Blyth-Backend's narrow GET /public/share/helpers/:id —
+// not the app's own GET /providers/:id. Same reasoning as lib/listings.ts:
+// this endpoint returns only the fields this share card renders, rather
+// than whatever the app's own provider-profile endpoint happens to return.
+// Id validation, encoding, and the shared-secret header all live in
+// internalFetch.ts.
+export function fetchPublicProvider(id: string): Promise<PublicProvider | null> {
+  return fetchInternalById<PublicProvider>(id, (eid) => `/public/share/helpers/${eid}`, "provider");
 }

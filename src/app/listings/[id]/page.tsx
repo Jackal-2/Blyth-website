@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import PageReveal from "@/components/PageReveal";
+import { ProxiedPhoto } from "@/components/ProxiedPhoto";
+import { OpenInAppButtons } from "@/components/OpenInAppButtons";
+import { ShareQrCode } from "@/components/ShareQrCode";
+import { appLinksFor, STORE_URLS, webUrlFor } from "@/lib/appLinks";
 import { fetchPublicListing } from "@/lib/listings";
 
 type Params = Promise<{ id: string }>;
@@ -39,6 +42,7 @@ export default async function ListingPage({ params }: { params: Params }) {
   if (!listing) notFound();
 
   const coverImage = listing.images[0]?.url ?? null;
+  const app = appLinksFor("listing", listing.id);
 
   return (
     <main className="helper-page">
@@ -47,8 +51,7 @@ export default async function ListingPage({ params }: { params: Params }) {
           <div className="listing-card">
             <div className="listing-card-image">
               {coverImage ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={coverImage} alt="" />
+                <ProxiedPhoto url={coverImage} />
               ) : (
                 <div className="helper-listing-image-placeholder" aria-hidden="true" />
               )}
@@ -78,21 +81,15 @@ export default async function ListingPage({ params }: { params: Params }) {
                   <span>No reviews yet</span>
                 )}
               </p>
-              {listing.description && <p className="listing-card-description">{listing.description}</p>}
               <p className="listing-card-price">{formatPrice(listing.price, listing)}</p>
-              <a className="btn btn-accent listing-open-app" href={`blyth://listing/${listing.id}`}>
-                Open in the Blyth app
-              </a>
+              <OpenInAppButtons
+                iosApp={app.ios}
+                androidApp={app.android}
+                iosStore={STORE_URLS.ios}
+                androidStore={STORE_URLS.android}
+              />
+              <ShareQrCode url={webUrlFor("listing", listing.id)} />
             </div>
-          </div>
-        </PageReveal>
-
-        <PageReveal cascade delay={90}>
-          <div className="helper-cta">
-            <p>Get the Blyth app to book, message, or see full listing details.</p>
-            <Link className="btn btn-light" href="/#get-app">
-              Get the app
-            </Link>
           </div>
         </PageReveal>
       </div>

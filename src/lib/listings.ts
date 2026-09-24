@@ -1,3 +1,5 @@
+import { fetchInternalById } from "./internalFetch";
+
 export interface PublicListingImage {
   url: string;
 }
@@ -19,17 +21,14 @@ export interface PublicListing {
   } | null;
 }
 
-// Server-only; hits Blyth-Backend's public GET /listings/:id (same endpoint the
-// app itself uses — no auth required, mirrors lib/providers.ts).
-const API_BASE = process.env.API_BASE_URL ?? "http://localhost:4000/api";
-
-export async function fetchPublicListing(id: string): Promise<PublicListing | null> {
-  try {
-    const res = await fetch(`${API_BASE}/listings/${id}`, { cache: "no-store" });
-    if (!res.ok) return null;
-    const data = await res.json();
-    return data.listing as PublicListing;
-  } catch {
-    return null;
-  }
+// Server-only; hits Blyth-Backend's narrow GET /public/share/listings/:id —
+// not the app's own GET /listings/:id. That endpoint backs the app's detail
+// screen and returns whatever fields that screen needs (full reviews,
+// booked slots, and so on); this one exists just for this share card and
+// returns only the fields above, so a field added to the app's endpoint
+// later doesn't also silently become reachable from the website. Mirrors
+// lib/providers.ts. Id validation, encoding, and the shared-secret header
+// all live in internalFetch.ts.
+export function fetchPublicListing(id: string): Promise<PublicListing | null> {
+  return fetchInternalById<PublicListing>(id, (eid) => `/public/share/listings/${eid}`, "listing");
 }

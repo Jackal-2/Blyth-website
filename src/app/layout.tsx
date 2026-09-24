@@ -9,6 +9,9 @@ import SiteChrome from "@/components/SiteChrome";
 import "./globals.css";
 
 export const metadata: Metadata = {
+  // Lets relative openGraph URLs (e.g. the auto-detected opengraph-image.tsx
+  // routes) resolve to an absolute one for link-preview crawlers.
+  metadataBase: new URL("https://blythapp.com"),
   title: "Blyth — Find trusted help in your neighborhood",
   description:
     "Blyth connects neighbors with trusted, verified local help — book services, hire providers, and get things done, all from one app.",

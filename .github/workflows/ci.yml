@@ -16,6 +16,16 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run lint
+      - run: npm test
+      - name: Fail if discovered test files dropped below the committed floor
+        run: |
+          actual=$(npx vitest list --filesOnly 2>/dev/null | wc -l | tr -d ' ')
+          minimum=$(cat .github/min-test-files)
+          echo "Discovered $actual test file(s); committed minimum is $minimum."
+          if [ "$actual" -lt "$minimum" ]; then
+            echo "::error::Test file count dropped below the committed minimum ($actual < $minimum). A test file may have silently stopped being discovered (e.g. an include-pattern or config regression — this is exactly the bug that let ProxiedPhoto.test.tsx go unrun for a while). If this drop is intentional, lower .github/min-test-files in the same change."
+            exit 1
+          fi
       # `next build` generates .next/types (the ambient LayoutProps/PageProps
       # helpers Next.js's typed-routes feature uses in route files) as a side
       # effect, before running its own internal type-check. A standalone

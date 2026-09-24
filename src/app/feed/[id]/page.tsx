@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import PageReveal from "@/components/PageReveal";
+import { ProxiedPhoto } from "@/components/ProxiedPhoto";
+import { OpenInAppButtons } from "@/components/OpenInAppButtons";
+import { ShareQrCode } from "@/components/ShareQrCode";
+import { appLinksFor, STORE_URLS, webUrlFor } from "@/lib/appLinks";
 import { fetchPublicPost } from "@/lib/posts";
 
 type Params = Promise<{ id: string }>;
@@ -37,6 +40,13 @@ export default async function FeedPostPage({ params }: { params: Params }) {
   if (!post) notFound();
 
   const initial = post.author.fullName.trim().charAt(0).toUpperCase() || "?";
+  // No app/feed/[id] screen yet (see docs/share-links-and-deep-linking.md,
+  // Part 5) — opens the post's author profile instead, same as before.
+  const app = appLinksFor("helper", post.author.id);
+  // The QR code encodes this page's OWN web URL (not the app-open link
+  // above, which points at the author's profile as a workaround) — scanning
+  // it should land back on this exact share page, same as any other visit.
+  const shareUrl = webUrlFor("feed", post.id);
 
   return (
     <main className="helper-page">
@@ -44,14 +54,12 @@ export default async function FeedPostPage({ params }: { params: Params }) {
         <PageReveal>
           <div className="listing-card">
             <div className="listing-card-image">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={post.imageUrl} alt="" />
+              <ProxiedPhoto url={post.imageUrl} />
             </div>
             <div className="listing-card-body">
               <div className="feed-post-author">
                 {post.author.avatarUrl ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img className="feed-post-avatar" src={post.author.avatarUrl} alt="" />
+                  <ProxiedPhoto className="feed-post-avatar" url={post.author.avatarUrl} />
                 ) : (
                   <div className="feed-post-avatar feed-post-avatar-fallback" aria-hidden="true">
                     {initial}
@@ -60,19 +68,14 @@ export default async function FeedPostPage({ params }: { params: Params }) {
                 <span className="helper-name feed-post-author-name">{post.author.fullName}</span>
               </div>
               {post.caption && <p className="listing-card-description">{post.caption}</p>}
-              <a className="btn btn-accent listing-open-app" href={`blyth://provider/${post.author.id}`}>
-                Open in the Blyth app
-              </a>
+              <OpenInAppButtons
+                iosApp={app.ios}
+                androidApp={app.android}
+                iosStore={STORE_URLS.ios}
+                androidStore={STORE_URLS.android}
+              />
+              <ShareQrCode url={shareUrl} />
             </div>
-          </div>
-        </PageReveal>
-
-        <PageReveal cascade delay={90}>
-          <div className="helper-cta">
-            <p>Get the Blyth app to see more from {post.author.fullName} and the rest of the Feed.</p>
-            <Link className="btn btn-light" href="/#get-app">
-              Get the app
-            </Link>
           </div>
         </PageReveal>
       </div>
