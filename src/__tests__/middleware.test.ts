@@ -81,11 +81,12 @@ describe("getVisitorKey", () => {
 });
 
 describe("middleware — rate-limit fallback when visitors can't be told apart", () => {
-  const ORIGINAL_NODE_ENV = process.env.NODE_ENV;
-
   beforeEach(() => {
     // middleware() short-circuits (no rate limit, no CSP) outside production.
-    process.env.NODE_ENV = "production";
+    // vi.stubEnv (not a direct process.env.NODE_ENV assignment) — NODE_ENV
+    // is typed read-only, and vi.unstubAllEnvs() below restores the real
+    // value automatically, so there's no ORIGINAL_NODE_ENV to track by hand.
+    vi.stubEnv("NODE_ENV", "production");
     delete process.env.TRUST_WEBSITE_PROXY;
     // checkVisitorRateLimit keeps its bucket Map at module scope (see
     // visitorRateLimit.ts) — reset the module graph per test so the
@@ -95,7 +96,7 @@ describe("middleware — rate-limit fallback when visitors can't be told apart",
   });
 
   afterEach(() => {
-    process.env.NODE_ENV = ORIGINAL_NODE_ENV;
+    vi.unstubAllEnvs();
     delete process.env.TRUST_WEBSITE_PROXY;
   });
 
