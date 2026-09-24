@@ -61,7 +61,6 @@ export default async function Image({ params }: { params: Params }) {
         }}
       >
         {backgroundImage ? (
-          // eslint-disable-next-line @next/next/no-img-element
           <img
             src={backgroundImage}
             alt=""
@@ -110,7 +109,6 @@ export default async function Image({ params }: { params: Params }) {
               }}
             >
               {avatarDataUri ? (
-                // eslint-disable-next-line @next/next/no-img-element
                 <img
                   src={avatarDataUri}
                   alt=""

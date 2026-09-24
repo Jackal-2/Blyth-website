@@ -3,13 +3,16 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { OpenInAppButtons } from "../OpenInAppButtons";
 
 // This component decides which platform's links to show client-side, after
-// hydration, via a useEffect — that's the whole point (see the "never
-// redirect on the user agent on the server" rule in
-// docs/share-links-and-deep-linking.md). renderToStaticMarkup only ever
-// renders the pre-hydration, "platform: unknown" branch, since effects
-// never run during static rendering; that's also the only branch that's
-// actually meaningful to assert on here without a browser-like test
+// hydration, via useSyncExternalStore — that's the whole point (see the
+// "never redirect on the user agent on the server" rule in
+// docs/share-links-and-deep-linking.md). renderToStaticMarkup exercises
+// getServerSnapshot only, never detectPlatform (the client snapshot), so
+// this only ever renders the "platform: unknown" branch — which is also the
+// only branch meaningful to assert on here without a browser-like test
 // environment (this project's vitest config runs in 'node', not jsdom).
+// If getServerSnapshot were ever bypassed, these tests would fail loudly:
+// detectPlatform reads `navigator`, which doesn't exist in this 'node'
+// environment, so calling it here would throw rather than silently pass.
 describe("OpenInAppButtons (server-rendered / pre-hydration output)", () => {
   it("shows 'coming soon' rather than broken links when neither store URL is set yet", () => {
     const html = renderToStaticMarkup(
