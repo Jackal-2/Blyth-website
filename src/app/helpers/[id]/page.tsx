@@ -35,10 +35,10 @@ function formatMemberSince(iso: string): string {
   return new Date(iso).toLocaleDateString("en-US", { month: "long", year: "numeric" });
 }
 
-function formatPrice(price: number): string {
-  return `$${price.toFixed(price % 1 === 0 ? 0 : 2)}`;
-}
-
+// Deliberately just identity + reviews + "open the app" — no Listings grid.
+// This page's whole job is the share-link fallback (see
+// docs/share-links-and-deep-linking.md); anyone who wants to browse this
+// helper's listings has the app for that.
 export default async function HelperProfilePage({ params }: { params: Params }) {
   const { id } = await params;
   const provider = await fetchPublicProvider(id);
@@ -51,16 +51,29 @@ export default async function HelperProfilePage({ params }: { params: Params }) 
     <main className="helper-page">
       <div className="container">
         <PageReveal>
+          <div className="helper-cover">
+            {provider.coverImageUrl ? (
+              <ProxiedPhoto url={provider.coverImageUrl} />
+            ) : null}
+          </div>
           <div className="helper-card">
-            <div className="helper-avatar" aria-hidden="true">
-              {initial}
+            <div className="helper-avatar" aria-hidden={provider.avatarUrl ? undefined : "true"}>
+              {provider.avatarUrl ? <ProxiedPhoto url={provider.avatarUrl} /> : initial}
             </div>
             <div className="helper-identity">
               <h1 className="helper-name">
                 {provider.fullName}
                 {provider.businessVerified && (
-                  <span className="helper-verified-badge" title="Verified business">
-                    ✓ Verified business
+                  <span className="verified-tick" title="Verified business" aria-label="Verified business">
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path
+                        d="M5 13l4 4L19 7"
+                        stroke="currentColor"
+                        strokeWidth="3"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
                   </span>
                 )}
               </h1>
@@ -86,37 +99,6 @@ export default async function HelperProfilePage({ params }: { params: Params }) 
             />
             <ShareQrCode url={webUrlFor("helper", provider.id)} />
           </div>
-        </PageReveal>
-
-        <PageReveal cascade delay={90}>
-          <section className="helper-listings">
-            <h2>Listings</h2>
-            {provider.listings.length === 0 ? (
-              <p className="helper-empty">No active listings right now — check back soon.</p>
-            ) : (
-              <div className="helper-listing-grid">
-                {provider.listings.map((listing) => (
-                  <a
-                    key={listing.id}
-                    className="helper-listing-card"
-                    href={appLinksFor("listing", listing.id).ios}
-                  >
-                    <div className="helper-listing-image">
-                      {listing.imageUrl ? (
-                        <ProxiedPhoto url={listing.imageUrl} />
-                      ) : (
-                        <div className="helper-listing-image-placeholder" aria-hidden="true" />
-                      )}
-                    </div>
-                    <div className="helper-listing-body">
-                      <p className="helper-listing-title">{listing.title}</p>
-                      <p className="helper-listing-price">{formatPrice(listing.price)}</p>
-                    </div>
-                  </a>
-                ))}
-              </div>
-            )}
-          </section>
         </PageReveal>
       </div>
     </main>

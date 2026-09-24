@@ -19,10 +19,21 @@ function isActive(pathname: string, href: string, scrolledToFeatures: boolean) {
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
+// Share-card pages (a listing/helper's public link) are meant to be
+// distraction-free — no way back into the marketing site, no CTA competing
+// with "Open in the app" further down the page — so they get logo-only,
+// nothing else. Every other route keeps the full navbar. There's no bare
+// /listings or /helpers index route (only the [id] detail pages), so this
+// prefix check can't accidentally catch a page that should keep full nav.
+function isShareCardPath(pathname: string): boolean {
+  return pathname.startsWith("/listings/") || pathname.startsWith("/helpers/");
+}
+
 export default function Navbar() {
   const pathname = usePathname();
   const [scrolledToFeatures, setScrolledToFeatures] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const minimal = isShareCardPath(pathname);
 
   const [prevPathname, setPrevPathname] = useState(pathname);
   if (pathname !== prevPathname) {
@@ -77,55 +88,59 @@ export default function Navbar() {
           />
         </Link>
 
-        <nav className="nav-links">
-          {NAV_LINKS.map((link) => {
-            const active = isActive(pathname, link.href, scrolledToFeatures);
-            return (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`cursor-target${active ? " active" : ""}`}
-                aria-current={active ? "page" : undefined}
-                onClick={() => handleNavClick(link.href)}
-              >
-                {link.label}
-              </Link>
-            );
-          })}
-        </nav>
+        {!minimal && (
+          <nav className="nav-links">
+            {NAV_LINKS.map((link) => {
+              const active = isActive(pathname, link.href, scrolledToFeatures);
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`cursor-target${active ? " active" : ""}`}
+                  aria-current={active ? "page" : undefined}
+                  onClick={() => handleNavClick(link.href)}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
+          </nav>
+        )}
 
-        <div className="navbar-actions">
-          <Link href="/#get-app" className="btn btn-accent cursor-target">
-            Get Started
-          </Link>
-          <button
-            className="nav-menu-btn cursor-target"
-            aria-label={menuOpen ? "Close menu" : "Open menu"}
-            aria-expanded={menuOpen}
-            type="button"
-            onClick={() => setMenuOpen((open) => !open)}
-          >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-              {menuOpen ? (
-                <path
-                  d="M6 6l12 12M18 6L6 18"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                />
-              ) : (
-                <path
-                  d="M4 6h16M4 12h16M4 18h16"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                />
-              )}
-            </svg>
-          </button>
-        </div>
+        {!minimal && (
+          <div className="navbar-actions">
+            <Link href="/#get-app" className="btn btn-accent cursor-target">
+              Get Started
+            </Link>
+            <button
+              className="nav-menu-btn cursor-target"
+              aria-label={menuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={menuOpen}
+              type="button"
+              onClick={() => setMenuOpen((open) => !open)}
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                {menuOpen ? (
+                  <path
+                    d="M6 6l12 12M18 6L6 18"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                ) : (
+                  <path
+                    d="M4 6h16M4 12h16M4 18h16"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                )}
+              </svg>
+            </button>
+          </div>
+        )}
 
-        {menuOpen ? (
+        {!minimal && menuOpen ? (
           <nav className="nav-mobile-menu">
             {NAV_LINKS.map((link) => {
               const active = isActive(pathname, link.href, scrolledToFeatures);
