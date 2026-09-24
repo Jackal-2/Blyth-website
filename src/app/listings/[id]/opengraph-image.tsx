@@ -59,6 +59,7 @@ export default async function Image({ params }: { params: Params }) {
           // eslint-disable-next-line @next/next/no-img-element
           <img
             src={coverImage}
+            alt=""
             width={OG_SIZE.width}
             height={OG_SIZE.height}
             style={{

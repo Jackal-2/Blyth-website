@@ -64,6 +64,7 @@ export default async function Image({ params }: { params: Params }) {
           // eslint-disable-next-line @next/next/no-img-element
           <img
             src={backgroundImage}
+            alt=""
             width={OG_SIZE.width}
             height={OG_SIZE.height}
             style={{
@@ -112,6 +113,7 @@ export default async function Image({ params }: { params: Params }) {
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
                   src={avatarDataUri}
+                  alt=""
                   width={AVATAR_SIZE}
                   height={AVATAR_SIZE}
                   style={{ width: `${AVATAR_SIZE}px`, height: `${AVATAR_SIZE}px`, objectFit: "cover", display: "flex" }}
