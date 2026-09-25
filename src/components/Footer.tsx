@@ -41,7 +41,7 @@ export default function Footer() {
           <div className="footer-download">
             <p className="footer-download-heading">Get the App</p>
             <a
-              className="store-pill store-pill-dark cursor-target"
+              className="btn btn-dark cursor-target"
               href="https://apps.apple.com"
               target="_blank"
               rel="noopener noreferrer"
@@ -49,15 +49,15 @@ export default function Footer() {
               <Image
                 src="/images/app-store.png"
                 alt=""
-                width={50}
-                height={50}
+                width={20}
+                height={20}
                 className="store-pill-icon"
                 aria-hidden="true"
               />
               <span className="store-pill-text">Download for iOS</span>
             </a>
             <a
-              className="store-pill store-pill-dark cursor-target"
+              className="btn btn-dark cursor-target"
               href="https://play.google.com"
               target="_blank"
               rel="noopener noreferrer"
@@ -65,8 +65,8 @@ export default function Footer() {
               <Image
                 src="/images/playstore.png"
                 alt=""
-                width={50}
-                height={50}
+                width={20}
+                height={20}
                 className="store-pill-icon"
                 aria-hidden="true"
               />

@@ -72,3 +72,12 @@ export function ReceiptIcon() {
     </svg>
   );
 }
+
+export function MapPinIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <path d="M20 10.5c0 6-8 11.5-8 11.5s-8-5.5-8-11.5a8 8 0 0 1 16 0z" strokeLinecap="round" strokeLinejoin="round" />
+      <circle cx="12" cy="10.5" r="2.75" />
+    </svg>
+  );
+}

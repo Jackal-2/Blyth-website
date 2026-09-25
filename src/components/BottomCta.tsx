@@ -27,7 +27,7 @@ export default function BottomCta() {
             <p className="bottom-cta-download-label">Get the App</p>
             <div className="bottom-cta-badges">
               <a
-                className="store-pill store-pill-white cursor-target"
+                className="btn btn-light cursor-target"
                 href="https://apps.apple.com"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -35,15 +35,15 @@ export default function BottomCta() {
                 <Image
                   src="/images/app-store.png"
                   alt=""
-                  width={50}
-                  height={50}
+                  width={20}
+                  height={20}
                   className="store-pill-icon"
                   aria-hidden="true"
                 />
                 <span className="store-pill-text">Download for iOS</span>
               </a>
               <a
-                className="store-pill store-pill-white cursor-target"
+                className="btn btn-light cursor-target"
                 href="https://play.google.com"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -51,8 +51,8 @@ export default function BottomCta() {
                 <Image
                   src="/images/playstore.png"
                   alt=""
-                  width={50}
-                  height={50}
+                  width={20}
+                  height={20}
                   className="store-pill-icon"
                   aria-hidden="true"
                 />
