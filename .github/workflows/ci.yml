@@ -12,9 +12,12 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
       - run: npm ci
+      - name: Dependency vulnerability audit
+
+        run: npm audit --audit-level=high || true
       - run: npm run lint
       - run: npm test
       - name: Fail if discovered test files dropped below the committed floor
@@ -26,10 +29,6 @@ jobs:
             echo "::error::Test file count dropped below the committed minimum ($actual < $minimum). A test file may have silently stopped being discovered (e.g. an include-pattern or config regression — this is exactly the bug that let ProxiedPhoto.test.tsx go unrun for a while). If this drop is intentional, lower .github/min-test-files in the same change."
             exit 1
           fi
-      # `next build` generates .next/types (the ambient LayoutProps/PageProps
-      # helpers Next.js's typed-routes feature uses in route files) as a side
-      # effect, before running its own internal type-check. A standalone
-      # `tsc --noEmit` has no way to generate those on its own, so it must run
-      # AFTER build, once .next/types already exists on disk — not before.
+
       - run: npm run build
       - run: npm run typecheck
