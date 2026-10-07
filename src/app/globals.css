@@ -1091,6 +1091,10 @@ img {
   top: 46%;
   left: 0%;
 }
+.mid-cta-radar-dist--3 {
+  top: 64%;
+  left: 40%;
+}
 
 /* Each pin sits inside its own full-size orbit wrapper. Rotating the
    wrapper carries the pin's fixed top/left position around the center

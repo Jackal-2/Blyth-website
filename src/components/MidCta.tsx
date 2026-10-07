@@ -17,7 +17,12 @@ const PINS = [
   // "occupied" instead of just decorative.
   { initials: "SN", tone: "teal", top: "41%", left: "66%", duration: "16s" },
   { initials: "JM", tone: "accent", top: "10%", left: "58%", duration: "22s" },
-  { initials: "AK", tone: "teal", top: "35%", left: "88%", duration: "28s", reverse: true },
+  // Radius nudged out from its original 88% left (which put it on
+  // almost exactly the same orbit as JM above — same invisible
+  // circle, different speeds, so the two were guaranteed to drift
+  // into each other periodically) to a clearly distinct radius while
+  // staying in the same general upper-right area.
+  { initials: "AK", tone: "teal", top: "33%", left: "93%", duration: "28s", reverse: true },
   { initials: "RS", tone: "accent-light", top: "72%", left: "80%", duration: "25s" },
   { initials: "TL", tone: "teal-dark", top: "78%", left: "30%", duration: "30s", reverse: true },
   { initials: "CB", tone: "accent", top: "28%", left: "8%", duration: "24s" },
@@ -46,6 +51,7 @@ export default function MidCta() {
             <div className="mid-cta-radar-ring mid-cta-radar-ring--3" />
             <span className="mid-cta-radar-dist mid-cta-radar-dist--1">1.2 mi</span>
             <span className="mid-cta-radar-dist mid-cta-radar-dist--2">0.4 mi</span>
+            <span className="mid-cta-radar-dist mid-cta-radar-dist--3">0.1 mi</span>
             <div className="mid-cta-radar-center" />
             {PINS.map((p) => (
               <div
