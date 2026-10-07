@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 // Static content — the dynamic /legal/guidelines fetch was reverted.
 export default function CommunityGuidelinesPage() {
   return (
-    <PolicyLayout title="Community guidelines" updated="Aug 27, 2026">
+    <PolicyLayout title="Community guidelines" updated="Oct 1, 2026">
       <section className="policy-section">
         <p>
           These guidelines exist to keep Blyth a safe, trustworthy place for
@@ -26,8 +26,28 @@ export default function CommunityGuidelinesPage() {
         <ul>
           <li>Illegal goods or services of any kind.</li>
           <li>Counterfeit items or stolen property.</li>
+          <li>Weapons, firearms, ammunition, and explosives.</li>
+          <li>Alcohol, tobacco, vapes, and e-cigarettes.</li>
           <li>
-            Weapons, hazardous materials, or other items that are dangerous or
+            Prescription medications, controlled substances, and
+            recreational drugs.
+          </li>
+          <li>
+            Live animals, and any good or service involving animal cruelty.
+          </li>
+          <li>
+            Products that have been recalled by a manufacturer or government
+            agency.
+          </li>
+          <li>Adult content, or sexual services of any kind.</li>
+          <li>
+            Professional or licensed services you&rsquo;re not actually
+            licensed or qualified to provide (for example, medical, legal,
+            electrical, or plumbing work that requires a license in your
+            area).
+          </li>
+          <li>
+            Other hazardous materials, or items that are dangerous or
             restricted under applicable law.
           </li>
           <li>

@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function TermsOfServicePage() {
   return (
-    <PolicyLayout title="Terms of service" updated="Sep 10, 2026">
+    <PolicyLayout title="Terms of service" updated="Oct 1, 2026">
       <section className="policy-section">
         <h2>Welcome to BLYTH</h2>
         <p>
@@ -92,6 +92,30 @@ export default function TermsOfServicePage() {
               account using false or misleading information, and must notify us
               immediately at support[at]blythapp.com if you believe your account
               has been compromised or accessed without your permission.
+            </li>
+          </ul>
+        </div>
+
+        <div className="policy-subsection">
+          <h3>1.4 Safety for In-Person Meetings</h3>
+          <ul>
+            <li>
+              Many orders involve meeting another user in person to exchange an
+              item or provide a service. You&rsquo;re solely responsible for
+              your own safety and judgment in these meetings.
+            </li>
+            <li>
+              We recommend meeting in a public place when practical, telling
+              someone else when and where you&rsquo;re meeting, and trusting
+              your own judgment if something feels wrong.
+            </li>
+            <li>
+              Blyth does not conduct criminal background checks on users and
+              cannot guarantee the identity, intentions, or conduct of any
+              other user, even one who has completed identity verification.
+              Identity verification confirms that a person&rsquo;s government
+              ID matches their selfie &mdash; it is not a safety or background
+              screening.
             </li>
           </ul>
         </div>
@@ -184,6 +208,12 @@ export default function TermsOfServicePage() {
               phone.
             </li>
             <li>
+              Order-related messages may be reviewed by our staff when needed
+              to investigate a report, dispute, or suspected fraud, or to keep
+              the platform safe &mdash; see our Privacy Policy for more on how
+              we handle message content.
+            </li>
+            <li>
               If you suspect a listing, message, or account is fraudulent,
               report it immediately using the Report option in the app, or by
               contacting support[at]blythapp.com. Blyth may restrict, suspend,
@@ -263,10 +293,84 @@ export default function TermsOfServicePage() {
       </section>
 
       <section className="policy-section">
-        <h2>3. Termination</h2>
+        <h2>3. Content You Post</h2>
 
         <div className="policy-subsection">
-          <h3>3.1 Termination &amp; Account Deletion</h3>
+          <h3>3.1 License You Grant Us</h3>
+          <ul>
+            <li>
+              When you post a listing, photo, review, or other content on
+              Blyth, you keep ownership of it. You grant us a worldwide,
+              non-exclusive, royalty-free license to host, store, reproduce,
+              display, and distribute that content as needed to operate and
+              promote the platform &mdash; for example, showing your listing
+              to other users or featuring it in the app.
+            </li>
+            <li>
+              This license ends when you delete the content or your account,
+              except for copies we&rsquo;re required or permitted to retain
+              for legal, security, or dispute-resolution purposes, as
+              described in our Privacy Policy.
+            </li>
+          </ul>
+        </div>
+
+        <div className="policy-subsection">
+          <h3>3.2 Your Responsibility</h3>
+          <ul>
+            <li>
+              You&rsquo;re solely responsible for the content you post. You
+              confirm that you own it or have the right to post it, and that
+              it doesn&rsquo;t infringe anyone else&rsquo;s rights or violate
+              these Terms, our Community Guidelines, or applicable law.
+            </li>
+            <li>
+              We don&rsquo;t review every piece of content before it&rsquo;s
+              posted. We may remove content, without notice, that we believe
+              violates these Terms, our Community Guidelines, or the law.
+            </li>
+          </ul>
+        </div>
+
+        <div className="policy-subsection">
+          <h3>3.3 Reviews</h3>
+          <ul>
+            <li>
+              Reviews must reflect your own honest experience with an order.
+              You may not post a review you were paid or incentivized to
+              write, or one for an order you weren&rsquo;t actually part of.
+            </li>
+            <li>
+              We may remove a review that violates this policy or our
+              Community Guidelines, but we don&rsquo;t edit the content of
+              reviews ourselves.
+            </li>
+          </ul>
+        </div>
+
+        <div className="policy-subsection">
+          <h3>3.4 Public Posts &amp; Feed</h3>
+          <ul>
+            <li>
+              Listings, reviews, and certain profile information are visible
+              to other users and, in some cases, to the public &mdash; see our
+              Privacy Policy for details on what&rsquo;s public versus
+              private.
+            </li>
+            <li>
+              Order-related messages between a neighbor and a helper are
+              private between the two of you and our staff, and are not shown
+              in any public feed or listing.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section className="policy-section">
+        <h2>4. Termination</h2>
+
+        <div className="policy-subsection">
+          <h3>4.1 Termination &amp; Account Deletion</h3>
           <ul>
             <li>
               Blyth may suspend, restrict, or terminate an account if we
@@ -287,7 +391,7 @@ export default function TermsOfServicePage() {
         </div>
 
         <div className="policy-subsection">
-          <h3>3.2 Changes to These Terms</h3>
+          <h3>4.2 Changes to These Terms</h3>
           <ul>
             <li>
               We may update these Terms from time to time. When we make material
@@ -300,10 +404,112 @@ export default function TermsOfServicePage() {
             </li>
           </ul>
         </div>
+
+        <div className="policy-subsection">
+          <h3>4.3 What Survives</h3>
+          <ul>
+            <li>
+              Sections 2.4 (Disputes), 3 (Content You Post), 5 (Disclaimers
+              &amp; Limitation of Liability), 6 (Indemnification), 7
+              (Governing Law &amp; Disputes), and any other provision that by
+              its nature should survive, remain in effect after your account
+              is terminated or deleted.
+            </li>
+          </ul>
+        </div>
       </section>
 
       <section className="policy-section">
-        <h2>4. Contact Us</h2>
+        <h2>5. Disclaimers &amp; Limitation of Liability</h2>
+        <ul>
+          <li>
+            Blyth is provided &ldquo;as is&rdquo; and &ldquo;as
+            available,&rdquo; without warranties of any kind, express or
+            implied, including any warranty of merchantability, fitness for a
+            particular purpose, or non-infringement.
+          </li>
+          <li>
+            We don&rsquo;t guarantee that the platform will be uninterrupted,
+            error-free, or secure, or that any listing, review, or user is
+            accurate, safe, or legal. Blyth is not a party to transactions
+            between neighbors and helpers and is not responsible for the
+            conduct, acts, or omissions of any user, on or off the platform.
+          </li>
+          <li>
+            To the fullest extent permitted by law, Blyth and its officers,
+            employees, and agents will not be liable for any indirect,
+            incidental, special, consequential, or punitive damages, or for
+            any loss of profits, data, or goodwill, arising from your use of
+            the platform.
+          </li>
+          <li>
+            To the fullest extent permitted by law, our total liability to
+            you for any claim arising from these Terms or your use of Blyth
+            will not exceed the greater of $100 or the amount of fees you
+            paid to Blyth in the 12 months before the claim arose.
+          </li>
+          <li>
+            Some jurisdictions don&rsquo;t allow the exclusion or limitation
+            of certain damages or warranties, so some of the above
+            limitations may not apply to you.
+          </li>
+        </ul>
+      </section>
+
+      <section className="policy-section">
+        <h2>6. Indemnification</h2>
+        <p>
+          You agree to defend, indemnify, and hold harmless Blyth and its
+          officers, employees, and agents from any claim, damage, loss, or
+          expense (including reasonable attorneys&rsquo; fees) arising from
+          your use of the platform, your content, your violation of these
+          Terms, or your violation of any right of another person or entity.
+        </p>
+      </section>
+
+      <section className="policy-section">
+        <h2>7. Governing Law &amp; Disputes</h2>
+        <ul>
+          <li>
+            These Terms are governed by the laws of the State of Maryland,
+            without regard to its conflict-of-law principles.
+          </li>
+          <li>
+            Any dispute arising from these Terms or your use of Blyth that
+            isn&rsquo;t resolved through our in-app dispute process (Section
+            2.4) will be subject to the exclusive jurisdiction of the state
+            and federal courts located in Maryland, and you consent to that
+            jurisdiction and venue.
+          </li>
+        </ul>
+      </section>
+
+      <section className="policy-section">
+        <h2>8. App Stores</h2>
+        <ul>
+          <li>
+            If you downloaded Blyth from the Apple App Store or Google Play,
+            you&rsquo;re also bound by that store&rsquo;s own terms of
+            service, in addition to these Terms. Where there&rsquo;s a
+            conflict between these Terms and a store&rsquo;s terms
+            specifically about the use of software from that store, the
+            store&rsquo;s terms control for that issue.
+          </li>
+          <li>
+            Each app store is a third-party beneficiary of these Terms and
+            may enforce them against you, but is not responsible for
+            providing support or maintenance for Blyth, and is not
+            responsible for addressing any claim relating to the app.
+          </li>
+        </ul>
+      </section>
+
+      <section className="policy-section">
+        <h2>9. Company Information &amp; Contact</h2>
+        <p>
+          Blyth is operated by [COMPANY NAME], LLC, a Maryland limited
+          liability company, located at [COMPANY ADDRESS].
+        </p>
         <p>
           Questions about these Terms, an order, or a dispute? Reach us at
           support[at]blythapp.com, or use the Report option or an order&rsquo;s

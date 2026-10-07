@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { getTodaysVerse } from "@/lib/dailyVerses";
 
 const SECONDARY_LINKS = [
   { label: "Home", href: "/" },
@@ -11,6 +12,8 @@ const SECONDARY_LINKS = [
 ];
 
 export default function Footer() {
+  const verse = getTodaysVerse();
+
   return (
     <footer className="footer">
       <div className="container">
@@ -20,8 +23,9 @@ export default function Footer() {
               <Image
                 src="/images/logo-full-trim.png"
                 alt="Blyth"
-                width={666}
+                width={690}
                 height={240}
+                draggable={false}
                 className="brand-logo-full"
               />
             </Link>
@@ -78,6 +82,11 @@ export default function Footer() {
         <hr className="footer-rule" />
 
         <div className="footer-bottom">
+          {/* A different reference each calendar day (UTC-based, so it's
+              the same one for every visitor that day — see
+              getTodaysVerse). Just the reference, not the verse text
+              itself. */}
+          <p className="footer-verse-ref">{verse.reference}</p>
           <p className="footer-copyright">
             Copyright &copy;2026 Blyth. All rights reserved.
           </p>

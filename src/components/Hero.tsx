@@ -71,8 +71,9 @@ export default function Hero() {
               <Image
                 src="/images/logo-full.png"
                 alt="Blyth"
-                width={744}
-                height={425}
+                width={770}
+                height={320}
+                draggable={false}
                 className="hero-logo-full"
                 aria-hidden="true"
               />

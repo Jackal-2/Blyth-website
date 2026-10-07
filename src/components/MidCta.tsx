@@ -3,16 +3,24 @@
 import { Fade } from "react-awesome-reveal";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
-// Illustrative helper avatars (initials on solid color) — not tied to
-// specific named people, since no real helper photos are wired in yet.
-// Replaces the old black dome-shaped Blyth wordmark badge, which was
-// just a brand mark and didn't tie back to the heading next to it.
-const AVATARS = [
-  { initials: "JM", tone: "accent" },
-  { initials: "AK", tone: "teal" },
-  { initials: "RS", tone: "accent-light" },
-  { initials: "TL", tone: "teal-dark" },
-  { initials: "CB", tone: "accent" },
+// A radar-style "near you" visual — helper markers orbiting a center pin
+// at varying distances. Replaces the old avatar stack / dome-shaped
+// wordmark badge, which didn't tie back to the "trusted helpers near
+// you" copy next to it. Orbit speed/direction differ per pin so the
+// motion reads as organic rather than mechanical; actual orbit motion
+// is handled in CSS (see .mid-cta-orbit in globals.css) and is skipped
+// entirely under prefers-reduced-motion.
+const PINS = [
+  // Sits right on the innermost ring — a shorter radius means a shorter
+  // orbit, so it also gets the fastest duration (real orbital motion:
+  // closer in, faster around), which makes the ring itself read as
+  // "occupied" instead of just decorative.
+  { initials: "SN", tone: "teal", top: "41%", left: "66%", duration: "16s" },
+  { initials: "JM", tone: "accent", top: "10%", left: "58%", duration: "22s" },
+  { initials: "AK", tone: "teal", top: "35%", left: "88%", duration: "28s", reverse: true },
+  { initials: "RS", tone: "accent-light", top: "72%", left: "80%", duration: "25s" },
+  { initials: "TL", tone: "teal-dark", top: "78%", left: "30%", duration: "30s", reverse: true },
+  { initials: "CB", tone: "accent", top: "28%", left: "8%", duration: "24s" },
 ];
 
 export default function MidCta() {
@@ -32,23 +40,27 @@ export default function MidCta() {
         </Fade>
 
         <Fade triggerOnce={false} fraction={0.2} duration={duration} delay={reducedMotion ? 0 : 150}>
-          <div className="mid-cta-avatars">
-            <div className="mid-cta-avatar-stack">
-              {AVATARS.map((a, i) => (
+          <div className="mid-cta-radar" aria-hidden="true">
+            <div className="mid-cta-radar-ring mid-cta-radar-ring--1" />
+            <div className="mid-cta-radar-ring mid-cta-radar-ring--2" />
+            <div className="mid-cta-radar-ring mid-cta-radar-ring--3" />
+            <span className="mid-cta-radar-dist mid-cta-radar-dist--1">1.2 mi</span>
+            <span className="mid-cta-radar-dist mid-cta-radar-dist--2">0.4 mi</span>
+            <div className="mid-cta-radar-center" />
+            {PINS.map((p) => (
+              <div
+                key={p.initials}
+                className={`mid-cta-orbit${p.reverse ? " mid-cta-orbit--reverse" : ""}`}
+                style={{ animationDuration: p.duration }}
+              >
                 <span
-                  key={a.initials}
-                  className={`mid-cta-avatar mid-cta-avatar--${a.tone}`}
-                  style={{ zIndex: AVATARS.length - i }}
-                  aria-hidden="true"
+                  className={`mid-cta-pin mid-cta-pin--${p.tone}`}
+                  style={{ top: p.top, left: p.left, animationDuration: p.duration }}
                 >
-                  {a.initials}
+                  {p.initials}
                 </span>
-              ))}
-              <span className="mid-cta-avatar mid-cta-avatar--more" aria-hidden="true">
-                +
-              </span>
-            </div>
-            <p className="mid-cta-avatars-caption">Real helpers, already nearby</p>
+              </div>
+            ))}
           </div>
         </Fade>
       </div>

@@ -81,9 +81,10 @@ export default function Navbar() {
           <Image
             src="/images/logo-full-trim.png"
             alt="Blyth"
-            width={666}
+            width={690}
             height={240}
             priority
+            draggable={false}
             className="brand-logo-full"
           />
         </Link>
