@@ -7,7 +7,6 @@ export interface LegalDocument {
   updatedAt: string;
 }
 
-// Server-only; set API_BASE_URL in the deploy environment.
 const API_BASE = process.env.API_BASE_URL ?? "http://localhost:4000/api";
 
 export async function fetchLegalDocument(type: LegalDocumentType): Promise<LegalDocument | null> {

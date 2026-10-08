@@ -1,12 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { ShareQrCode } from "../ShareQrCode";
 
-// ShareQrCode is an async Server Component (no "use client") — Next.js
-// calls it directly as a plain async function and awaits the JSX it
-// returns; react-dom/server's renderToStaticMarkup doesn't support async
-// function components, so this exercises it the same way Next.js actually
-// does: call it directly and inspect the returned element tree, rather than
-// routing it through a renderer that doesn't support this component shape.
 describe("ShareQrCode", () => {
   it("renders the QR SVG and caption for the given URL", async () => {
     const element = await ShareQrCode({ url: "https://blythapp.com/listings/abcdefghij0123456789" });

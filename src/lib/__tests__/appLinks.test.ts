@@ -1,10 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-// appLinks.ts reads its env vars at module load time (same reasoning as
-// media.ts/urlSafety.ts elsewhere in this codebase) — each scenario needs
-// vi.resetModules() plus a fresh dynamic import, not a shared top-level
-// import.
-
 const ENV_KEYS = [
   "NEXT_PUBLIC_SITE_URL",
   "NEXT_PUBLIC_APP_SCHEME",
@@ -58,9 +53,6 @@ describe("webUrlFor", () => {
 
 describe("appLinksFor", () => {
   it("uses the app's real singular route names, not the website's plural ones", async () => {
-    // Blyth-frontend/app/listing/[id].tsx and app/provider/[id].tsx are
-    // singular and "provider" (not "helper") — a bug here would send every
-    // tap on the app link to a route that doesn't exist.
     for (const k of ENV_KEYS) delete process.env[k];
     const { appLinksFor } = await import("../appLinks");
     expect(appLinksFor("listing", "abc123").ios).toBe("blyth://listing/abc123");
@@ -118,12 +110,6 @@ describe("STORE_URLS", () => {
   });
 });
 
-// ANDROID_PACKAGE, IOS_BUNDLE_ID and ASSOCIATED_PATH_PATTERNS are consumed
-// by the .well-known/apple-app-site-association and .well-known/
-// assetlinks.json route handlers (Universal Links / App Links domain
-// verification) — exported from here specifically so those files can't
-// silently drift from the identifiers appLinksFor already uses to build
-// the blyth:// / intent:// links themselves.
 describe("ANDROID_PACKAGE / IOS_BUNDLE_ID — exported for the .well-known route handlers", () => {
   it("default to the real app.json values", async () => {
     for (const k of ENV_KEYS) delete process.env[k];

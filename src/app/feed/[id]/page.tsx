@@ -9,9 +9,6 @@ import { fetchPublicPost } from "@/lib/posts";
 
 type Params = Promise<{ id: string }>;
 
-// Public share-card page for the app's "Share Post" action on a Feed post;
-// drives link-preview unfurls. Mirrors helpers/[id]/page.tsx and
-// listings/[id]/page.tsx.
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const { id } = await params;
   const post = await fetchPublicPost(id);
@@ -40,12 +37,7 @@ export default async function FeedPostPage({ params }: { params: Params }) {
   if (!post) notFound();
 
   const initial = post.author.fullName.trim().charAt(0).toUpperCase() || "?";
-  // No app/feed/[id] screen yet (see docs/share-links-and-deep-linking.md,
-  // Part 5) — opens the post's author profile instead, same as before.
   const app = appLinksFor("helper", post.author.id);
-  // The QR code encodes this page's OWN web URL (not the app-open link
-  // above, which points at the author's profile as a workaround) — scanning
-  // it should land back on this exact share page, same as any other visit.
   const shareUrl = webUrlFor("feed", post.id);
 
   return (

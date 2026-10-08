@@ -1,6 +1,5 @@
 import type { ReactNode } from "react";
 
-// Hand-rolled renderer for a small markdown subset: ##/### headings, "- " lists, paragraphs.
 type Block = { kind: "h2" | "h3" | "p"; text: string } | { kind: "ul"; items: string[] };
 
 function parseBlocks(body: string): Block[] {

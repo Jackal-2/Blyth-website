@@ -6,9 +6,6 @@ import { getImageDimensions, IMAGE_CONTENT_TYPE } from "../imageDimensions";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-// Minimal, header-only buffers — real signature/marker bytes, no actual
-// pixel data. Enough to exercise the header-sniffing logic without an image
-// library. Mirrors the technique already used in urlSafety.test.ts.
 
 function makePngBuffer(width: number, height: number): Buffer {
   const buf = Buffer.alloc(24);
@@ -20,7 +17,6 @@ function makePngBuffer(width: number, height: number): Buffer {
   return buf;
 }
 
-// SOI, then a single SOF0 (baseline) marker segment carrying real dimensions.
 function makeBaselineJpegBuffer(width: number, height: number): Buffer {
   const buf = Buffer.alloc(18);
   buf.set([0xff, 0xd8], 0); // SOI
@@ -32,20 +28,13 @@ function makeBaselineJpegBuffer(width: number, height: number): Buffer {
   return buf;
 }
 
-// SOI, a real DHT segment (0xC4 — same 0xC0-0xCF range as a frame marker,
-// but not one), THEN a SOF2 (progressive DCT, 0xC2) marker carrying the real
-// dimensions. This is the shape a real progressive JPEG's header actually
-// has (huffman tables before the frame header) — the exact case
-// isSofMarker's 0xC4/0xC8/0xCC exclusion exists for: get this wrong and
-// either a DHT segment gets misread as a frame header, or a real SOF2 gets
-// skipped as "not a real SOFn".
 function makeProgressiveJpegBuffer(width: number, height: number): Buffer {
   const buf = Buffer.alloc(18);
   buf.set([0xff, 0xd8], 0); // SOI
-  buf.set([0xff, 0xc4], 2); // DHT — must NOT be read as a frame marker
-  buf.writeUInt16BE(5, 4); // DHT segment length (2 length bytes + 3 payload bytes)
+  buf.set([0xff, 0xc4], 2);
+  buf.writeUInt16BE(5, 4);
   buf.set([0xaa, 0xbb, 0xcc], 6); // arbitrary DHT payload
-  buf.set([0xff, 0xc2], 9); // SOF2 — the real (progressive) frame marker
+  buf.set([0xff, 0xc2], 9);
   buf.writeUInt16BE(11, 11); // segment length
   buf.writeUInt8(8, 13); // precision
   buf.writeUInt16BE(height, 14);
@@ -53,7 +42,6 @@ function makeProgressiveJpegBuffer(width: number, height: number): Buffer {
   return buf;
 }
 
-// Minimal VP8X (extended) WebP: RIFF/WEBP + VP8X chunk with a real canvas size.
 function makeWebpVp8xBuffer(width: number, height: number): Buffer {
   const buf = Buffer.alloc(30);
   buf.write("RIFF", 0, "ascii");

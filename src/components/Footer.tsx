@@ -82,10 +82,6 @@ export default function Footer() {
         <hr className="footer-rule" />
 
         <div className="footer-bottom">
-          {/* A different reference each calendar day (UTC-based, so it's
-              the same one for every visitor that day — see
-              getTodaysVerse). Just the reference, not the verse text
-              itself. */}
           <p className="footer-verse-ref">{verse.reference}</p>
           <p className="footer-copyright">
             Copyright &copy;2026 Blyth. All rights reserved.

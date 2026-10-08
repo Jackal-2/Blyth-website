@@ -19,12 +19,6 @@ function isActive(pathname: string, href: string, scrolledToFeatures: boolean) {
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
-// Share-card pages (a listing/helper's public link) are meant to be
-// distraction-free — no way back into the marketing site, no CTA competing
-// with "Open in the app" further down the page — so they get logo-only,
-// nothing else. Every other route keeps the full navbar. There's no bare
-// /listings or /helpers index route (only the [id] detail pages), so this
-// prefix check can't accidentally catch a page that should keep full nav.
 function isShareCardPath(pathname: string): boolean {
   return pathname.startsWith("/listings/") || pathname.startsWith("/helpers/");
 }

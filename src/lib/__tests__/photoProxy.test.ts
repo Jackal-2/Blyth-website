@@ -28,10 +28,6 @@ describe("toProxiedImageUrl", () => {
 });
 
 describe("toProxiedImageUrl — own-media bypass (media.ts)", () => {
-  // media.ts (isOwnMediaUrl) reads MEDIA_BASE_URL at module load time — same
-  // reasoning as media.test.ts: each scenario needs vi.resetModules() plus a
-  // fresh dynamic import of photoProxy.ts (which imports media.ts) rather
-  // than the shared top-level import above.
   const ORIGINAL = process.env.MEDIA_BASE_URL;
 
   beforeEach(() => {

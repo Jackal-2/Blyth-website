@@ -3,16 +3,9 @@ import path from "node:path";
 
 export { fetchImageAsDataUri } from "./urlSafety";
 
-// Shared pieces for the site's opengraph-image.tsx routes (listing + helper
-// profile share cards).
 
 export const OG_SIZE = { width: 1200, height: 630 };
 export const OG_CONTENT_TYPE = "image/png";
-// Photos are dynamic per listing/helper, but don't need re-rendering on every
-// single request — each render does a DB read, two font fetches, and a PNG
-// encode. Revalidate hourly; a profile/listing edit just waits up to this
-// long to show a new share-card photo, which is fine for a link-preview
-// image.
 export const OG_REVALIDATE_SECONDS = 3600;
 
 export const OG_COLORS = {
@@ -23,24 +16,6 @@ export const OG_COLORS = {
   accentLight: "#f2ac6b",
 };
 
-// Self-hosted so a render never depends on Google Fonts being reachable —
-// previously this did two live fetches (a CSS request, then the font file
-// itself) on every single render. These .woff files are the same Plus
-// Jakarta Sans build @fontsource/plus-jakarta-sans (already a dependency —
-// see package.json) ships, copied once into public/fonts so they're read
-// from disk instead of over the network. Satori (what next/og renders
-// through) supports TTF/OTF/WOFF, not WOFF2 — hence .woff here, not the
-// smaller .woff2 files Google would otherwise prefer.
-//
-// Covers the Latin + Latin Extended-A ranges (ordinary English/Western-
-// European text, including accented characters). The old per-request
-// approach asked Google to dynamically subset to whatever text was actually
-// being rendered, which covered any script the font itself supports; a
-// listing title or helper name in a script outside those two ranges
-// (Cyrillic, CJK, etc.) will render with Satori's own fallback handling
-// instead of this font. Flagging this as a deliberate tradeoff, not an
-// oversight — broader coverage is available (the same package ships
-// cyrillic/cyrillic-ext/vietnamese/greek subsets) if it turns out to matter.
 const FONT_DIR = path.join(process.cwd(), "public/fonts/plus-jakarta-sans");
 function loadLocalFont(fileName: string): Buffer {
   return readFileSync(path.join(FONT_DIR, fileName));
@@ -83,8 +58,6 @@ export function OgScrim() {
   );
 }
 
-// Used when there's no real photo to fill the frame with (none set, or it
-// failed the safety check / fetch in urlSafety.ts).
 export function OgFallbackGradient({ variant }: { variant: "listing" | "helper" }) {
   const gradient =
     variant === "listing"

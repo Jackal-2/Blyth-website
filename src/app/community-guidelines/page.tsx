@@ -8,7 +8,6 @@ export const metadata: Metadata = {
     "The rules that keep Blyth a safe, trustworthy marketplace for neighbors and helpers.",
 };
 
-// Static content — the dynamic /legal/guidelines fetch was reverted.
 export default function CommunityGuidelinesPage() {
   return (
     <PolicyLayout title="Community guidelines" updated="Oct 1, 2026">

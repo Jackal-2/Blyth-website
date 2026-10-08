@@ -2,7 +2,6 @@ import { Children, type ReactNode } from "react";
 
 const STEP_MS = 90;
 
-// Fades content in on mount (CSS animation); respects prefers-reduced-motion via globals.css.
 export default function PageReveal({
   children,
   cascade = false,

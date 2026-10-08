@@ -12,12 +12,6 @@ import {
 } from "@/lib/og-shared";
 
 export const alt = "Blyth helper profile";
-// These three route-segment-config exports must be statically analyzable
-// literals — Next.js can't resolve an imported value here, and silently
-// drops the config instead of erroring on older/less strict builds (Next
-// 16 + Turbopack now hard-fails the build instead). Keep these in sync by
-// hand with OG_SIZE/OG_CONTENT_TYPE/OG_REVALIDATE_SECONDS in og-shared.tsx,
-// which is still the source of truth for every other use of these values.
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 export const revalidate = 3600;
@@ -38,16 +32,10 @@ export default async function Image({ params }: { params: Params }) {
   const reviewsLabel =
     provider.reviewCount > 0 ? `${provider.reviewCount} review${provider.reviewCount === 1 ? "" : "s"}` : null;
   const initial = provider.fullName.trim().charAt(0).toUpperCase() || "?";
-  // Cover/avatar URLs are user-supplied and get fetched by our own server to
-  // render into this image, so each is resolved through the SSRF-safe fetch
-  // in og-shared.tsx — fetched (and cached in this one request) at most once
-  // each, since the avatar can also be reused as the background.
   const [avatarDataUri, coverDataUri] = await Promise.all([
     provider.avatarUrl ? fetchImageAsDataUri(provider.avatarUrl) : Promise.resolve(null),
     provider.coverImageUrl ? fetchImageAsDataUri(provider.coverImageUrl) : Promise.resolve(null),
   ]);
-  // No (safe) cover photo? Fall back to their avatar full-bleed rather than a
-  // blank card; no (safe) avatar either drops to the flat gradient.
   const backgroundImage = coverDataUri ?? avatarDataUri ?? null;
 
   const fonts = loadOgFonts();

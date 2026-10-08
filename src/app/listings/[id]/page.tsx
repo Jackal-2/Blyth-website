@@ -9,8 +9,6 @@ import { fetchPublicListing } from "@/lib/listings";
 
 type Params = Promise<{ id: string }>;
 
-// Public share-card page for the app's "Share" action on a listing; drives
-// link-preview unfurls. Mirrors helpers/[id]/page.tsx.
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const { id } = await params;
   const listing = await fetchPublicListing(id);

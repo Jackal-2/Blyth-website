@@ -9,7 +9,6 @@ import { fetchPublicProvider } from "@/lib/providers";
 
 type Params = Promise<{ id: string }>;
 
-// Public share-card page for the app's "Share My Profile" link; drives link-preview unfurls.
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const { id } = await params;
   const provider = await fetchPublicProvider(id);
@@ -35,10 +34,6 @@ function formatMemberSince(iso: string): string {
   return new Date(iso).toLocaleDateString("en-US", { month: "long", year: "numeric" });
 }
 
-// Deliberately just identity + reviews + "open the app" — no Listings grid.
-// This page's whole job is the share-link fallback (see
-// docs/share-links-and-deep-linking.md); anyone who wants to browse this
-// helper's listings has the app for that.
 export default async function HelperProfilePage({ params }: { params: Params }) {
   const { id } = await params;
   const provider = await fetchPublicProvider(id);

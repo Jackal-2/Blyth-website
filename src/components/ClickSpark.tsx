@@ -170,7 +170,6 @@ const ClickSpark = ({
           position: "absolute",
           top: 0,
           left: 0,
-          // Paints above buttons/links; pointerEvents 'none' keeps clicks passing through.
           zIndex: 9999,
           pointerEvents: "none",
         }}
