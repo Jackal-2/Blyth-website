@@ -63,19 +63,6 @@ export default async function HelperProfilePage({ params }: { params: Params }) 
             <div className="helper-identity">
               <h1 className="helper-name">
                 {provider.fullName}
-                {provider.businessVerified && (
-                  <span className="verified-tick" title="Verified business" aria-label="Verified business">
-                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                      <path
-                        d="M5 13l4 4L19 7"
-                        stroke="currentColor"
-                        strokeWidth="3"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </span>
-                )}
               </h1>
               <p className="helper-meta">
                 {provider.reviewCount > 0 ? (

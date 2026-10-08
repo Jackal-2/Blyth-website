@@ -138,12 +138,6 @@ export default async function Image({ params }: { params: Params }) {
                     <span style={{ display: "flex" }}>{reviewsLabel}</span>
                   </>
                 )}
-                {provider.businessVerified && (
-                  <>
-                    <span style={{ display: "flex" }}>·</span>
-                    <span style={{ display: "flex" }}>Verified business</span>
-                  </>
-                )}
               </div>
             </div>
           </div>
