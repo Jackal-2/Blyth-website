@@ -6,10 +6,6 @@ describe("ProxiedPhoto", () => {
   it("renders an <img> whose src is the proxied URL, never the raw one", () => {
     const html = renderToStaticMarkup(<ProxiedPhoto url="https://cdn.example.com/photo.jpg" />);
     expect(html).toContain(`src="/api/photo?u=${encodeURIComponent("https://cdn.example.com/photo.jpg")}"`);
-    // The encoded proxy URL still spells out the original host in its query
-    // string (only the URL-structural characters get percent-encoded, not
-    // the letters) — what actually matters is that nothing points a
-    // browser AT that host directly, i.e. no bare src/href to it.
     expect(html).not.toContain('="https://cdn.example.com');
   });
 

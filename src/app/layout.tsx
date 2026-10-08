@@ -9,8 +9,6 @@ import SiteChrome from "@/components/SiteChrome";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  // Lets relative openGraph URLs (e.g. the auto-detected opengraph-image.tsx
-  // routes) resolve to an absolute one for link-preview crawlers.
   metadataBase: new URL("https://blythapp.com"),
   title: "Blyth — Find trusted help in your neighborhood",
   description:
@@ -18,13 +16,11 @@ export const metadata: Metadata = {
 };
 
 export default async function RootLayout({ children }: LayoutProps<"/">) {
-  // Nonce set by src/middleware.ts (production only) for CSP.
   const nonce = (await headers()).get("x-nonce") ?? undefined;
 
   return (
     <html lang="en">
       <head>
-        {/* Reset scroll on fresh loads, but don't fight a real #hash deep link. */}
         <script
           nonce={nonce}
           dangerouslySetInnerHTML={{

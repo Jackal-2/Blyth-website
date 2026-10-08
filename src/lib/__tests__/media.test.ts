@@ -1,9 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-// media.ts reads MEDIA_BASE_URL at module load time (same reasoning as
-// urlSafety.ts/objectStorage.ts elsewhere in this codebase) — each scenario
-// needs vi.resetModules() plus a fresh dynamic import, not a shared
-// top-level import.
 
 const ORIGINAL = process.env.MEDIA_BASE_URL;
 
@@ -54,8 +50,6 @@ describe("isOwnMediaUrl", () => {
     process.env.MEDIA_BASE_URL = "https://cdn.example.com/my-bucket/";
     const { isOwnMediaUrl } = await import("../media");
     expect(isOwnMediaUrl("https://cdn.example.com/my-bucket/listings/abc.jpg")).toBe(true);
-    // Same host, but outside the configured prefix — e.g. a different
-    // tenant's bucket on a shared provider domain.
     expect(isOwnMediaUrl("https://cdn.example.com/someone-elses-bucket/x.jpg")).toBe(false);
   });
 

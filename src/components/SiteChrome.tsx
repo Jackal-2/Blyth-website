@@ -17,7 +17,6 @@ export default function SiteChrome({ children }: { children: ReactNode }) {
     </>
   );
 
-  // Decorative motion — skipped for prefers-reduced-motion.
   if (reducedMotion) {
     return content;
   }

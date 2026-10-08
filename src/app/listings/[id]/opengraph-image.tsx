@@ -12,18 +12,10 @@ import {
 } from "@/lib/og-shared";
 
 export const alt = "Blyth listing";
-// These three route-segment-config exports must be statically analyzable
-// literals — Next.js can't resolve an imported value here, and silently
-// drops the config instead of erroring on older/less strict builds (Next
-// 16 + Turbopack now hard-fails the build instead). Keep these in sync by
-// hand with OG_SIZE/OG_CONTENT_TYPE/OG_REVALIDATE_SECONDS in og-shared.tsx,
-// which is still the source of truth for every other use of these values.
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 export const revalidate = 3600;
 
-// Same formatter as the page itself (listings/[id]/page.tsx) — kept local
-// since it's two lines and the two files don't otherwise share a type import.
 function formatPrice(price: number, listing: { type: "item" | "service"; isOneTimeService: boolean }): string {
   const amount = `$${price % 1 === 0 ? price.toFixed(0) : price.toFixed(2)}`;
   return listing.type === "item" || listing.isOneTimeService ? amount : `${amount}/hr`;

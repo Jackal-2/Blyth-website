@@ -8,12 +8,6 @@ import {
 } from "../urlSafety";
 import { getImageDimensions, IMAGE_CONTENT_TYPE } from "../imageDimensions";
 
-// Spins up a real local server for one test and tears it down. Its address is
-// deliberately loopback, which resolveSafeIp/fetchSafely reject by design —
-// so these helpers are used to test fetchViaPinnedConnection directly (the
-// HTTP mechanics, given an address already cleared) rather than going through
-// the full destination-checking fetchSafely. Mirrors
-// Blyth-Backend/src/utils/__tests__/urlSafety.test.ts.
 async function withServer(
   handler: http.RequestListener,
   run: (baseUrl: URL, resolved: { ip: string; family: 4 }) => Promise<void>,
@@ -56,7 +50,7 @@ describe("isUrlHostSafeAtSaveTime", () => {
 
   it("rejects IPv6 loopback, link-local, and unique-local literals", () => {
     expect(isUrlHostSafeAtSaveTime("http://[::1]/x.png")).toBe(false);
-    expect(isUrlHostSafeAtSaveTime("http://[fe90::1]/x.png")).toBe(false); // within fe80::/10, not just the literal "fe80:" prefix
+    expect(isUrlHostSafeAtSaveTime("http://[fe90::1]/x.png")).toBe(false);
     expect(isUrlHostSafeAtSaveTime("http://[fd12::1]/x.png")).toBe(false);
   });
 
@@ -115,13 +109,13 @@ describe("fetchViaPinnedConnection — HTTP mechanics, given an already-cleared 
       async (baseUrl, resolved) => {
         const result = await fetchViaPinnedConnection(baseUrl, resolved);
         expect(result).toBeNull();
-        expect(requestCount).toBe(1); // no follow-up request to the Location target
+        expect(requestCount).toBe(1);
       },
     );
   });
 
   it("returns the body and content-type on a real 200 response", async () => {
-    const pngBytes = Buffer.from("89504e470d0a1a0a", "hex"); // just the PNG signature — enough for this test
+    const pngBytes = Buffer.from("89504e470d0a1a0a", "hex");
     await withServer(
       (_req, res) => {
         res.writeHead(200, { "Content-Type": "image/png" });
@@ -166,8 +160,6 @@ describe("fetchViaPinnedConnection — HTTP mechanics, given an already-cleared 
   });
 });
 
-// SOI, then a single SOF0 (baseline) marker segment carrying real
-// dimensions — mirrors imageDimensions.test.ts's helper of the same shape.
 function makeJpegBuffer(width: number, height: number): Buffer {
   const buf = Buffer.alloc(18);
   buf.set([0xff, 0xd8], 0); // SOI
@@ -180,38 +172,26 @@ function makeJpegBuffer(width: number, height: number): Buffer {
 }
 
 describe("fetchImageSafely's format check — the real header bytes win over the upstream's Content-Type claim", () => {
-  // fetchSafely (and so fetchImageSafely) rejects loopback destinations by
-  // design (see "fetchSafely — destination checking" above), so there's no
-  // way to drive fetchImageSafely itself end-to-end against the local test
-  // server. This exercises the same two pieces it composes —
-  // fetchViaPinnedConnection's Content-Type allowlist, then
-  // getImageDimensions' header-byte sniff — directly, proving the format a
-  // caller like the photo proxy route ends up with is the one verified from
-  // the bytes, not whatever Content-Type header the server sent.
   it("reports the real (JPEG) format from the body even though the server declared Content-Type: image/png", async () => {
     const jpegBytes = makeJpegBuffer(120, 90);
     await withServer(
       (_req, res) => {
-        res.writeHead(200, { "Content-Type": "image/png" }); // the lie
+        res.writeHead(200, { "Content-Type": "image/png" });
         res.end(jpegBytes);
       },
       async (baseUrl, resolved) => {
         const result = await fetchViaPinnedConnection(baseUrl, resolved, {
           allowedContentTypes: new Set(["image/png", "image/jpeg", "image/jpg", "image/webp"]),
         });
-        expect(result?.contentType).toBe("image/png"); // still the server's claim
+        expect(result?.contentType).toBe("image/png");
         const dims = getImageDimensions(result!.body);
-        expect(dims?.format).toBe("jpeg"); // the real, verified format
+        expect(dims?.format).toBe("jpeg");
         expect(IMAGE_CONTENT_TYPE[dims!.format]).toBe("image/jpeg");
       },
     );
   });
 });
 
-// Constructs a minimal, header-only PNG buffer with a specific claimed
-// width/height — real signature + IHDR bytes, no actual pixel data. Enough
-// to exercise getImageDimensions' header-sniffing without needing an image
-// library, matching the technique the plain PNG-signature buffer above uses.
 function makePngBuffer(width: number, height: number): Buffer {
   const buf = Buffer.alloc(24);
   buf.set([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a], 0);
@@ -222,14 +202,6 @@ function makePngBuffer(width: number, height: number): Buffer {
   return buf;
 }
 
-// These three exercise the actual attack the header-byte check exists to
-// stop: a malicious or compromised upstream server that LIES about its
-// Content-Type. Each simulates the server response fetchViaPinnedConnection
-// would receive, then runs the body through getImageDimensions exactly as
-// fetchImageSafely does — same two-gate composition as the describe block
-// above (content-type allowlist, then real header-byte sniff), since
-// fetchImageSafely itself can't be driven end-to-end here (loopback is
-// rejected by design — see "fetchSafely — destination checking").
 describe("fetchImageSafely's pipeline against hostile bytes — only a real, recognized image survives both gates", () => {
   it("rejects an SVG containing a <script>, even when the server claims it's a PNG", async () => {
     const maliciousSvg = Buffer.from(
@@ -238,17 +210,13 @@ describe("fetchImageSafely's pipeline against hostile bytes — only a real, rec
     );
     await withServer(
       (_req, res) => {
-        res.writeHead(200, { "Content-Type": "image/png" }); // the lie — real content-type would be image/svg+xml, itself not in ALLOWED_IMAGE_TYPES either
+        res.writeHead(200, { "Content-Type": "image/png" });
         res.end(maliciousSvg);
       },
       async (baseUrl, resolved) => {
         const result = await fetchViaPinnedConnection(baseUrl, resolved, {
           allowedContentTypes: new Set(["image/png", "image/jpeg", "image/jpg", "image/webp"]),
         });
-        // Passes the content-type gate (the server's claim was allowed) —
-        // this is the case that matters: nothing about SVG markup matches
-        // any of the three real image signatures, so the header-byte sniff
-        // is what actually stops it.
         expect(result).not.toBeNull();
         expect(getImageDimensions(result!.body)).toBeNull();
       },
@@ -259,7 +227,7 @@ describe("fetchImageSafely's pipeline against hostile bytes — only a real, rec
     const htmlPayload = Buffer.from("<html><body><script>alert(document.domain)</script></body></html>", "utf8");
     await withServer(
       (_req, res) => {
-        res.writeHead(200, { "Content-Type": "image/png" }); // e.g. a file literally named photo.png that isn't one
+        res.writeHead(200, { "Content-Type": "image/png" });
         res.end(htmlPayload);
       },
       async (baseUrl, resolved) => {
@@ -267,7 +235,7 @@ describe("fetchImageSafely's pipeline against hostile bytes — only a real, rec
           allowedContentTypes: new Set(["image/png", "image/jpeg", "image/jpg", "image/webp"]),
         });
         expect(result).not.toBeNull(); // claimed type let it through
-        expect(getImageDimensions(result!.body)).toBeNull(); // bytes don't back up the claim
+        expect(getImageDimensions(result!.body)).toBeNull();
       },
     );
   });

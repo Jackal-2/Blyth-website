@@ -6,9 +6,6 @@ function fakeRequest(headers: Record<string, string>): NextRequest {
   return { headers: new Headers(headers) } as unknown as NextRequest;
 }
 
-// Same shape as fakeRequest above, plus a nextUrl.pathname — middleware()
-// itself (not just getVisitorKey) reads that to decide which rate-limit
-// branch applies.
 function fakeRouteRequest(pathname: string, headers: Record<string, string> = {}): NextRequest {
   return { headers: new Headers(headers), nextUrl: { pathname } } as unknown as NextRequest;
 }
@@ -46,9 +43,6 @@ describe("getVisitorKey", () => {
   it("with two trusted hops, takes the second-from-last entry, not the last", () => {
     process.env.TRUST_WEBSITE_PROXY = "true";
     process.env.TRUST_WEBSITE_PROXY_HOPS = "2";
-    // client, cdn, load-balancer — load-balancer's own hop is the least
-    // trustworthy of the two proxy-appended entries; the real visitor
-    // address is what the CDN (first trusted hop) recorded.
     const req = fakeRequest({ "x-forwarded-for": "client-spoofed, cdn-saw-this-client, load-balancer-ip" });
     expect(getVisitorKey(req)).toBe("cdn-saw-this-client");
   });
@@ -82,16 +76,8 @@ describe("getVisitorKey", () => {
 
 describe("middleware — rate-limit fallback when visitors can't be told apart", () => {
   beforeEach(() => {
-    // middleware() short-circuits (no rate limit, no CSP) outside production.
-    // vi.stubEnv (not a direct process.env.NODE_ENV assignment) — NODE_ENV
-    // is typed read-only, and vi.unstubAllEnvs() below restores the real
-    // value automatically, so there's no ORIGINAL_NODE_ENV to track by hand.
     vi.stubEnv("NODE_ENV", "production");
     delete process.env.TRUST_WEBSITE_PROXY;
-    // checkVisitorRateLimit keeps its bucket Map at module scope (see
-    // visitorRateLimit.ts) — reset the module graph per test so the
-    // "shared"/per-visitor-IP buckets used below start fresh, rather than
-    // accumulating counts across tests that reuse the same key.
     vi.resetModules();
   });
 
@@ -102,8 +88,6 @@ describe("middleware — rate-limit fallback when visitors can't be told apart",
 
   it("never 429s a share page when every visitor maps to the shared bucket (no real per-visitor limit exists to enforce)", async () => {
     const { middleware } = await import("../middleware");
-    // Well past the old shared VISITOR_MAX_REQUESTS (60) — none of these
-    // should be blocked now that share pages skip the shared-bucket check.
     for (let i = 0; i < 200; i++) {
       const res = middleware(fakeRouteRequest("/listings/abc123"));
       expect(res.status).not.toBe(429);
@@ -120,8 +104,6 @@ describe("middleware — rate-limit fallback when visitors can't be told apart",
         break;
       }
     }
-    // 1200 is SHARED_PHOTO_PROXY_MAX_REQUESTS — request #1200 (0-indexed:
-    // 1200th call, index 1200) is the first one over the ceiling.
     expect(blockedAt).toBe(1200);
   });
 
@@ -136,18 +118,11 @@ describe("middleware — rate-limit fallback when visitors can't be told apart",
         break;
       }
     }
-    // VISITOR_MAX_REQUESTS is 60 — the 61st call (index 60) is the first
-    // one over the ceiling. Unchanged by this round's fix, which only
-    // touches the "shared" (can't-tell-visitors-apart) case.
     expect(blockedAt).toBe(60);
   });
 });
 
 describe("config.matcher — .well-known must bypass this middleware entirely", () => {
-  // Next.js applies `matcher` at the framework/edge level before middleware()
-  // ever runs, so this can't be exercised by calling middleware() directly —
-  // it tests the matcher pattern itself, anchored the same way Next.js
-  // anchors it against a request path.
   const matcherRegex = new RegExp(`^${config.matcher[0]}$`);
 
   it("excludes both .well-known verification paths Universal Links / App Links depend on", () => {

@@ -1,6 +1,5 @@
 import type { NextConfig } from "next";
 
-// CSP is set per-request in src/middleware.ts instead (needs a nonce); these headers are static.
 async function securityHeaders() {
   return [
     { key: 'X-Frame-Options', value: 'DENY' },
@@ -13,9 +12,6 @@ async function securityHeaders() {
 
 const nextConfig: NextConfig = {
   agentRules: false,
-  // Emits .next/standalone — a self-contained server bundle the Dockerfile copies
-  // instead of shipping full node_modules into the image. Doesn't change `next dev`
-  // or `next start` from the repo itself; only affects what `next build` also writes.
   output: 'standalone',
   async headers() {
     return [{ source: '/(.*)', headers: await securityHeaders() }];

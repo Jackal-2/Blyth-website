@@ -1,8 +1,3 @@
-// 365 KJV verses, one per day of the year (index = day-of-year, UTC, mod 365 —
-// see getTodaysVerse() below). KJV is public domain, so there's no attribution
-// or length restriction on quoting it in full. References stay short
-// ("Luke 1:1", never the book spelled out) to match the rest of the footer's
-// fine print.
 export interface DailyVerse {
   reference: string;
   text: string;
@@ -376,9 +371,6 @@ export const DAILY_VERSES: DailyVerse[] = [
   { reference: "Psalms 96:1", text: "O sing unto the LORD a new song: sing unto the LORD, all the earth." },
 ];
 
-// UTC-based day-of-year so every visitor (and the server) lands on the same
-// index for a given calendar date, regardless of local timezone — only the
-// exact instant of UTC midnight can momentarily disagree, which is fine here.
 function dayOfYearUTC(date: Date): number {
   const startOfYearUTC = Date.UTC(date.getUTCFullYear(), 0, 1);
   const todayUTC = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());

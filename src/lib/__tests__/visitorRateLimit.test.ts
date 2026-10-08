@@ -1,8 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { checkVisitorRateLimit } from "../visitorRateLimit";
 
-// The module keeps its bucket Map at module scope, so isolate each test with
-// its own key rather than resetting module state between them.
 let keySeq = 0;
 function freshKey() {
   keySeq += 1;
@@ -49,9 +47,6 @@ describe("checkVisitorRateLimit", () => {
   });
 
   it("falls back to a single shared bucket when every visitor maps to the same key", () => {
-    // This is the getVisitorKey(request) === "shared" case in middleware.ts —
-    // every caller is grouped into one bucket, which the middleware relies on
-    // as a ceiling (not a per-visitor limit) when TRUST_WEBSITE_PROXY is off.
     const sharedKey = "shared";
     let allowedCount = 0;
     for (let i = 0; i < 10; i++) {

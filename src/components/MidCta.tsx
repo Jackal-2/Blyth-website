@@ -3,25 +3,9 @@
 import { Fade } from "react-awesome-reveal";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
-// A radar-style "near you" visual — helper markers orbiting a center pin
-// at varying distances. Replaces the old avatar stack / dome-shaped
-// wordmark badge, which didn't tie back to the "trusted helpers near
-// you" copy next to it. Orbit speed/direction differ per pin so the
-// motion reads as organic rather than mechanical; actual orbit motion
-// is handled in CSS (see .mid-cta-orbit in globals.css) and is skipped
-// entirely under prefers-reduced-motion.
 const PINS = [
-  // Sits right on the innermost ring — a shorter radius means a shorter
-  // orbit, so it also gets the fastest duration (real orbital motion:
-  // closer in, faster around), which makes the ring itself read as
-  // "occupied" instead of just decorative.
   { initials: "SN", tone: "teal", top: "41%", left: "66%", duration: "16s" },
   { initials: "JM", tone: "accent", top: "10%", left: "58%", duration: "22s" },
-  // Radius nudged out from its original 88% left (which put it on
-  // almost exactly the same orbit as JM above — same invisible
-  // circle, different speeds, so the two were guaranteed to drift
-  // into each other periodically) to a clearly distinct radius while
-  // staying in the same general upper-right area.
   { initials: "AK", tone: "teal", top: "33%", left: "93%", duration: "28s", reverse: true },
   { initials: "RS", tone: "accent-light", top: "72%", left: "80%", duration: "25s" },
   { initials: "TL", tone: "teal-dark", top: "78%", left: "30%", duration: "30s", reverse: true },

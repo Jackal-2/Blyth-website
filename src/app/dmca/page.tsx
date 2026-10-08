@@ -7,7 +7,6 @@ export const metadata: Metadata = {
     "How to report copyright infringement on Blyth, and how we respond.",
 };
 
-// Static content, kept in sync by hand with Blyth-admin's Legal Documents page.
 export default function DmcaPolicyPage() {
   return (
     <PolicyLayout title="Copyright Policy" updated="Aug 27, 2026">
