@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function PrivacyPolicyPage() {
   return (
-    <PolicyLayout title="Privacy policy" updated="Oct 1, 2026">
+    <PolicyLayout title="Privacy policy" updated="Oct 9, 2026">
       <section className="policy-section">
         <h2>Welcome to Blyth</h2>
         <p>
@@ -133,8 +133,8 @@ export default function PrivacyPolicyPage() {
           <h3>With other users</h3>
           <p>
             We share the minimum information necessary between a neighbor and a
-            helper to complete an order &mdash; for example, your name and order
-            details.
+            helper to complete an order &mdash; for example, your name and
+            delivery or booking details.
           </p>
         </div>
 
@@ -146,12 +146,19 @@ export default function PrivacyPolicyPage() {
             charges, payouts, and helper bank account verification through
             Stripe Connect; an identity-verification provider, which
             processes the ID photo and selfie helpers and some neighbors
-            submit; cloud hosting and database providers, who store platform
-            data securely; a mapping and address-autocomplete provider, which
-            powers location search; and push-notification services, delivered
+            submit; cloud hosting, database, and file-storage providers, who
+            store platform data and uploaded photos securely; a mapping and
+            address-autocomplete provider, which powers location search; a
+            text-messaging provider, which delivers the verification codes we
+            text to your phone number; an email-delivery provider, which
+            sends the verification codes and order-related emails we send to
+            your email address; push-notification services, delivered
             through Apple and Google, which send notifications to your
-            device. These providers may only use your information to perform
-            the service we&rsquo;ve asked for.
+            device; and, if you choose to sign in that way, Apple or Google
+            directly, which verify your identity for &ldquo;Sign in with
+            Apple&rdquo; or &ldquo;Sign in with Google.&rdquo; These providers
+            may only use your information to perform the service
+            we&rsquo;ve asked for.
           </p>
         </div>
 

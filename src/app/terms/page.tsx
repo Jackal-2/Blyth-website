@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function TermsOfServicePage() {
   return (
-    <PolicyLayout title="Terms of service" updated="Oct 1, 2026">
+    <PolicyLayout title="Terms of service" updated="Oct 9, 2026">
       <section className="policy-section">
         <h2>Welcome to BLYTH</h2>
         <p>
@@ -507,8 +507,8 @@ export default function TermsOfServicePage() {
       <section className="policy-section">
         <h2>9. Company Information &amp; Contact</h2>
         <p>
-          Blyth is operated by [COMPANY NAME], LLC, a Maryland limited
-          liability company, located at [COMPANY ADDRESS].
+          Blyth is operated by Blyth LLC, a Maryland limited liability
+          company.
         </p>
         <p>
           Questions about these Terms, an order, or a dispute? Reach us at

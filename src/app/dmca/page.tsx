@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function DmcaPolicyPage() {
   return (
-    <PolicyLayout title="Copyright Policy" updated="Aug 27, 2026">
+    <PolicyLayout title="Copyright Policy" updated="Oct 9, 2026">
       <section className="policy-section">
         <p>
           Blyth respects the intellectual property rights of others and expects

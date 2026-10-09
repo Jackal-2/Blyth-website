@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function CommunityGuidelinesPage() {
   return (
-    <PolicyLayout title="Community guidelines" updated="Oct 1, 2026">
+    <PolicyLayout title="Community guidelines" updated="Oct 9, 2026">
       <section className="policy-section">
         <p>
           These guidelines exist to keep Blyth a safe, trustworthy place for
