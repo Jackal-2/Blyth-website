@@ -4,6 +4,7 @@ import PageReveal from "@/components/PageReveal";
 export const metadata: Metadata = {
   title: "Support — Blyth",
   description: "Get help with your Blyth account, orders, and the app.",
+  alternates: { canonical: "/support" },
 };
 
 const FAQS = [

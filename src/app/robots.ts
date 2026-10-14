@@ -1,5 +1,7 @@
 import type { MetadataRoute } from 'next';
 
+const SITE_URL = 'https://blythapp.com';
+
 export default function robots(): MetadataRoute.Robots {
   const isProduction = process.env.VERCEL_ENV
     ? process.env.VERCEL_ENV === 'production'
@@ -11,5 +13,6 @@ export default function robots(): MetadataRoute.Robots {
 
   return {
     rules: { userAgent: '*', allow: '/', disallow: '/api/' },
+    sitemap: `${SITE_URL}/sitemap.xml`,
   };
 }

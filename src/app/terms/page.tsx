@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "Terms of Service — Blyth",
   description:
     "The terms that govern your access to and use of the Blyth platform.",
+  alternates: { canonical: "/terms" },
 };
 
 export default function TermsOfServicePage() {

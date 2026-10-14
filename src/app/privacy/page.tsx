@@ -4,6 +4,7 @@ import PolicyLayout from "@/components/PolicyLayout";
 export const metadata: Metadata = {
   title: "Privacy Policy — Blyth",
   description: "How Blyth collects, uses, and protects your information.",
+  alternates: { canonical: "/privacy" },
 };
 
 export default function PrivacyPolicyPage() {

@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "Copyright Policy — Blyth",
   description:
     "How to report copyright infringement on Blyth, and how we respond.",
+  alternates: { canonical: "/dmca" },
 };
 
 export default function DmcaPolicyPage() {
