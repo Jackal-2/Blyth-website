@@ -16,7 +16,9 @@ const SITE_DESCRIPTION =
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: SITE_TITLE,
+  // The browser tab just shows the brand name; the fuller SITE_TITLE is kept
+  // for search/social (openGraph/twitter below) where the extra context helps.
+  title: SITE_NAME,
   description: SITE_DESCRIPTION,
   applicationName: SITE_NAME,
   keywords: [
