@@ -371,13 +371,37 @@ export const DAILY_VERSES: DailyVerse[] = [
   { reference: "Psalms 96:1", text: "O sing unto the LORD a new song: sing unto the LORD, all the earth." },
 ];
 
-function dayOfYearUTC(date: Date): number {
-  const startOfYearUTC = Date.UTC(date.getUTCFullYear(), 0, 1);
-  const todayUTC = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
-  return Math.floor((todayUTC - startOfYearUTC) / 86_400_000);
+// Previously this picked DAILY_VERSES[dayOfYear % length], which just walks
+// the array in order one entry per day. Since the list has a long run of
+// consecutive "Psalms N:1" entries appended at the end, that walk meant
+// weeks at a time of nothing but Psalms, always verse 1 — never actually
+// random across books/chapters/verses.
+//
+// Instead, scramble the day number through a avalanche hash (Murmur3's
+// finalizer) before indexing into the list. Same calendar date always
+// produces the same verse (stable for the whole day, same for every
+// visitor, unaffected by server restarts/deploys), but — unlike a plain
+// hash of the date string, which still changes by +1 for consecutive single-
+// digit days and reproduces the exact same sequential-walk bug — this
+// finalizer is specifically designed so that inputs one apart (today vs.
+// tomorrow's epoch day) land on unrelated, scattered indices: Matthew 4:5
+// today, 1 Corinthians 15:42 tomorrow, Psalms 23:1 the day after, etc.
+function mix32(input: number): number {
+  let x = input >>> 0;
+  x ^= x >>> 16;
+  x = Math.imul(x, 0x85ebca6b);
+  x ^= x >>> 13;
+  x = Math.imul(x, 0xc2b2ae35);
+  x ^= x >>> 16;
+  return x >>> 0;
 }
 
+const MS_PER_DAY = 86_400_000;
+
 export function getTodaysVerse(now: Date = new Date()): DailyVerse {
-  const index = dayOfYearUTC(now) % DAILY_VERSES.length;
+  const epochDay = Math.floor(
+    Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()) / MS_PER_DAY
+  );
+  const index = mix32(epochDay) % DAILY_VERSES.length;
   return DAILY_VERSES[index];
 }
