@@ -11,6 +11,7 @@ const SITE_URL = "https://blythapp.com";
 const STATIC_ROUTES: { path: string; priority: number; changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"] }[] = [
   { path: "/", priority: 1, changeFrequency: "weekly" },
   { path: "/support", priority: 0.6, changeFrequency: "monthly" },
+  { path: "/delete-account", priority: 0.3, changeFrequency: "yearly" },
   { path: "/community-guidelines", priority: 0.3, changeFrequency: "yearly" },
   { path: "/privacy", priority: 0.3, changeFrequency: "yearly" },
   { path: "/terms", priority: 0.3, changeFrequency: "yearly" },

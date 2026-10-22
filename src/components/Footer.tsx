@@ -9,6 +9,7 @@ const SECONDARY_LINKS = [
   { label: "Privacy Policy", href: "/privacy" },
   { label: "Terms of Service", href: "/terms" },
   { label: "Copyright Policy", href: "/dmca" },
+  { label: "Delete Account", href: "/delete-account" },
 ];
 
 export default function Footer() {
