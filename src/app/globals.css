@@ -846,8 +846,8 @@ img {
 
 @media (max-width: 640px) {
   .trust-stats {
-    grid-template-columns: 1fr;
-    gap: 1.25rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem 1.25rem;
   }
 }
 

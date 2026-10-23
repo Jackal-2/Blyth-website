@@ -77,7 +77,11 @@ const STRUCTURED_DATA = {
       // Official social profiles, so Google can tie them to this same brand
       // entity. Add more handles here as you lock them in on other platforms
       // (TikTok, X, Facebook, etc.) — same array, one URL per profile.
-      sameAs: ["https://www.instagram.com/blythapp/", "https://x.com/blythapp_"],
+      sameAs: [
+        "https://www.instagram.com/blythapp/",
+        "https://x.com/blythapp_",
+        "https://www.linkedin.com/company/blythllc/",
+      ],
     },
     {
       "@type": "WebSite",
