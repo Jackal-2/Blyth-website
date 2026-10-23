@@ -12,7 +12,7 @@ const SITE_URL = "https://blythapp.com";
 const SITE_NAME = "Blyth";
 const SITE_TITLE = "Blyth Marketplace — Trusted Local Help Near You";
 const SITE_DESCRIPTION =
-  "Blyth is the local services marketplace connecting neighbors across the US with trusted, verified help. Book services, hire vetted providers, and get things done — all from one app.";
+  "Blyth is a local services marketplace connecting neighbors across the US with trusted, verified help near you. Find local help, book services, hire vetted providers, and get things done — all from one app.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -24,9 +24,11 @@ export const metadata: Metadata = {
     "Blyth app",
     "Blyth marketplace",
     "local services marketplace",
-    "find local help",
+    "marketplace near me",
+    "find local help near me",
     "hire local providers",
     "neighborhood services app",
+    "US services marketplace",
   ],
   authors: [{ name: SITE_NAME, url: SITE_URL }],
   creator: SITE_NAME,
@@ -75,7 +77,7 @@ const STRUCTURED_DATA = {
       // Official social profiles, so Google can tie them to this same brand
       // entity. Add more handles here as you lock them in on other platforms
       // (TikTok, X, Facebook, etc.) — same array, one URL per profile.
-      sameAs: ["https://www.instagram.com/blythapp/"],
+      sameAs: ["https://www.instagram.com/blythapp/", "https://x.com/blythapp_"],
     },
     {
       "@type": "WebSite",
