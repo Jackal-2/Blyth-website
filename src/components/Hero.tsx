@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Fade } from "react-awesome-reveal";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import TextType from "./TextType";
+import HeroDemo from "./HeroDemo";
 
 export default function Hero() {
   const reducedMotion = usePrefersReducedMotion();
@@ -15,14 +16,23 @@ export default function Hero() {
 
   return (
     <section className="hero">
-      <Fade cascade damping={damping} triggerOnce={false} fraction={0.2} duration={duration}>
+      <Fade cascade damping={damping} triggerOnce fraction={0.2} duration={duration}>
         <div className="hero-glow" aria-hidden="true" />
         <div className="hero-glow-teal" aria-hidden="true" />
+        <Image
+          src="/images/logo-full.png"
+          alt=""
+          width={770}
+          height={320}
+          draggable={false}
+          className="hero-logo-full hero-glow-logo"
+          aria-hidden="true"
+        />
       </Fade>
 
       <div className="hero-inner">
         <div>
-          <Fade cascade damping={damping} direction="up" triggerOnce={false} fraction={0.2} duration={duration}>
+          <Fade cascade damping={damping} direction="up" triggerOnce fraction={0.2} duration={duration}>
             <h1 className="hero-heading">
               {reducedMotion ? (
                 <>
@@ -54,7 +64,7 @@ export default function Hero() {
               )}
             </h1>
             <p className="hero-sub">
-              Blyth connects neighbors with trusted, verified local Helpers — for everyday tasks, errands, jobs
+              Blyth connects Neighbors with trusted, verified local Helpers — for everyday tasks, errands, jobs
               big or small, and buying or selling items nearby. Simple to book, safe to trust.
             </p>
             <div className="hero-cta">
@@ -65,19 +75,9 @@ export default function Hero() {
           </Fade>
         </div>
 
-        <Fade direction="up" triggerOnce={false} fraction={0.2} duration={reducedMotion ? 1 : 750}>
-          <div className="hero-decor">
-            <div className="hero-brandmark">
-              <Image
-                src="/images/logo-full.png"
-                alt="Blyth"
-                width={770}
-                height={320}
-                draggable={false}
-                className="hero-logo-full"
-                aria-hidden="true"
-              />
-            </div>
+        <Fade direction="up" triggerOnce fraction={0.2} duration={reducedMotion ? 1 : 750}>
+          <div className="hero-visual">
+            <HeroDemo />
           </div>
         </Fade>
       </div>

@@ -13,9 +13,19 @@ const NAV_LINKS = [
   { label: "Terms of Service", href: "/terms" },
 ];
 
-function isActive(pathname: string, href: string, scrolledToFeatures: boolean) {
-  if (href === "/#features") return pathname === "/" && scrolledToFeatures;
-  if (href === "/") return pathname === "/" && !scrolledToFeatures;
+// Homepage sections the menu links to.
+const SECTION_IDS = ["features"] as const;
+type SectionId = (typeof SECTION_IDS)[number];
+
+function sectionOf(href: string): SectionId | null {
+  const hash = href.startsWith("/#") ? href.slice(2) : null;
+  return hash && (SECTION_IDS as readonly string[]).includes(hash) ? (hash as SectionId) : null;
+}
+
+function isActive(pathname: string, href: string, activeSection: SectionId | null) {
+  const section = sectionOf(href);
+  if (section) return pathname === "/" && activeSection === section;
+  if (href === "/") return pathname === "/" && activeSection === null;
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
@@ -25,7 +35,9 @@ function isShareCardPath(pathname: string): boolean {
 
 export default function Navbar() {
   const pathname = usePathname();
-  const [scrolledToFeatures, setScrolledToFeatures] = useState(false);
+  // Which homepage section is in the middle of the screen (null = none, so
+  // "Home" is highlighted).
+  const [activeSection, setActiveSection] = useState<SectionId | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const minimal = isShareCardPath(pathname);
 
@@ -33,38 +45,41 @@ export default function Navbar() {
   if (pathname !== prevPathname) {
     setPrevPathname(pathname);
     setMenuOpen(false);
-    setScrolledToFeatures(false);
+    setActiveSection(null);
   }
 
   const handleNavClick = (href: string) => {
-    if (href === "/" && pathname === "/") {
-      setScrolledToFeatures(false);
+    if (pathname !== "/") return;
+    if (href === "/") {
+      setActiveSection(null);
       window.scrollTo({ top: 0, behavior: "smooth" });
       return;
     }
-    if (href === "/#features" && pathname === "/") {
-      const section = document.getElementById("features");
-      if (section) {
-        setScrolledToFeatures(true);
-        section.scrollIntoView({ behavior: "smooth" });
-      }
+    const section = sectionOf(href);
+    const el = section ? document.getElementById(section) : null;
+    if (section && el) {
+      setActiveSection(section);
+      el.scrollIntoView({ behavior: "smooth" });
     }
   };
 
   useEffect(() => {
     if (pathname !== "/") return;
-
-    const section = document.getElementById("features");
-    if (!section) return;
-
+    const visible = new Set<SectionId>();
     const observer = new IntersectionObserver(
-      ([entry]) => setScrolledToFeatures(entry.isIntersecting),
-      {
-        rootMargin: "-45% 0px -45% 0px",
+      (entries) => {
+        for (const entry of entries) {
+          const id = entry.target.id as SectionId;
+          if (entry.isIntersecting) visible.add(id);
+          else visible.delete(id);
+        }
+        const current = SECTION_IDS.find((id) => visible.has(id)) ?? null;
+        setActiveSection(current);
       },
+      { rootMargin: "-45% 0px -45% 0px" },
     );
-
-    observer.observe(section);
+    const els = SECTION_IDS.map((id) => document.getElementById(id)).filter((el): el is HTMLElement => !!el);
+    els.forEach((el) => observer.observe(el));
     return () => observer.disconnect();
   }, [pathname]);
 
@@ -86,7 +101,7 @@ export default function Navbar() {
         {!minimal && (
           <nav className="nav-links">
             {NAV_LINKS.map((link) => {
-              const active = isActive(pathname, link.href, scrolledToFeatures);
+              const active = isActive(pathname, link.href, activeSection);
               return (
                 <Link
                   key={link.href}
@@ -138,7 +153,7 @@ export default function Navbar() {
         {!minimal && menuOpen ? (
           <nav className="nav-mobile-menu">
             {NAV_LINKS.map((link) => {
-              const active = isActive(pathname, link.href, scrolledToFeatures);
+              const active = isActive(pathname, link.href, activeSection);
               return (
                 <Link
                   key={link.href}

@@ -4,18 +4,22 @@ import { Fade } from "react-awesome-reveal";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import CountUp from "./CountUp";
 
+// Only things the app actually does today.
 type Stat = {
   label: string;
-  to?: number;
+  prefix?: string;
   suffix?: string;
-  value?: string;
+  to: number;
+  from?: number;
+  direction?: "up" | "down";
 };
 
 const STATS: Stat[] = [
-  { to: 100, suffix: "%", label: "Helper Verifications" },
-  { to: 24, suffix: "/7", label: "Support & Safety" },
-  { value: "Secure", label: "Escrow Payments" },
-  { to: 5, suffix: ".0★", label: "Rated Experience" },
+  { to: 100, suffix: "%", label: "of Helpers ID-verified" },
+  // Counts down from an example listing price to $0.
+  { prefix: "$", from: 0, to: 109, direction: "down", label: "charged until your Helper confirms" },
+  { to: 4, suffix: "-digit", label: "code to mark every order done" },
+  { to: 100, suffix: "%", label: "of their price goes to the Helper" },
 ];
 
 export default function TrustBar() {
@@ -26,7 +30,7 @@ export default function TrustBar() {
   return (
     <section className="trust-bar">
       <div className="container trust-bar-inner">
-        <Fade direction="up" triggerOnce={false} fraction={0.2} duration={duration}>
+        <Fade direction="up" triggerOnce fraction={0.2} duration={duration}>
           <div>
             <h2 className="trust-bar-heading">Built on Trust, From Day One</h2>
             <p className="trust-bar-sub">Every Helper is verified, every payment protected</p>
@@ -34,22 +38,17 @@ export default function TrustBar() {
         </Fade>
 
         <div className="trust-stats">
-          <Fade cascade damping={damping} direction="up" triggerOnce={false} fraction={0.2} duration={duration}>
+          <Fade cascade damping={damping} direction="up" triggerOnce fraction={0.2} duration={duration}>
             {STATS.map((stat) => (
               <div key={stat.label}>
                 <p className="trust-stat-value">
-                  {stat.to !== undefined ? (
-                    reducedMotion ? (
-                      `${stat.to}${stat.suffix ?? ""}`
-                    ) : (
-                      <>
-                        <CountUp to={stat.to} duration={1.4} />
-                        {stat.suffix}
-                      </>
-                    )
+                  {stat.prefix}
+                  {reducedMotion ? (
+                    stat.direction === "down" ? (stat.from ?? 0) : stat.to
                   ) : (
-                    stat.value
+                    <CountUp to={stat.to} from={stat.from ?? 0} direction={stat.direction ?? "up"} duration={1.4} />
                   )}
+                  {stat.suffix}
                 </p>
                 <p className="trust-stat-label">{stat.label}</p>
               </div>

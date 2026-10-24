@@ -148,10 +148,34 @@ export default function TermsOfServicePage() {
           <h3>2.2 Payment &amp; Orders</h3>
           <ul>
             <li>
+              The price shown on a listing includes Blyth&rsquo;s listing fee
+              and service fee for buying that listing on its own. At checkout,
+              the total is broken down into the price, the service fee, and any
+              sales tax, which is calculated for your location and added on
+              top.
+            </li>
+            <li>
               A default payment method is required before you can request a
               booking or purchase. Requesting places a hold on your card for the
               order total &mdash; you are not charged until the helper confirms
-              the order, at which point the hold is captured.
+              the order, and then only for what they confirm.
+            </li>
+            <li>
+              Items from a helper check out together as one order with one
+              hold. Services are booked one at a time, each as its own order
+              with its own hold, so checking out items and a service together
+              places two holds.
+            </li>
+            <li>
+              When booking a service, you can add other services from the same
+              helper to the same appointment, done one after the other. The
+              appointment is confirmed, rescheduled, and cancelled as a whole.
+            </li>
+            <li>
+              When confirming, a helper may untick items they don&rsquo;t have
+              or added services they can&rsquo;t do. You are charged only for
+              what the helper confirms, the rest of the hold is released, and
+              you&rsquo;re told what wasn&rsquo;t available.
             </li>
             <li>
               If a helper does not confirm an order, the hold is released and
@@ -169,17 +193,6 @@ export default function TermsOfServicePage() {
               it has a cost: whoever cancels &mdash; neighbor or helper &mdash;
               is responsible for Blyth&rsquo;s service fee on that order,
               which is non-refundable once charged.
-            </li>
-            <li>
-              Blyth&rsquo;s service fee for a helper has two parts: a
-              platform commission, and a share of the payment
-              processor&rsquo;s own transaction fee. Helpers pay no platform
-              commission on their first $250 in lifetime completed sales;
-              once completed sales pass that amount, the commission applies
-              to sales above it. The payment processor&rsquo;s own
-              transaction fee applies to every sale, including those within
-              this free tier, and is split between the neighbor and the
-              helper.
             </li>
             <li>
               Once a neighbor enters the correct confirmation code, Blyth
