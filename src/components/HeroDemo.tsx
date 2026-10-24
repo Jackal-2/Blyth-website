@@ -22,7 +22,7 @@ const LISTINGS: DemoListing[] = [
     title: "Haircut & beard trim",
     by: "Owen’s Barber Shop",
     price: "$40.00",
-    unit: "/booking · 1 hr",
+    unit: "/appt · 1 hr",
     options: ["Sat 9:00", "Sat 11:30", "Sat 2:00"],
   },
   {

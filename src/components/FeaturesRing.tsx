@@ -160,11 +160,11 @@ export default function FeaturesRing() {
 
           <div className="phone-frame features-arc-phone">
             {reducedMotion ? (
-              <Image src="/images/screen-home.png" alt="Home screen in the Blyth app" width={260} height={540} />
+              <Image src="/images/screen-home-v2.jpg" alt="Home screen in the Blyth app" width={260} height={540} />
             ) : (
               <div className="phone-tilted-card">
                 <TiltedCard
-                  imageSrc="/images/screen-home.png"
+                  imageSrc="/images/screen-home-v2.jpg"
                   altText="Home screen in the Blyth app"
                   containerHeight="100%"
                   containerWidth="100%"
