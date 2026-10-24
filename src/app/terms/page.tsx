@@ -158,6 +158,13 @@ export default function TermsOfServicePage() {
               you are not charged.
             </li>
             <li>
+              A bookable service is priced per booking: the price covers one
+              appointment of the length shown on the listing, starting at the
+              time you choose. That time is reserved for you for the length of
+              the appointment. Any extra time beyond it needs to be agreed with
+              the helper, for example as a new booking.
+            </li>
+            <li>
               Once an order is confirmed and the hold is captured, cancelling
               it has a cost: whoever cancels &mdash; neighbor or helper &mdash;
               is responsible for Blyth&rsquo;s service fee on that order,

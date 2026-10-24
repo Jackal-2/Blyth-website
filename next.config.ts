@@ -14,7 +14,12 @@ const nextConfig: NextConfig = {
   agentRules: false,
   output: 'standalone',
   async headers() {
-    return [{ source: '/(.*)', headers: await securityHeaders() }];
+    return [
+      { source: '/(.*)', headers: await securityHeaders() },
+      // The email logo (public/email/) is linked from every email Blyth sends,
+      // so let mail apps cache it for a day.
+      { source: '/email/:file*', headers: [{ key: 'Cache-Control', value: 'public, max-age=86400' }] },
+    ];
   },
 };
 

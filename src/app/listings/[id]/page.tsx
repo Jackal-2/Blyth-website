@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
 
 function formatPrice(price: number, listing: { type: "item" | "service"; isOneTimeService: boolean }): string {
   const amount = `$${price % 1 === 0 ? price.toFixed(0) : price.toFixed(2)}`;
-  return listing.type === "item" || listing.isOneTimeService ? amount : `${amount}/hr`;
+  return listing.type === "item" || listing.isOneTimeService ? amount : `${amount}/booking`;
 }
 
 export default async function ListingPage({ params }: { params: Params }) {
