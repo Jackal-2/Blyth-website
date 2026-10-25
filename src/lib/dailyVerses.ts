@@ -371,37 +371,47 @@ export const DAILY_VERSES: DailyVerse[] = [
   { reference: "Psalms 96:1", text: "O sing unto the LORD a new song: sing unto the LORD, all the earth." },
 ];
 
-// Previously this picked DAILY_VERSES[dayOfYear % length], which just walks
-// the array in order one entry per day. Since the list has a long run of
-// consecutive "Psalms N:1" entries appended at the end, that walk meant
-// weeks at a time of nothing but Psalms, always verse 1 — never actually
-// random across books/chapters/verses.
-//
-// Instead, scramble the day number through a avalanche hash (Murmur3's
-// finalizer) before indexing into the list. Same calendar date always
-// produces the same verse (stable for the whole day, same for every
-// visitor, unaffected by server restarts/deploys), but — unlike a plain
-// hash of the date string, which still changes by +1 for consecutive single-
-// digit days and reproduces the exact same sequential-walk bug — this
-// finalizer is specifically designed so that inputs one apart (today vs.
-// tomorrow's epoch day) land on unrelated, scattered indices: Matthew 4:5
-// today, 1 Corinthians 15:42 tomorrow, Psalms 23:1 the day after, etc.
-function mix32(input: number): number {
-  let x = input >>> 0;
-  x ^= x >>> 16;
-  x = Math.imul(x, 0x85ebca6b);
-  x ^= x >>> 13;
-  x = Math.imul(x, 0xc2b2ae35);
-  x ^= x >>> 16;
-  return x >>> 0;
-}
-
+// Every verse once, in a shuffled order, before any verse comes round
+// again. Days are grouped into rounds of DAILY_VERSES.length days; each round
+// gets its own shuffle (seeded by the round number), so the order is random
+// but the same for everyone on a given date, and stable across restarts and
+// deploys. A plain hash of the date was used before, but that repeats
+// verses within days and skips many altogether.
 const MS_PER_DAY = 86_400_000;
 
+// Small seeded random number generator (mulberry32).
+function seededRandom(seed: number): () => number {
+  let a = seed >>> 0;
+  return () => {
+    a = (a + 0x6d2b79f5) >>> 0;
+    let t = a;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+let cachedRound: number | null = null;
+let cachedOrder: number[] = [];
+
+function orderForRound(round: number): number[] {
+  if (round === cachedRound) return cachedOrder;
+  const order = DAILY_VERSES.map((_, i) => i);
+  const random = seededRandom(0x5eed + round);
+  for (let i = order.length - 1; i > 0; i--) {
+    const j = Math.floor(random() * (i + 1));
+    [order[i], order[j]] = [order[j], order[i]];
+  }
+  cachedRound = round;
+  cachedOrder = order;
+  return order;
+}
+
 export function getTodaysVerse(now: Date = new Date()): DailyVerse {
-  const epochDay = Math.floor(
-    Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()) / MS_PER_DAY
-  );
-  const index = mix32(epochDay) % DAILY_VERSES.length;
-  return DAILY_VERSES[index];
+  // The visitor's own calendar day, so the verse changes at their midnight.
+  const epochDay = Math.floor(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()) / MS_PER_DAY);
+  const count = DAILY_VERSES.length;
+  const round = Math.floor(epochDay / count);
+  const dayInRound = epochDay - round * count;
+  return DAILY_VERSES[orderForRound(round)[dayInRound]];
 }

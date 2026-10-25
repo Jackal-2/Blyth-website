@@ -50,8 +50,8 @@ export default function ClearPrices() {
                   <span>Service fee</span>
                   <span>$3.47</span>
                 </div>
-                <div className="prices-total">
-                  <span>Total</span>
+                <div className="prices-total prices-total-inline">
+                  <span>Total =</span>
                   <span>$109.47</span>
                 </div>
               </Fade>

@@ -1,6 +1,14 @@
+"use client";
+
+import { useSyncExternalStore } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { getTodaysVerse } from "@/lib/dailyVerses";
+
+// The verse is picked in the visitor's browser, from their own date. The
+// site is built ahead of time, so picking it during the build would leave
+// the same verse up until the next deploy.
+const subscribeToNothing = () => () => {};
 
 const SECONDARY_LINKS = [
   { label: "Home", href: "/" },
@@ -13,7 +21,7 @@ const SECONDARY_LINKS = [
 ];
 
 export default function Footer() {
-  const verse = getTodaysVerse();
+  const verse = useSyncExternalStore(subscribeToNothing, () => getTodaysVerse(), () => null);
 
   return (
     <footer className="footer">
@@ -149,7 +157,7 @@ export default function Footer() {
         <hr className="footer-rule" />
 
         <div className="footer-bottom">
-          <p className="footer-verse-ref">{verse.reference}</p>
+          <p className="footer-verse-ref">{verse ? verse.reference : "\u00a0"}</p>
           <p className="footer-copyright">
             Copyright &copy;2026 Blyth. All rights reserved.
           </p>

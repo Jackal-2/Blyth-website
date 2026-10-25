@@ -18,19 +18,19 @@ type DemoListing = {
 
 const LISTINGS: DemoListing[] = [
   {
-    image: "/images/hero-barber-art.jpg",
-    title: "Haircut & beard trim",
-    by: "Owen’s Barber Shop",
-    price: "$40.00",
+    image: "/images/hero-barbershop.jpg",
+    title: "Haircut & Beard Trim",
+    by: "Marcus Johnson",
+    price: "$41.63",
     unit: "/appt · 1 hr",
     options: ["Sat 9:00", "Sat 11:30", "Sat 2:00"],
   },
   {
     image: "/images/hero-headphones.jpg",
-    title: "Wireless headphones",
+    title: "Wireless Headphones",
     by: "Hudson Tech Shop",
     price: "$109.47",
-    unit: "· 5 in stock",
+    unit: "· Brand new",
     options: ["Qty 1", "Qty 2", "Qty 3"],
   },
 ];

@@ -11,8 +11,8 @@ import {
   RibbonStarIcon,
   IdBadgeIcon,
   ReceiptIcon,
-  ShieldCheckIcon,
-  CheckCircleIcon,
+  PhotoIcon,
+  MapPinIcon,
 } from "./icons";
 
 type Feature = { icon: ReactNode; title: string; body: string };
@@ -20,7 +20,7 @@ type Feature = { icon: ReactNode; title: string; body: string };
 // Four on each side of the phone, top to bottom.
 const LEFT: Feature[] = [
   { icon: <IdBadgeIcon />, title: "Helper Dashboard", body: "Manage listings, requests, orders, balances and withdrawals." },
-  { icon: <CheckCircleIcon />, title: "Several Services, One Visit", body: "Add more of a Helper’s services to the same booking, done back to back." },
+  { icon: <PhotoIcon />, title: "Get Inspired", body: "Browse photos of real work from Helpers near you, for ideas and to help you decide." },
   { icon: <ReceiptIcon />, title: "Earnings & Withdrawals", body: "Helpers see what they’ve earned and cash out to their bank." },
   { icon: <RibbonStarIcon />, title: "Ratings & Reviews", body: "See what other Neighbors said before choosing a Helper." },
 ];
@@ -28,7 +28,7 @@ const RIGHT: Feature[] = [
   { icon: <BellIcon />, title: "Discover Nearby", body: "Find services and items from trusted Helpers in your area." },
   { icon: <BriefcaseIcon />, title: "Buy & Book Locally", body: "Browse items or book services from Helpers nearby." },
   { icon: <ChatHandsIcon />, title: "Connect Directly", body: "Message Helpers to sort out details and arrange the handoff." },
-  { icon: <ShieldCheckIcon />, title: "Business Badges", body: "Registered businesses get a badge, so you know who you’re booking." },
+  { icon: <MapPinIcon />, title: "Get Items Delivered Your Way", body: "Agree with the Helper how it’s delivered. Payment is only released once you share your code." },
 ];
 
 // Points on the ring (degrees, 0 = right, clockwise), evenly spaced, so each
@@ -38,7 +38,7 @@ const RIGHT_ANGLES = [-48, -16, 16, 48];
 const ICON_HALF = 22;
 // Width of a feature's text block plus its icon, so the ring is never so wide
 // that a feature runs off the side of the screen.
-const ITEM_REACH = 252;
+const ITEM_REACH = 302;
 
 type Pos = { top: number; left?: number; right?: number };
 type Layout = { width: number; height: number; rx: number; ry: number; positions: Pos[] };
@@ -160,11 +160,11 @@ export default function FeaturesRing() {
 
           <div className="phone-frame features-arc-phone">
             {reducedMotion ? (
-              <Image src="/images/screen-home-v2.jpg" alt="Home screen in the Blyth app" width={260} height={540} />
+              <Image src="/images/screen-home-v3.jpg" alt="Home screen in the Blyth app" width={260} height={540} />
             ) : (
               <div className="phone-tilted-card">
                 <TiltedCard
-                  imageSrc="/images/screen-home-v2.jpg"
+                  imageSrc="/images/screen-home-v3.jpg"
                   altText="Home screen in the Blyth app"
                   containerHeight="100%"
                   containerWidth="100%"

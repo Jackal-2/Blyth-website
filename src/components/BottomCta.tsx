@@ -74,7 +74,7 @@ export default function BottomCta({ qrSvg }: { qrSvg?: string }) {
             <div className="bottom-cta-phone bottom-cta-phone-back">
               {reducedMotion ? (
                 <Image
-                  src="/images/screen-discover-v2.jpg"
+                  src="/images/screen-discover-v3.jpg"
                   alt="Discover screen in the Blyth app"
                   width={220}
                   height={440}
@@ -82,7 +82,7 @@ export default function BottomCta({ qrSvg }: { qrSvg?: string }) {
               ) : (
                 <div className="phone-tilted-card">
                   <TiltedCard
-                    imageSrc="/images/screen-discover-v2.jpg"
+                    imageSrc="/images/screen-discover-v3.jpg"
                     altText="Discover screen in the Blyth app"
                     containerHeight="100%"
                     containerWidth="100%"
@@ -99,7 +99,7 @@ export default function BottomCta({ qrSvg }: { qrSvg?: string }) {
             <div className="bottom-cta-phone bottom-cta-phone-front">
               {reducedMotion ? (
                 <Image
-                  src="/images/screen-listing-v2.jpg"
+                  src="/images/screen-listing-v3.jpg"
                   alt="Listing screen in the Blyth app"
                   width={220}
                   height={440}
@@ -107,7 +107,7 @@ export default function BottomCta({ qrSvg }: { qrSvg?: string }) {
               ) : (
                 <div className="phone-tilted-card">
                   <TiltedCard
-                    imageSrc="/images/screen-listing-v2.jpg"
+                    imageSrc="/images/screen-listing-v3.jpg"
                     altText="Listing screen in the Blyth app"
                     containerHeight="100%"
                     containerWidth="100%"

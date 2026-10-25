@@ -30,7 +30,7 @@ const TESTIMONIALS = [
     slot: 4,
   },
   {
-    quote: "As a small cleaning business, Blyth's verified badge helped new customers trust us right away.",
+    quote: "As a small cleaning business, Blyth helped new customers in the neighborhood find and book us right away.",
     name: "Diego Ferreira",
     role: "Helper, Blyth",
     slot: 5,

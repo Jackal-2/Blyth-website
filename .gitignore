@@ -44,3 +44,4 @@ next-env.d.ts
 
 # Claude-specific project notes — not meant to be committed/shared
 CLAUDE.md
+README.md

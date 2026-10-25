@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { Fade } from "react-awesome-reveal";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
@@ -19,15 +18,6 @@ export default function Hero() {
       <Fade cascade damping={damping} triggerOnce fraction={0.2} duration={duration}>
         <div className="hero-glow" aria-hidden="true" />
         <div className="hero-glow-teal" aria-hidden="true" />
-        <Image
-          src="/images/logo-full.png"
-          alt=""
-          width={770}
-          height={320}
-          draggable={false}
-          className="hero-logo-full hero-glow-logo"
-          aria-hidden="true"
-        />
       </Fade>
 
       <div className="hero-inner">

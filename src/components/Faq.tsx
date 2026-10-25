@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { Fade } from "react-awesome-reveal";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
@@ -28,6 +29,8 @@ const FAQS = [
 export default function Faq() {
   const reducedMotion = usePrefersReducedMotion();
   const duration = reducedMotion ? 1 : 500;
+  // One answer open at a time: opening a question closes the one before.
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
     <section className="faq" id="faq">
@@ -39,8 +42,16 @@ export default function Faq() {
         <div className="faq-list">
           <Fade cascade damping={0.08} direction="up" triggerOnce fraction={0.1} duration={duration}>
             {FAQS.map((item, i) => (
-              <details key={item.q} className="faq-item" open={i === 0}>
-                <summary className="cursor-target">{item.q}</summary>
+              <details key={item.q} className="faq-item" open={openIndex === i}>
+                <summary
+                  className="cursor-target"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setOpenIndex(openIndex === i ? null : i);
+                  }}
+                >
+                  {item.q}
+                </summary>
                 <p>{item.a}</p>
               </details>
             ))}
