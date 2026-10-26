@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function PrivacyPolicyPage() {
   return (
-    <PolicyLayout title="Privacy policy" updated="Oct 9, 2026">
+    <PolicyLayout title="Privacy policy" updated="Oct 25, 2026">
       <section className="policy-section">
         <h2>Welcome to Blyth</h2>
         <p>
@@ -66,10 +66,13 @@ export default function PrivacyPolicyPage() {
             stored or shown to other users.
           </li>
           <li>
-            <strong>Location information</strong> &mdash; your approximate
-            location, and any address you enter for a listing, or booking. Used
-            to show you nearby listings and connect neighbors and helpers who
-            are actually near each other.
+            <strong>Location information</strong> &mdash; your device&rsquo;s
+            approximate or precise location (if you allow it in your device
+            settings), and any address you enter for a listing or booking. Used
+            to show you nearby listings and feed posts and connect neighbors
+            and helpers who are actually near each other. You can turn location
+            off at any time; you can still use your account, messages and
+            orders, but nearby listings and the feed won&rsquo;t be shown.
           </li>
           <li>
             <strong>Device and push-notification tokens</strong> &mdash; an
@@ -153,7 +156,9 @@ export default function PrivacyPolicyPage() {
             text-messaging provider, which delivers the verification codes we
             text to your phone number; an email-delivery provider, which
             sends the verification codes and order-related emails we send to
-            your email address; push-notification services, delivered
+            your email address; an error-monitoring provider, which receives
+            crash reports and diagnostic data so we can fix problems in the
+            app; push-notification services, delivered
             through Apple and Google, which send notifications to your
             device; and, if you choose to sign in that way, Apple or Google
             directly, which verify your identity for &ldquo;Sign in with

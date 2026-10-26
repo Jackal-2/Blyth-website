@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function TermsOfServicePage() {
   return (
-    <PolicyLayout title="Terms of service" updated="Oct 9, 2026">
+    <PolicyLayout title="Terms of service" updated="Oct 25, 2026">
       <section className="policy-section">
         <h2>Welcome to BLYTH</h2>
         <p>
@@ -118,6 +118,32 @@ export default function TermsOfServicePage() {
               ID matches their selfie &mdash; it is not a safety or background
               screening.
             </li>
+            <li>
+              Requiring identity verification is the helper&rsquo;s choice
+              (Section 1.3). If a helper chooses not to require it for a
+              listing, Blyth won&rsquo;t have verified the identity of the
+              neighbor who books it. Whether or not verification was required
+              or completed, anyone who meets another user, visits their home
+              or property, or lets them into their own home or property does
+              so at their own risk.
+            </li>
+            <li>
+              You&rsquo;re responsible for taking reasonable steps to protect
+              your own physical safety, home, and belongings when meeting
+              another user. That includes deciding who you let into your home,
+              having someone else present if you&rsquo;d like, putting away
+              valuables, and ending or refusing a meeting if you feel unsafe.
+              If you&rsquo;re ever in immediate danger, call 911 first, then
+              report the user to Blyth.
+            </li>
+            <li>
+              To the fullest extent permitted by law, Blyth is not responsible
+              or liable for any injury, loss, theft, or damage to any person or
+              property arising from an in-person meeting, visit, delivery, or
+              service between users, whether or not identity verification was
+              required or completed. This doesn&rsquo;t limit any liability
+              that can&rsquo;t be limited under applicable law.
+            </li>
           </ul>
         </div>
       </section>
@@ -148,8 +174,8 @@ export default function TermsOfServicePage() {
           <h3>2.2 Payment &amp; Orders</h3>
           <ul>
             <li>
-              The price shown on a listing includes Blyth&rsquo;s listing fee
-              and service fee for buying that listing on its own. At checkout,
+              The price shown on a listing includes Blyth&rsquo;s markup and
+              service fee for buying that listing on its own. At checkout,
               the total is broken down into the price, the service fee, and any
               sales tax, which is calculated for your location and added on
               top.
@@ -195,9 +221,10 @@ export default function TermsOfServicePage() {
               which is non-refundable once charged.
             </li>
             <li>
-              Once a neighbor enters the correct confirmation code, Blyth
-              typically releases the helper&rsquo;s eligible earnings for payout
-              within 2 business days. If an order becomes subject to a dispute,
+              Once a neighbor enters the correct confirmation code, the order is
+              complete, and the helper&rsquo;s eligible earnings are added to
+              their balance once the 3-business-day dispute window has passed.
+              If an order becomes subject to a dispute,
               fraud review, or other investigation under Section 2.4, the payout
               is placed on hold until that review is resolved.
             </li>
