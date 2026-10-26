@@ -5,29 +5,7 @@ import { Fade } from "react-awesome-reveal";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import TiltedCard from "./TiltedCard";
 import { STORE_URLS } from "@/lib/appLinks";
-
-type StoreButtonProps = { href: string; icon: string; label: string };
-
-// Links to the store page once it exists; until then it says "Soon" instead of
-// sending people to the store's home page.
-function StoreButton({ href, icon, label }: StoreButtonProps) {
-  const content = (
-    <>
-      <Image src={icon} alt="" width={20} height={20} className="store-pill-icon" aria-hidden="true" />
-      <span className="store-pill-text">{label}</span>
-      {href ? null : <span className="store-soon">Soon</span>}
-    </>
-  );
-  return href ? (
-    <a className="btn btn-light cursor-target" href={href} target="_blank" rel="noopener noreferrer">
-      {content}
-    </a>
-  ) : (
-    <span className="btn btn-light store-pill-soon" aria-label={`${label}, coming soon`}>
-      {content}
-    </span>
-  );
-}
+import { StoreButton } from "./StoreButton";
 
 export default function BottomCta({ qrSvg }: { qrSvg?: string }) {
   const reducedMotion = usePrefersReducedMotion();

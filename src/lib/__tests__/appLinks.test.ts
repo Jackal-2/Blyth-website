@@ -64,7 +64,7 @@ describe("appLinksFor", () => {
     const { appLinksFor } = await import("../appLinks");
     const android = appLinksFor("listing", "abc123").android;
     expect(android).toContain("scheme=blyth;");
-    expect(android).toContain("package=com.caxapok.blyth;");
+    expect(android).toContain("package=com.blythapp.blyth;");
   });
 
   it("omits the browser_fallback_url when the Play Store URL isn't set yet", async () => {
@@ -75,11 +75,11 @@ describe("appLinksFor", () => {
 
   it("includes an encoded browser_fallback_url once the Play Store URL is set", async () => {
     for (const k of ENV_KEYS) delete process.env[k];
-    process.env.NEXT_PUBLIC_PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.caxapok.blyth";
+    process.env.NEXT_PUBLIC_PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.blythapp.blyth";
     const { appLinksFor } = await import("../appLinks");
     const android = appLinksFor("listing", "abc123").android;
     expect(android).toContain(
-      `S.browser_fallback_url=${encodeURIComponent("https://play.google.com/store/apps/details?id=com.caxapok.blyth")}`,
+      `S.browser_fallback_url=${encodeURIComponent("https://play.google.com/store/apps/details?id=com.blythapp.blyth")}`,
     );
   });
 
@@ -93,11 +93,11 @@ describe("appLinksFor", () => {
 
   it("respects env overrides for the scheme and package", async () => {
     process.env.NEXT_PUBLIC_APP_SCHEME = "blythdev";
-    process.env.NEXT_PUBLIC_ANDROID_PACKAGE = "com.caxapok.blyth.dev";
+    process.env.NEXT_PUBLIC_ANDROID_PACKAGE = "com.blythapp.blyth.dev";
     const { appLinksFor } = await import("../appLinks");
     const links = appLinksFor("listing", "abc123");
     expect(links.ios).toBe("blythdev://listing/abc123");
-    expect(links.android).toContain("scheme=blythdev;package=com.caxapok.blyth.dev;");
+    expect(links.android).toContain("scheme=blythdev;package=com.blythapp.blyth.dev;");
   });
 });
 
@@ -114,16 +114,16 @@ describe("ANDROID_PACKAGE / IOS_BUNDLE_ID — exported for the .well-known route
   it("default to the real app.json values", async () => {
     for (const k of ENV_KEYS) delete process.env[k];
     const { ANDROID_PACKAGE, IOS_BUNDLE_ID } = await import("../appLinks");
-    expect(ANDROID_PACKAGE).toBe("com.caxapok.blyth");
-    expect(IOS_BUNDLE_ID).toBe("com.caxapok.blyth");
+    expect(ANDROID_PACKAGE).toBe("com.blythapp.blyth");
+    expect(IOS_BUNDLE_ID).toBe("com.blythapp.blyth");
   });
 
   it("respects env overrides independently of each other", async () => {
-    process.env.NEXT_PUBLIC_ANDROID_PACKAGE = "com.caxapok.blyth.dev";
-    process.env.NEXT_PUBLIC_IOS_BUNDLE_ID = "com.caxapok.blyth.staging";
+    process.env.NEXT_PUBLIC_ANDROID_PACKAGE = "com.blythapp.blyth.dev";
+    process.env.NEXT_PUBLIC_IOS_BUNDLE_ID = "com.blythapp.blyth.staging";
     const { ANDROID_PACKAGE, IOS_BUNDLE_ID } = await import("../appLinks");
-    expect(ANDROID_PACKAGE).toBe("com.caxapok.blyth.dev");
-    expect(IOS_BUNDLE_ID).toBe("com.caxapok.blyth.staging");
+    expect(ANDROID_PACKAGE).toBe("com.blythapp.blyth.dev");
+    expect(IOS_BUNDLE_ID).toBe("com.blythapp.blyth.staging");
   });
 });
 

@@ -168,6 +168,7 @@ const TextType = ({
     typingSpeed,
     deletingSpeed,
     pauseDuration,
+    getRandomSpeed,
     textArray,
     currentTextIndex,
     loop,

@@ -4,6 +4,8 @@ import { useSyncExternalStore } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { getTodaysVerse } from "@/lib/dailyVerses";
+import { STORE_URLS } from "@/lib/appLinks";
+import { StoreButton } from "./StoreButton";
 
 // The verse is picked in the visitor's browser, from their own date. The
 // site is built ahead of time, so picking it during the build would leave
@@ -119,38 +121,8 @@ export default function Footer() {
 
           <div className="footer-download">
             <p className="footer-download-heading">Get the App</p>
-            <a
-              className="btn btn-dark cursor-target"
-              href="https://apps.apple.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Image
-                src="/images/app-store.png"
-                alt=""
-                width={20}
-                height={20}
-                className="store-pill-icon"
-                aria-hidden="true"
-              />
-              <span className="store-pill-text">Download for iOS</span>
-            </a>
-            <a
-              className="btn btn-dark cursor-target"
-              href="https://play.google.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Image
-                src="/images/playstore.png"
-                alt=""
-                width={20}
-                height={20}
-                className="store-pill-icon"
-                aria-hidden="true"
-              />
-              <span className="store-pill-text">Download for Android</span>
-            </a>
+            <StoreButton tone="dark" href={STORE_URLS.ios} icon="/images/app-store.png" label="Download for iOS" />
+            <StoreButton tone="dark" href={STORE_URLS.android} icon="/images/playstore.png" label="Download for Android" />
           </div>
         </div>
 

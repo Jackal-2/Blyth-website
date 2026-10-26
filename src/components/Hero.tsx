@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
+import { GetStartedLink } from "./GetStartedLink";
 import { Fade } from "react-awesome-reveal";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import TextType from "./TextType";
@@ -58,9 +58,7 @@ export default function Hero() {
               big or small, and buying or selling items nearby. Simple to book, safe to trust.
             </p>
             <div className="hero-cta">
-              <Link href="/#get-app" className="btn btn-accent cursor-target">
-                Get Started
-              </Link>
+              <GetStartedLink className="btn btn-accent cursor-target">Get Started</GetStartedLink>
             </div>
           </Fade>
         </div>

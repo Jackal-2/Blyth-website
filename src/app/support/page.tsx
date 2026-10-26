@@ -11,12 +11,12 @@ const FAQS = [
   {
     question: "How do I download the app?",
     answer:
-      "Blyth is available on iOS and Android. Use the “Get the App” links in the footer or the bottom of the home page to open the App Store or Google Play.",
+      "Blyth is coming to iOS and Android. Use the “Get the App” buttons at the bottom of the home page or in the footer; they open the App Store or Google Play as soon as the app is live there.",
   },
   {
     question: "How do I report a problem with an order or an account?",
     answer:
-      "Open the order or profile in question from the app and use the Report option, or email us directly and we'll look into it.",
+      "Open the order or profile in question from the app and use the Report option. For anything not working in the app, go to Profile → Report a Problem to chat with our team. You can also email us.",
   },
   {
     question: "How do I delete my account?",

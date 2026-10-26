@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { GetStartedLink, scrollToSection } from "./GetStartedLink";
 
 const NAV_LINKS = [
   { label: "Home", href: "/" },
@@ -56,12 +57,17 @@ export default function Navbar() {
       return;
     }
     const section = sectionOf(href);
-    const el = section ? document.getElementById(section) : null;
-    if (section && el) {
-      setActiveSection(section);
-      el.scrollIntoView({ behavior: "smooth" });
-    }
+    if (section && scrollToSection(section)) setActiveSection(section);
   };
+
+  // Arriving from another page on a link like /#get-app: the homepage
+  // sections render after the first paint, so scroll once they're there.
+  useEffect(() => {
+    if (pathname !== "/" || !window.location.hash) return;
+    const id = window.location.hash.slice(1);
+    const timer = setTimeout(() => scrollToSection(id), 150);
+    return () => clearTimeout(timer);
+  }, [pathname]);
 
   useEffect(() => {
     if (pathname !== "/") return;
@@ -108,7 +114,10 @@ export default function Navbar() {
                   href={link.href}
                   className={`cursor-target${active ? " active" : ""}`}
                   aria-current={active ? "page" : undefined}
-                  onClick={() => handleNavClick(link.href)}
+                  onClick={(e) => {
+                    if (pathname === "/" && (link.href === "/" || sectionOf(link.href))) e.preventDefault();
+                    handleNavClick(link.href);
+                  }}
                 >
                   {link.label}
                 </Link>
@@ -119,9 +128,7 @@ export default function Navbar() {
 
         {!minimal && (
           <div className="navbar-actions">
-            <Link href="/#get-app" className="btn btn-accent cursor-target">
-              Get Started
-            </Link>
+            <GetStartedLink className="btn btn-accent cursor-target">Get Started</GetStartedLink>
             <button
               className="nav-menu-btn cursor-target"
               aria-label={menuOpen ? "Close menu" : "Open menu"}
@@ -160,8 +167,9 @@ export default function Navbar() {
                   href={link.href}
                   className={`cursor-target${active ? " active" : ""}`}
                   aria-current={active ? "page" : undefined}
-                  onClick={() => {
+                  onClick={(e) => {
                     setMenuOpen(false);
+                    if (pathname === "/" && (link.href === "/" || sectionOf(link.href))) e.preventDefault();
                     handleNavClick(link.href);
                   }}
                 >
@@ -169,13 +177,9 @@ export default function Navbar() {
                 </Link>
               );
             })}
-            <Link
-              href="/#get-app"
-              className="btn btn-accent nav-mobile-cta cursor-target"
-              onClick={() => setMenuOpen(false)}
-            >
+            <GetStartedLink className="btn btn-accent nav-mobile-cta cursor-target" onNavigate={() => setMenuOpen(false)}>
               Get Started
-            </Link>
+            </GetStartedLink>
           </nav>
         ) : null}
       </div>
