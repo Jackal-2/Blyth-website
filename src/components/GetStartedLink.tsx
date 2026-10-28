@@ -5,8 +5,6 @@ import type { MouseEvent, ReactNode } from "react";
 import { usePathname } from "next/navigation";
 import { STORE_URLS } from "@/lib/appLinks";
 
-// Smooth-scrolls a homepage section into view (below the sticky navbar,
-// via the sections' scroll-margin-top) and keeps the URL hash in step.
 export function scrollToSection(id: string): boolean {
   const el = document.getElementById(id);
   if (!el) return false;
@@ -23,10 +21,6 @@ function storeForThisPhone(): string {
   return "";
 }
 
-// "Get Started": on a phone, once the app is in that phone's store, goes
-// straight to the store. Otherwise it takes you to the download section.
-// Clicking it again while already scrolled away still works (a plain
-// "/#get-app" link does nothing when the URL already ends in #get-app).
 export function GetStartedLink({
   className,
   children,

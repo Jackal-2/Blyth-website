@@ -6,7 +6,6 @@ import { getImageDimensions, IMAGE_CONTENT_TYPE } from "../imageDimensions";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-
 function makePngBuffer(width: number, height: number): Buffer {
   const buf = Buffer.alloc(24);
   buf.set([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a], 0);
@@ -19,10 +18,10 @@ function makePngBuffer(width: number, height: number): Buffer {
 
 function makeBaselineJpegBuffer(width: number, height: number): Buffer {
   const buf = Buffer.alloc(18);
-  buf.set([0xff, 0xd8], 0); // SOI
-  buf.set([0xff, 0xc0], 2); // SOF0
-  buf.writeUInt16BE(11, 4); // segment length
-  buf.writeUInt8(8, 6); // precision
+  buf.set([0xff, 0xd8], 0);
+  buf.set([0xff, 0xc0], 2);
+  buf.writeUInt16BE(11, 4);
+  buf.writeUInt8(8, 6);
   buf.writeUInt16BE(height, 7);
   buf.writeUInt16BE(width, 9);
   return buf;
@@ -30,13 +29,13 @@ function makeBaselineJpegBuffer(width: number, height: number): Buffer {
 
 function makeProgressiveJpegBuffer(width: number, height: number): Buffer {
   const buf = Buffer.alloc(18);
-  buf.set([0xff, 0xd8], 0); // SOI
+  buf.set([0xff, 0xd8], 0);
   buf.set([0xff, 0xc4], 2);
   buf.writeUInt16BE(5, 4);
-  buf.set([0xaa, 0xbb, 0xcc], 6); // arbitrary DHT payload
+  buf.set([0xaa, 0xbb, 0xcc], 6);
   buf.set([0xff, 0xc2], 9);
-  buf.writeUInt16BE(11, 11); // segment length
-  buf.writeUInt8(8, 13); // precision
+  buf.writeUInt16BE(11, 11);
+  buf.writeUInt8(8, 13);
   buf.writeUInt16BE(height, 14);
   buf.writeUInt16BE(width, 16);
   return buf;
@@ -47,7 +46,7 @@ function makeWebpVp8xBuffer(width: number, height: number): Buffer {
   buf.write("RIFF", 0, "ascii");
   buf.write("WEBP", 8, "ascii");
   buf.write("VP8X", 12, "ascii");
-  buf[20] = 0; // flags
+  buf[20] = 0;
   const w = width - 1;
   const h = height - 1;
   buf[24] = w & 0xff;

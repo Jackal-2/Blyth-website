@@ -6,9 +6,6 @@ interface ProxiedPhotoProps extends Omit<ImgHTMLAttributes<HTMLImageElement>, "s
   alt?: string;
 }
 
-// A plain <img> on purpose: the photo is served through our own /api/photo
-// proxy (which already sizes it), and next/image would add a second resize
-// step and need every storage host listed in next.config.
 export function ProxiedPhoto({ url, alt = "", ...rest }: ProxiedPhotoProps) {
   // eslint-disable-next-line @next/next/no-img-element
   return <img src={toProxiedImageUrl(url)} alt={alt} {...rest} />;

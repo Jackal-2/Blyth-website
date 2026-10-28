@@ -25,14 +25,6 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: var(--font-sans);
-  /* `hidden` (rather than `clip`) on only one axis quietly forces the other
-     axis's overflow to `auto` too — per spec, "visible" on one axis is
-     computed as "auto" whenever the other axis isn't visible, even if it
-     was explicitly written as `visible`. That turns body into its own
-     scroll container, which breaks `position: sticky` on .navbar (it just
-     scrolls away instead of sticking). `clip` clips horizontal overflow the
-     same way `hidden` did, without establishing a scroll container or
-     tripping that pairing rule. */
   overflow-x: clip;
 }
 
@@ -61,8 +53,6 @@ img {
   margin: 0 auto;
   padding: 0 2rem;
 }
-
-/* Buttons */
 
 .btn {
   display: inline-flex;
@@ -109,10 +99,6 @@ img {
   transform: translateY(-1px);
 }
 
-/* The Apple mark in app-store.png renders solid black, so it disappears
-   against .btn-dark's own black background without this — invert it to
-   white the way the old store-pill-dark treatment did. Google's
-   playstore.png is already multi-color and reads fine either way. */
 .btn-dark .store-pill-icon {
   filter: invert(1) brightness(2);
 }
@@ -123,8 +109,6 @@ img {
   transform: scale(0.95);
   transition: transform 0.1s ease;
 }
-
-/* Navbar */
 
 .navbar {
   position: sticky;
@@ -258,8 +242,6 @@ img {
   }
 }
 
-/* Footer */
-
 .footer {
   background: var(--bg);
   border-top: 0.0625rem solid var(--border);
@@ -319,9 +301,6 @@ img {
   margin: 2.5rem 0 1.375rem;
 }
 
-/* Just the day's reference, not the verse text — sits on the same row
-   as the copyright line, mirroring the signature on the right. Short
-   and single-line, same treatment as .footer-signature. */
 .footer-bottom {
   display: flex;
   align-items: flex-start;
@@ -364,15 +343,6 @@ img {
   }
 }
 
-/* Store badge icon + label — the "Download for iOS/Android" buttons now
-   use the site's own .btn/.btn-accent/.btn-light classes directly (the
-   same button as "Get Started"), instead of a separate custom pill
-   treatment with its own black/white background variants. These two
-   rules just size and align the Apple/Google mark and label inside
-   that shared button. Since the buttons only ever sit on a white
-   (.btn-light) or accent-orange (.btn-accent) background now, never a
-   literal black one, the source logos' natural black rendering needs
-   no color inversion either. */
 .store-pill-icon {
   flex-shrink: 0;
   display: block;
@@ -383,8 +353,6 @@ img {
 .store-pill-text {
   line-height: 1;
 }
-
-/* ============ Hero ============ */
 
 .hero {
   position: relative;
@@ -493,21 +461,11 @@ img {
   .hero-decor {
     display: none;
   }
-  /* .hero-glow / .hero-glow-teal are positioned with a fixed top offset
-     tuned for the desktop layout, where they sit behind .hero-decor's
-     image in the second grid column. Below this breakpoint .hero-inner
-     collapses to one column with the heading first, so that same fixed
-     offset lands the glow circles directly over the heading/paragraph
-     text instead of behind the now-hidden decor image. Hide them here
-     too — there's nothing left for them to accent once .hero-decor is
-     gone. */
   .hero-glow,
   .hero-glow-teal {
     display: none;
   }
 }
-
-/* ============ Section label / heading ============ */
 
 .section-label {
   text-align: center;
@@ -542,8 +500,6 @@ img {
   margin-right: auto;
 }
 
-/* ============ Features ring ============ */
-
 .features {
   padding: 5.625rem 0 3.75rem;
 }
@@ -560,34 +516,8 @@ img {
 
 .features-col {
   display: grid;
-  /* A fixed row-height floor, not just a matching gap, is what actually
-     makes left/right items line up. .features-col and .features-col-right
-     are two independent flex/flow containers, and their items have
-     different body-text lengths — with a plain flex column + gap, item[1]
-     on the left could start lower than item[1] on the right simply
-     because item[0] on the left is taller. minmax(114px, auto) — 114px
-     covers the tallest item currently in either column — means each row
-     is at least that tall in both columns regardless of its own content,
-     so row N starts at the same offset on both sides. It also makes both
-     columns the same total height, so .features-ring's align-items:
-     center (below) lands their top edges at the same point too. Should a
-     future item's body text need more than 114px, minmax's `auto` still
-     lets that one row grow — it just stops being the safety floor for
-     alignment, rather than clipping. */
   grid-template-rows: repeat(3, minmax(114px, auto));
   row-gap: 3.5rem;
-  /* Without an explicit justify-items, a grid item capped by max-width
-     (.feature-item is capped at 320px) defaults to sitting at the start
-     edge of its own column. For the LEFT column that's the page-edge
-     side — far from the phone. For the RIGHT column "start" is its own
-     left edge, which is the side NEXT TO the phone. Same default, two
-     opposite real-world results: left items land ~138px from the phone,
-     right items land ~50px from it, just from layout, before either
-     side's translate() offset is even applied. Aligning both columns to
-     their inner (phone-facing) edge here makes the two sides start from
-     a matching baseline, so the same offset magnitudes on each side (see
-     FeaturesRing.tsx) produce an actually mirrored, equidistant result
-     instead of requiring very different numbers per side to compensate. */
   justify-items: end;
 }
 
@@ -615,8 +545,6 @@ img {
   animation: feature-icon-pulse 2.6s ease-in-out infinite;
 }
 
-/* Staggered per position within each column/group so the row of icons
-   breathes unevenly rather than pulsing in lockstep. */
 .feature-item:nth-of-type(2) .feature-icon {
   animation-delay: 0.5s;
 }
@@ -712,7 +640,6 @@ img {
   object-fit: cover;
 }
 
-
 .phone-tilted-card {
   width: 100%;
   height: 100%;
@@ -727,18 +654,6 @@ img {
   object-fit: cover;
 }
 
-/* .features-ring's side columns are `1fr` — flexible, so they shrink as
-   the viewport narrows — but each item's --ring-offset (set in
-   FeaturesRing.tsx) is a fixed px translate(), sized for a roomy column.
-   Below ~1300px wide, the column has shrunk enough that the same fixed
-   offset pushes items past the container/viewport edge — confirmed: a
-   1290px window overflows horizontally, 1300px doesn't. This is still
-   comfortably above the 1080px breakpoint where the layout collapses to
-   a single stacked column, so it's a distinct middle range: still the
-   3-column ring, just too narrow for the current offsets specifically.
-   Cancel the scatter in that range only, so the ring layout stays intact
-   without overflowing; the full offsets (and the "yardstick" look they
-   were tuned against) still apply everywhere they were confirmed safe. */
 @media (min-width: 1081px) and (max-width: 1300px) {
   .feature-item {
     transform: none;
@@ -750,11 +665,6 @@ img {
     grid-template-columns: 1fr;
     justify-items: center;
     text-align: center;
-    /* The 760px min-height (set above) exists to keep the 3-column ring's
-       phone column vertically centered against the two side columns —
-       once this breakpoint collapses everything to a single stacked
-       column there's no side-by-side alignment left to preserve, so the
-       fixed floor just adds dead space above/below the stacked content. */
     min-height: 0;
   }
   .features-col,
@@ -769,7 +679,6 @@ img {
     text-align: center;
     transform: none;
   }
-
 
   .features-col .feature-item,
   .features-col-right .feature-item {
@@ -799,8 +708,6 @@ img {
     order: 3;
   }
 }
-
-/* ============ Trust bar ============ */
 
 .trust-bar {
   border-top: 0.0625rem solid var(--border);
@@ -850,8 +757,6 @@ img {
     gap: 1.5rem 1.25rem;
   }
 }
-
-/* ============ Testimonials ============ */
 
 .testimonials {
   background: var(--surface-2);
@@ -991,8 +896,6 @@ img {
   }
 }
 
-/* ============ Mid CTA ============ */
-
 .mid-cta {
   padding: 5.625rem 0;
   background: #1c1c1c;
@@ -1002,9 +905,6 @@ img {
   border-top: 0.125rem solid rgba(255, 255, 255, 0.35);
   padding-top: 4rem;
   display: flex;
-  /* space-between (not a fixed gap) pushes the avatars to the far right
-     edge of the container, so the distance from the heading scales with
-     the row's own width instead of staying a fixed number of pixels. */
   justify-content: space-between;
   align-items: center;
   gap: 2.5rem;
@@ -1025,13 +925,6 @@ img {
   max-width: 460px;
 }
 
-/* A radar-style "near you" visual — concentric rings around a center
-   pin, with helper markers slowly orbiting at different distances.
-   Replaces the old static avatar stack so the "near you" promise in the
-   heading has something visual backing it up, not just avatars floating
-   in place. Orbit motion is skipped entirely under
-   prefers-reduced-motion — markers just sit at their starting position
-   instead. */
 .mid-cta-radar {
   position: relative;
   width: 260px;
@@ -1096,10 +989,6 @@ img {
   left: 40%;
 }
 
-/* Each pin sits inside its own full-size orbit wrapper. Rotating the
-   wrapper carries the pin's fixed top/left position around the center
-   in a circle; the pin then counter-rotates by the same amount so it
-   stays upright instead of spinning along with its own orbit. */
 .mid-cta-orbit {
   position: absolute;
   inset: 0;
@@ -1179,10 +1068,6 @@ img {
   .mid-cta-sub {
     max-width: 100%;
   }
-  /* react-awesome-reveal's <Fade> wraps the radar in its own unstyled
-     div, which becomes the actual flex item here — since it has no
-     explicit width it shrinks to fit its content instead of filling the
-     row. Giving the wrapper a definite, centered width fixes that. */
   .mid-cta-inner > div:has(.mid-cta-radar) {
     width: 100%;
     display: flex;
@@ -1199,8 +1084,6 @@ img {
     font-size: 0.6875rem;
   }
 }
-
-/* ============ Bottom CTA banner ============ */
 
 .bottom-cta {
   background: var(--accent);
@@ -1283,13 +1166,6 @@ img {
   .bottom-cta-inner {
     grid-template-columns: 1fr;
   }
-  /* The phone cards used to stay fixed at 220x440 here while only the
-     .bottom-cta-phones container shrank to 380px tall, with -10px
-     top/bottom offsets sized for the desktop 460px container. That left
-     the front card bleeding above its own container and into the
-     Download buttons row right above it in this single-column layout.
-     Shrinking the cards to match the container height, and zeroing the
-     offsets, keeps both cards fully inside their box instead. */
   .bottom-cta-phones {
     height: 340px;
   }
@@ -1326,8 +1202,6 @@ img {
     left: 12px;
   }
 }
-
-/* ============ Policy pages (Privacy / Terms / Support) ============ */
 
 @keyframes page-reveal-up {
   from {
@@ -1438,16 +1312,10 @@ img {
   margin-top: 1.75rem;
 }
 
-/* Helper public profile (/helpers/[id]) — the page a shared "Share My
-   Profile" link resolves to for anyone, app or no app. */
-
 .helper-page {
   padding: 4rem 0 6.25rem;
 }
 
-/* Sits directly above .helper-card with no gap/bottom-border between them
-   (see the border-radius/border-top split below) so the two read as one
-   continuous card — cover photo up top, identity + actions below. */
 .helper-cover {
   aspect-ratio: 3 / 1;
   border-radius: 1.5rem 1.5rem 0 0;
@@ -1540,10 +1408,6 @@ img {
   }
 }
 
-/* The helper page's own "Listings" grid (.helper-listings and friends) was
-   removed along with that section — this one rule survives because the
-   listing page's own cover-image fallback (listings/[id]/page.tsx) still
-   uses it. */
 .helper-listing-image-placeholder {
   width: 100%;
   height: 100%;
@@ -1566,10 +1430,6 @@ img {
   font-size: 0.875rem;
   color: var(--text-muted);
 }
-
-/* Listing (/listings/[id]) and Feed post (/feed/[id]) share-card pages —
-   same "helper-page" container/CTA as the helper profile page above, this
-   is just the one-item card in the middle. */
 
 .listing-card {
   display: grid;
@@ -1656,9 +1516,6 @@ img {
 .share-qr-code {
   width: 104px;
   height: 104px;
-  /* A QR code's own contrast (dark modules on a light ground) is a
-     correctness requirement, not a theme choice — always a plain white
-     card regardless of the page's own light/dark styling. */
   background: #ffffff;
   border-radius: 8px;
   padding: 8px;
@@ -1702,13 +1559,6 @@ img {
 .feed-post-author-name {
   font-size: 1.25rem;
 }
-
-/* =====================================================================
-   Homepage refresh (Oct 2026): hero demo, How it works, features arc,
-   trust band, clear prices, Helper categories, FAQs, store buttons + QR.
-   ===================================================================== */
-
-/* ---------- Hero demo ---------- */
 
 .hero-demo {
   position: relative;
@@ -1779,7 +1629,6 @@ img {
   justify-content: center;
 }
 
-/* The faded logo sits over the orange and teal glows, behind everything else. */
 .hero-glow-logo {
   position: absolute;
   top: 300px;
@@ -1944,8 +1793,6 @@ img {
   .hero-demo-held, .hero-demo-code { width: 170px; }
 }
 
-/* ---------- How it works ---------- */
-
 .how {
   background: var(--surface-2);
   padding: 5rem 0;
@@ -2034,7 +1881,6 @@ img {
   line-height: 1.6;
 }
 
-/* Sits behind the step cards and shows only in the gaps between them. */
 .how-track {
   position: absolute;
   left: 16%;
@@ -2064,8 +1910,6 @@ img {
   .how-steps { grid-template-columns: 1fr; }
   .how-track { display: none; }
 }
-
-/* ---------- Features arc ---------- */
 
 .features-arc {
   position: relative;
@@ -2174,8 +2018,6 @@ img {
   }
 }
 
-/* ---------- Trust band ---------- */
-
 .trust-bar {
   background: #1c1c1c;
   border-top: 0;
@@ -2191,8 +2033,6 @@ img {
 .trust-stat-label {
   max-width: 22ch;
 }
-
-/* ---------- Clear prices ---------- */
 
 .prices {
   padding: 5rem 0;
@@ -2268,8 +2108,6 @@ img {
   color: var(--accent-light);
 }
 
-/* "Total = $109.47" reads as one line rather than label and amount split
-   to opposite edges. */
 .prices-rows .prices-total-inline {
   justify-content: flex-start;
   gap: 0.375rem;
@@ -2299,12 +2137,8 @@ img {
 
 @media (max-width: 760px) {
   .prices-grid { grid-template-columns: 1fr; gap: 0.875rem; }
-  /* Stacked on phones: keep the "=" upright (turning it sideways made it
-     look like "||"), and a little smaller between the two cards. */
   .prices-equals { width: 44px; height: 44px; font-size: 1.375rem; }
 }
-
-/* ---------- Helper categories ---------- */
 
 .helper-cats {
   background: linear-gradient(200deg, #2c2620 0%, #1c1712 55%, #101010 100%);
@@ -2388,8 +2222,6 @@ img {
   .helper-cats-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
-/* ---------- FAQs ---------- */
-
 .faq {
   padding: 5rem 0;
 }
@@ -2456,8 +2288,6 @@ img {
 @keyframes faq-drop {
   from { opacity: 0; transform: translateY(-6px); }
 }
-
-/* ---------- Store buttons + QR ---------- */
 
 .store-pill-soon {
   cursor: default;
@@ -2545,7 +2375,6 @@ img {
   }
 }
 
-/* Menu links land each section just below the sticky navbar. */
 #how,
 #features,
 #faq,

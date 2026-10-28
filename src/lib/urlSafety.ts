@@ -4,7 +4,6 @@ import https from "node:https";
 import ipaddr from "ipaddr.js";
 import { getImageDimensions, IMAGE_CONTENT_TYPE, type ImageDimensions } from "./imageDimensions";
 
-
 function stripBrackets(hostname: string): string {
   return hostname.startsWith("[") && hostname.endsWith("]") ? hostname.slice(1, -1) : hostname;
 }
@@ -54,7 +53,7 @@ async function resolveSafeIp(hostname: string): Promise<SafeAddress | null> {
   }
 }
 
-const MAX_FETCH_BYTES = 8 * 1024 * 1024; // 8MB
+const MAX_FETCH_BYTES = 8 * 1024 * 1024;
 const FETCH_TIMEOUT_MS = 6000;
 
 export interface SafeFetchResult {
@@ -152,7 +151,7 @@ export async function fetchSafely(
 const ALLOWED_IMAGE_TYPES = new Set(["image/png", "image/jpeg", "image/jpg", "image/webp"]);
 
 const MAX_IMAGE_DIMENSION = 2048;
-const MAX_IMAGE_PIXELS = MAX_IMAGE_DIMENSION * MAX_IMAGE_DIMENSION; // ~4.19MP
+const MAX_IMAGE_PIXELS = MAX_IMAGE_DIMENSION * MAX_IMAGE_DIMENSION;
 
 function isWithinDimensionLimits(dims: ImageDimensions | null): dims is ImageDimensions {
   if (!dims) return false;

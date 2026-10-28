@@ -32,7 +32,7 @@ describe("isUrlHostSafeAtSaveTime", () => {
     expect(isUrlHostSafeAtSaveTime("http://10.0.0.5/x.png")).toBe(false);
     expect(isUrlHostSafeAtSaveTime("http://192.168.1.1/x.png")).toBe(false);
     expect(isUrlHostSafeAtSaveTime("http://172.20.0.5/x.png")).toBe(false);
-    expect(isUrlHostSafeAtSaveTime("http://100.100.0.1/x.png")).toBe(false); // carrier-grade NAT
+    expect(isUrlHostSafeAtSaveTime("http://100.100.0.1/x.png")).toBe(false);
   });
 
   it("rejects a decimal-encoded numeric host (169.254.169.254 as an integer)", () => {
@@ -162,10 +162,10 @@ describe("fetchViaPinnedConnection — HTTP mechanics, given an already-cleared 
 
 function makeJpegBuffer(width: number, height: number): Buffer {
   const buf = Buffer.alloc(18);
-  buf.set([0xff, 0xd8], 0); // SOI
-  buf.set([0xff, 0xc0], 2); // SOF0
-  buf.writeUInt16BE(11, 4); // segment length
-  buf.writeUInt8(8, 6); // precision
+  buf.set([0xff, 0xd8], 0);
+  buf.set([0xff, 0xc0], 2);
+  buf.writeUInt16BE(11, 4);
+  buf.writeUInt8(8, 6);
   buf.writeUInt16BE(height, 7);
   buf.writeUInt16BE(width, 9);
   return buf;
@@ -234,7 +234,7 @@ describe("fetchImageSafely's pipeline against hostile bytes — only a real, rec
         const result = await fetchViaPinnedConnection(baseUrl, resolved, {
           allowedContentTypes: new Set(["image/png", "image/jpeg", "image/jpg", "image/webp"]),
         });
-        expect(result).not.toBeNull(); // claimed type let it through
+        expect(result).not.toBeNull();
         expect(getImageDimensions(result!.body)).toBeNull();
       },
     );

@@ -3,7 +3,6 @@ import path from "node:path";
 
 export { fetchImageAsDataUri } from "./urlSafety";
 
-
 export const OG_SIZE = { width: 1200, height: 630 };
 export const OG_CONTENT_TYPE = "image/png";
 export const OG_REVALIDATE_SECONDS = 3600;

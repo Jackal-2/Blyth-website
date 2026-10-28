@@ -30,7 +30,6 @@ export default function HowItWorks() {
   const [audience, setAudience] = useState<Audience>("neighbors");
   const tabRefs = useRef<Record<Audience, HTMLButtonElement | null>>({ neighbors: null, helpers: null });
   const [pill, setPill] = useState({ left: 0, width: 0 });
-  // The line across the steps draws once they're on screen.
   const stepsRef = useRef<HTMLDivElement>(null);
   const [stepsSeen, setStepsSeen] = useState(false);
 

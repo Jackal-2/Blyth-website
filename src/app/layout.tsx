@@ -54,14 +54,8 @@ export const metadata: Metadata = {
     follow: true,
     googleBot: { index: true, follow: true },
   },
-  // Once you create a Google Search Console property for blythapp.com, paste
-  // the verification code it gives you here (just the content value, not the
-  // whole <meta> tag) — e.g. verification: { google: "abc123..." }.
 };
 
-// Organization + WebSite + SoftwareApplication structured data (JSON-LD).
-// This is what lets Google show a knowledge-panel-style entity for "Blyth"
-// searches and understand the app itself, separate from the page titles.
 const STRUCTURED_DATA = {
   "@context": "https://schema.org",
   "@graph": [
@@ -74,9 +68,6 @@ const STRUCTURED_DATA = {
       logo: `${SITE_URL}/images/logo-full.png`,
       description: SITE_DESCRIPTION,
       areaServed: "US",
-      // Official social profiles, so Google can tie them to this same brand
-      // entity. Add more handles here as you lock them in on other platforms
-      // (TikTok, X, Facebook, etc.) — same array, one URL per profile.
       sameAs: [
         "https://www.instagram.com/blythapp/",
         "https://x.com/blythapp_",

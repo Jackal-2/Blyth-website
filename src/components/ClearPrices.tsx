@@ -3,8 +3,6 @@
 import { Fade } from "react-awesome-reveal";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
-// An example $100 item: Helper price plus Blyth's 6% markup, plus the
-// Service fee (2.9% + $0.30 card processing) — the same maths as the app.
 export default function ClearPrices() {
   const reducedMotion = usePrefersReducedMotion();
   const duration = reducedMotion ? 1 : 600;

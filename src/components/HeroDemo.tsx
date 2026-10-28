@@ -4,9 +4,6 @@ import Image from "next/image";
 import { useEffect, useRef, useState, type PointerEvent } from "react";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
-// A small live picture of the app, alternating between booking a service and
-// buying an item: an option gets picked, the listing wiggles, the payment hold
-// lights up and the completion code fills in.
 type DemoListing = {
   image: string;
   title: string;
@@ -49,7 +46,6 @@ export default function HeroDemo() {
     return () => clearInterval(loop);
   }, [reducedMotion]);
 
-  // Each round: clear the code, then fill it in one digit at a time.
   useEffect(() => {
     if (reducedMotion) return;
     const timers = [
@@ -61,7 +57,6 @@ export default function HeroDemo() {
 
   const digitsShown = reducedMotion ? CODE.length : typed;
   const listing = LISTINGS[round % LISTINGS.length];
-  // A booking cycles through times; an item stays at Qty 1 so the held amount matches.
   const isItem = listing.options[0].startsWith("Qty");
   const activeOption = isItem ? 0 : reducedMotion ? 1 : Math.floor(round / LISTINGS.length) % listing.options.length;
 

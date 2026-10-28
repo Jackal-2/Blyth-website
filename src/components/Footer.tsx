@@ -7,9 +7,6 @@ import { getTodaysVerse } from "@/lib/dailyVerses";
 import { STORE_URLS } from "@/lib/appLinks";
 import { StoreButton } from "./StoreButton";
 
-// The verse is picked in the visitor's browser, from their own date. The
-// site is built ahead of time, so picking it during the build would leave
-// the same verse up until the next deploy.
 const subscribeToNothing = () => () => {};
 
 const SECONDARY_LINKS = [

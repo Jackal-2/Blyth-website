@@ -4,7 +4,6 @@ import { Fade } from "react-awesome-reveal";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import CountUp from "./CountUp";
 
-// Only things the app actually does today.
 type Stat = {
   label: string;
   prefix?: string;
@@ -16,7 +15,6 @@ type Stat = {
 
 const STATS: Stat[] = [
   { to: 100, suffix: "%", label: "of Helpers ID-verified" },
-  // Counts down from an example listing price to $0.
   { prefix: "$", from: 0, to: 109, direction: "down", label: "charged until your Helper confirms" },
   { to: 4, suffix: "-digit", label: "code to mark every order done" },
   { to: 100, suffix: "%", label: "of their price goes to the Helper" },

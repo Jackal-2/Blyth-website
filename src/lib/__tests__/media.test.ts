@@ -1,6 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-
 const ORIGINAL = process.env.MEDIA_BASE_URL;
 
 beforeEach(() => {

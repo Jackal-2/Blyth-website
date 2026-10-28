@@ -371,15 +371,8 @@ export const DAILY_VERSES: DailyVerse[] = [
   { reference: "Psalms 96:1", text: "O sing unto the LORD a new song: sing unto the LORD, all the earth." },
 ];
 
-// Every verse once, in a shuffled order, before any verse comes round
-// again. Days are grouped into rounds of DAILY_VERSES.length days; each round
-// gets its own shuffle (seeded by the round number), so the order is random
-// but the same for everyone on a given date, and stable across restarts and
-// deploys. A plain hash of the date was used before, but that repeats
-// verses within days and skips many altogether.
 const MS_PER_DAY = 86_400_000;
 
-// Small seeded random number generator (mulberry32).
 function seededRandom(seed: number): () => number {
   let a = seed >>> 0;
   return () => {
@@ -408,7 +401,6 @@ function orderForRound(round: number): number[] {
 }
 
 export function getTodaysVerse(now: Date = new Date()): DailyVerse {
-  // The visitor's own calendar day, so the verse changes at their midnight.
   const epochDay = Math.floor(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()) / MS_PER_DAY);
   const count = DAILY_VERSES.length;
   const round = Math.floor(epochDay / count);

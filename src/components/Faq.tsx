@@ -4,7 +4,6 @@ import { useState } from "react";
 import { Fade } from "react-awesome-reveal";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
-// Only questions the rest of the page doesn't already answer.
 const FAQS = [
   {
     q: "Can I cancel?",
@@ -29,7 +28,6 @@ const FAQS = [
 export default function Faq() {
   const reducedMotion = usePrefersReducedMotion();
   const duration = reducedMotion ? 1 : 500;
-  // One answer open at a time: opening a question closes the one before.
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (

@@ -14,7 +14,6 @@ const NAV_LINKS = [
   { label: "Terms of Service", href: "/terms" },
 ];
 
-// Homepage sections the menu links to.
 const SECTION_IDS = ["features"] as const;
 type SectionId = (typeof SECTION_IDS)[number];
 
@@ -36,8 +35,6 @@ function isShareCardPath(pathname: string): boolean {
 
 export default function Navbar() {
   const pathname = usePathname();
-  // Which homepage section is in the middle of the screen (null = none, so
-  // "Home" is highlighted).
   const [activeSection, setActiveSection] = useState<SectionId | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const minimal = isShareCardPath(pathname);
@@ -60,8 +57,6 @@ export default function Navbar() {
     if (section && scrollToSection(section)) setActiveSection(section);
   };
 
-  // Arriving from another page on a link like /#get-app: the homepage
-  // sections render after the first paint, so scroll once they're there.
   useEffect(() => {
     if (pathname !== "/" || !window.location.hash) return;
     const id = window.location.hash.slice(1);

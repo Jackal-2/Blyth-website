@@ -26,7 +26,6 @@ const CATEGORIES = [
   { icon: "electronics", title: "Electronics", body: "Phones, consoles, accessories." },
 ];
 
-// Spotlight: the card glows where the pointer is.
 function trackPointer(e: PointerEvent<HTMLDivElement>) {
   const el = e.currentTarget;
   const r = el.getBoundingClientRect();

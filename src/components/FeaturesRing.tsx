@@ -17,7 +17,6 @@ import {
 
 type Feature = { icon: ReactNode; title: string; body: string };
 
-// Four on each side of the phone, top to bottom.
 const LEFT: Feature[] = [
   { icon: <IdBadgeIcon />, title: "Helper Dashboard", body: "Manage listings, requests, orders, balances and withdrawals." },
   { icon: <PhotoIcon />, title: "Get Inspired", body: "Browse photos of real work from Helpers near you, for ideas and to help you decide." },
@@ -31,13 +30,9 @@ const RIGHT: Feature[] = [
   { icon: <MapPinIcon />, title: "Get Items Delivered Your Way", body: "Agree with the Helper how it’s delivered. Payment is only released once you share your code." },
 ];
 
-// Points on the ring (degrees, 0 = right, clockwise), evenly spaced, so each
-// icon sits on it at the same distance from the phone.
 const LEFT_ANGLES = [228, 196, 164, 132];
 const RIGHT_ANGLES = [-48, -16, 16, 48];
 const ICON_HALF = 22;
-// Width of a feature's text block plus its icon, so the ring is never so wide
-// that a feature runs off the side of the screen.
 const ITEM_REACH = 302;
 
 type Pos = { top: number; left?: number; right?: number };
