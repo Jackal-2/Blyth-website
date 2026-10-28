@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function TermsOfServicePage() {
   return (
-    <PolicyLayout title="Terms of service" updated="Oct 25, 2026">
+    <PolicyLayout title="Terms of service" updated="Oct 28, 2026">
       <section className="policy-section">
         <h2>Welcome to BLYTH</h2>
         <p>
@@ -143,6 +143,34 @@ export default function TermsOfServicePage() {
               service between users, whether or not identity verification was
               required or completed. This doesn&rsquo;t limit any liability
               that can&rsquo;t be limited under applicable law.
+            </li>
+          </ul>
+        </div>
+
+        <div className="policy-subsection">
+          <h3>1.5 Text Messages (SMS)</h3>
+          <ul>
+            <li>
+              When you create a Blyth account, you agree to receive one-time
+              security codes by text message from Blyth at the phone number you
+              provide. We send these when you sign up, sign in, reset your
+              password or PIN, or confirm a change to your account&rsquo;s
+              security settings. Blyth does not send marketing text messages.
+            </li>
+            <li>
+              Message frequency varies with how often you use these features.
+              Message and data rates may apply.
+            </li>
+            <li>
+              Text STOP to any of our messages to stop receiving texts; after
+              that, we&rsquo;ll send your security codes to your email address
+              instead. Text START to receive them by text again. Text HELP for
+              help, or contact{" "}
+              <a href="mailto:support@blythapp.com">support@blythapp.com</a>.
+            </li>
+            <li>
+              Mobile carriers are not liable for delayed or undelivered
+              messages.
             </li>
           </ul>
         </div>

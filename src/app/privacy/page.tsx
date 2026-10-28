@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function PrivacyPolicyPage() {
   return (
-    <PolicyLayout title="Privacy policy" updated="Oct 25, 2026">
+    <PolicyLayout title="Privacy policy" updated="Oct 28, 2026">
       <section className="policy-section">
         <h2>Welcome to Blyth</h2>
         <p>
@@ -185,6 +185,17 @@ export default function PrivacyPolicyPage() {
             we don&rsquo;t share it for third-party advertising.
           </p>
         </div>
+
+        <div className="policy-subsection">
+          <h3>Text messages and your phone number</h3>
+          <p>
+            We use your phone number to send the one-time security codes
+            described in our Terms of Service. No mobile information will be
+            shared with third parties or affiliates for marketing or
+            promotional purposes. Text messaging opt-in data and consent will
+            not be shared with any third parties.
+          </p>
+        </div>
       </section>
 
       <section className="policy-section">
@@ -239,7 +250,9 @@ export default function PrivacyPolicyPage() {
         </p>
         <p>
           You can turn off push notifications at any time in your
-          device&rsquo;s settings.
+          device&rsquo;s settings. You can text STOP to any of our messages to
+          stop receiving texts, and we&rsquo;ll send your security codes to
+          your email address instead.
         </p>
         <p>
           If you&rsquo;re in a region that gives you additional statutory
