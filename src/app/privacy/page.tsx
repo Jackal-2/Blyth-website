@@ -157,8 +157,9 @@ export default function PrivacyPolicyPage() {
             text to your phone number; an email-delivery provider, which
             sends the verification codes and order-related emails we send to
             your email address; an error-monitoring provider, which receives
-            crash reports and diagnostic data so we can fix problems in the
-            app; push-notification services, delivered
+            crash reports and diagnostic data, including occasional recordings
+            of app sessions with all text and images hidden, so we can fix
+            problems in the app; push-notification services, delivered
             through Apple and Google, which send notifications to your
             device; and, if you choose to sign in that way, Apple or Google
             directly, which verify your identity for &ldquo;Sign in with
@@ -228,9 +229,11 @@ export default function PrivacyPolicyPage() {
           Messages, bank details, and verification records are encrypted both in
           transit and in our database. Access to that information is limited to
           what you need to see yourself, or to what our team needs to
-          investigate a report or dispute you or someone else raised. No
-          method of transmission or storage is completely secure, and we
-          can&rsquo;t guarantee absolute security of your information.
+          investigate a report or dispute you or someone else raised. Photos
+          you send in messages and photos added to a dispute are stored
+          privately and only shown through links that expire. No method of
+          transmission or storage is completely secure, and we can&rsquo;t
+          guarantee absolute security of your information.
         </p>
       </section>
 
