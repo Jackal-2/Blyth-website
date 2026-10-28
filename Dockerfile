@@ -1,4 +1,3 @@
-# Multi-stage build using Next's standalone output (see next.config.ts).
 FROM node:20-bookworm-slim AS deps
 WORKDIR /app
 COPY package.json package-lock.json ./

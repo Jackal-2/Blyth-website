@@ -7,6 +7,7 @@ vi.mock("@/lib/urlSafety", () => ({
 
 import { fetchImageSafely } from "@/lib/urlSafety";
 import { GET } from "../route";
+import { photoProxySignature } from "@/lib/photoProxy";
 
 function fakeRequest(url: string): NextRequest {
   return { nextUrl: new URL(url) } as unknown as NextRequest;
@@ -42,5 +43,21 @@ describe("GET /api/photo", () => {
     expect(res.headers.get("X-Content-Type-Options")).toBe("nosniff");
     expect(res.headers.get("Content-Security-Policy")).toBe("default-src 'none'");
     expect(new Uint8Array(await res.arrayBuffer())).toEqual(new Uint8Array([1, 2, 3]));
+  });
+
+  it("refuses a URL without our signature once a secret is set, and serves it with one", async () => {
+    process.env.PHOTO_PROXY_SECRET = "test-secret";
+    try {
+      vi.mocked(fetchImageSafely).mockResolvedValue({ body: Buffer.from([1]), contentType: "image/png", format: "png" });
+      const target = "https://example.com/x";
+      const unsigned = await GET(fakeRequest(`http://localhost/api/photo?u=${encodeURIComponent(target)}`));
+      expect(unsigned.status).toBe(403);
+      const signed = await GET(
+        fakeRequest(`http://localhost/api/photo?u=${encodeURIComponent(target)}&s=${photoProxySignature(target)}`),
+      );
+      expect(signed.status).toBe(200);
+    } finally {
+      delete process.env.PHOTO_PROXY_SECRET;
+    }
   });
 });

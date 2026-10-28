@@ -61,3 +61,36 @@ describe("toProxiedImageUrl — own-media bypass (media.ts)", () => {
     expect(proxied(url)).toBe(`/api/photo?u=${encodeURIComponent(url)}`);
   });
 });
+
+describe("photo proxy signatures", () => {
+  const ORIGINAL_SECRET = process.env.PHOTO_PROXY_SECRET;
+
+  beforeEach(() => {
+    vi.resetModules();
+  });
+
+  afterEach(() => {
+    if (ORIGINAL_SECRET === undefined) delete process.env.PHOTO_PROXY_SECRET;
+    else process.env.PHOTO_PROXY_SECRET = ORIGINAL_SECRET;
+    vi.resetModules();
+  });
+
+  it("signs proxied URLs when a secret is configured, and the signature verifies", async () => {
+    process.env.PHOTO_PROXY_SECRET = "test-secret";
+    const mod = await import("../photoProxy");
+    const url = "https://cdn.example.com/a.jpg";
+    const proxied = mod.toProxiedImageUrl(url);
+    const signature = new URLSearchParams(proxied.split("?")[1]).get("s");
+    expect(signature).toBeTruthy();
+    expect(mod.isValidPhotoProxySignature(url, signature)).toBe(true);
+  });
+
+  it("rejects a URL that wasn't signed by us, or a signature for a different URL", async () => {
+    process.env.PHOTO_PROXY_SECRET = "test-secret";
+    const mod = await import("../photoProxy");
+    const signature = mod.photoProxySignature("https://cdn.example.com/a.jpg");
+    expect(mod.isValidPhotoProxySignature("https://evil.example.com/x.jpg", signature)).toBe(false);
+    expect(mod.isValidPhotoProxySignature("https://cdn.example.com/a.jpg", null)).toBe(false);
+    expect(mod.isValidPhotoProxySignature("https://cdn.example.com/a.jpg", "short")).toBe(false);
+  });
+});

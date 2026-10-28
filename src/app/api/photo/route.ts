@@ -1,10 +1,14 @@
 import type { NextRequest } from "next/server";
 import { fetchImageSafely } from "@/lib/urlSafety";
 import { IMAGE_CONTENT_TYPE } from "@/lib/imageDimensions";
+import { isValidPhotoProxySignature } from "@/lib/photoProxy";
 
 export async function GET(req: NextRequest) {
   const url = req.nextUrl.searchParams.get("u");
   if (!url) return new Response("Missing url", { status: 400 });
+  if (!isValidPhotoProxySignature(url, req.nextUrl.searchParams.get("s"))) {
+    return new Response("Forbidden", { status: 403 });
+  }
 
   const result = await fetchImageSafely(url);
   if (!result) return new Response("Not found", { status: 404 });
