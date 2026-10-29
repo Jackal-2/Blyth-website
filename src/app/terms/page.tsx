@@ -154,7 +154,7 @@ export default function TermsOfServicePage() {
               Texts are optional. If you choose to get your codes by text, you
               agree to receive one-time security codes by text message from
               Blyth at the phone number you provide. We send these when you sign
-              up, sign in, reset your password or PIN, or confirm a change to
+              up, sign in, reset your PIN, or confirm a change to
               your account&rsquo;s security settings. When you sign up or sign
               in, you can choose to get your code by email instead. Blyth does
               not send marketing text messages.
