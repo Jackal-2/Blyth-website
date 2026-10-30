@@ -29,16 +29,12 @@ export default function ComingSoon() {
       </header>
 
       <main className="cs-main">
-        <div className="cs-eyebrow">
-          <span className="cs-live" />
-          Launching soon
-        </div>
         <h1 className="cs-title">
           <span className="cs-line">Coming</span>
           <span className="cs-line cs-soon">Soon.</span>
         </h1>
         <p className="cs-sub">
-          It&rsquo;s not just a Marketplace, it&rsquo;s Your <span className="cs-accent">Neighborhood.</span>
+          Your <span className="cs-accent">Neighborhood</span> Marketplace.
           <br />
           Trusted, verified local Helpers and items nearby &mdash; <strong>almost here.</strong>
         </p>
