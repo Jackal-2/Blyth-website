@@ -1,19 +1,25 @@
 "use client";
 
 import type { ReactNode } from "react";
+import { usePathname } from "next/navigation";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import ClickSpark from "./ClickSpark";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
-export default function SiteChrome({ children }: { children: ReactNode }) {
+export default function SiteChrome({ children, comingSoon }: { children: ReactNode; comingSoon: boolean }) {
   const reducedMotion = usePrefersReducedMotion();
+  const pathname = usePathname();
+
+  if (comingSoon && pathname === "/") {
+    return <>{children}</>;
+  }
 
   const content = (
     <>
-      <Navbar />
+      <Navbar launched={!comingSoon} />
       {children}
-      <Footer />
+      <Footer launched={!comingSoon} />
     </>
   );
 

@@ -19,7 +19,7 @@ const SECONDARY_LINKS = [
   { label: "Delete Account", href: "/delete-account" },
 ];
 
-export default function Footer() {
+export default function Footer({ launched }: { launched: boolean }) {
   const verse = useSyncExternalStore(subscribeToNothing, () => getTodaysVerse(), () => null);
 
   return (
@@ -38,7 +38,7 @@ export default function Footer() {
               />
             </Link>
             <div className="footer-links-secondary">
-              {SECONDARY_LINKS.map((link) => (
+              {SECONDARY_LINKS.filter((link) => launched || !link.href.startsWith("/#")).map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
@@ -117,9 +117,18 @@ export default function Footer() {
           </div>
 
           <div className="footer-download">
-            <p className="footer-download-heading">Get the App</p>
-            <StoreButton tone="dark" href={STORE_URLS.ios} icon="/images/app-store.png" label="Download for iOS" />
-            <StoreButton tone="dark" href={STORE_URLS.android} icon="/images/playstore.png" label="Download for Android" />
+            {launched ? (
+              <>
+                <p className="footer-download-heading">Get the App</p>
+                <StoreButton tone="dark" href={STORE_URLS.ios} icon="/images/app-store.png" label="Download for iOS" />
+                <StoreButton tone="dark" href={STORE_URLS.android} icon="/images/playstore.png" label="Download for Android" />
+              </>
+            ) : (
+              <>
+                <p className="footer-download-heading">Coming Soon</p>
+                <p className="footer-coming-soon">Blyth is launching soon on iOS and Android.</p>
+              </>
+            )}
           </div>
         </div>
 

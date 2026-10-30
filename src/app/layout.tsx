@@ -6,6 +6,7 @@ import "@fontsource/plus-jakarta-sans/600.css";
 import "@fontsource/plus-jakarta-sans/700.css";
 import "@fontsource/plus-jakarta-sans/800.css";
 import SiteChrome from "@/components/SiteChrome";
+import { isComingSoon } from "@/lib/siteStatus";
 import "./globals.css";
 
 const SITE_URL = "https://blythapp.com";
@@ -94,6 +95,7 @@ const STRUCTURED_DATA = {
 
 export default async function RootLayout({ children }: LayoutProps<"/">) {
   const nonce = (await headers()).get("x-nonce") ?? undefined;
+  const comingSoon = await isComingSoon();
 
   return (
     <html lang="en">
@@ -118,7 +120,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
         />
       </head>
       <body>
-        <SiteChrome>{children}</SiteChrome>
+        <SiteChrome comingSoon={comingSoon}>{children}</SiteChrome>
       </body>
     </html>
   );

@@ -33,11 +33,12 @@ function isShareCardPath(pathname: string): boolean {
   return pathname.startsWith("/listings/") || pathname.startsWith("/helpers/");
 }
 
-export default function Navbar() {
+export default function Navbar({ launched }: { launched: boolean }) {
   const pathname = usePathname();
   const [activeSection, setActiveSection] = useState<SectionId | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const minimal = isShareCardPath(pathname);
+  const navLinks = launched ? NAV_LINKS : NAV_LINKS.filter((link) => !sectionOf(link.href));
 
   const [prevPathname, setPrevPathname] = useState(pathname);
   if (pathname !== prevPathname) {
@@ -101,7 +102,7 @@ export default function Navbar() {
 
         {!minimal && (
           <nav className="nav-links">
-            {NAV_LINKS.map((link) => {
+            {navLinks.map((link) => {
               const active = isActive(pathname, link.href, activeSection);
               return (
                 <Link
@@ -123,7 +124,7 @@ export default function Navbar() {
 
         {!minimal && (
           <div className="navbar-actions">
-            <GetStartedLink className="btn btn-accent cursor-target">Get Started</GetStartedLink>
+            {launched && <GetStartedLink className="btn btn-accent cursor-target">Get Started</GetStartedLink>}
             <button
               className="nav-menu-btn cursor-target"
               aria-label={menuOpen ? "Close menu" : "Open menu"}
@@ -154,7 +155,7 @@ export default function Navbar() {
 
         {!minimal && menuOpen ? (
           <nav className="nav-mobile-menu">
-            {NAV_LINKS.map((link) => {
+            {navLinks.map((link) => {
               const active = isActive(pathname, link.href, activeSection);
               return (
                 <Link
@@ -172,9 +173,11 @@ export default function Navbar() {
                 </Link>
               );
             })}
-            <GetStartedLink className="btn btn-accent nav-mobile-cta cursor-target" onNavigate={() => setMenuOpen(false)}>
-              Get Started
-            </GetStartedLink>
+            {launched && (
+              <GetStartedLink className="btn btn-accent nav-mobile-cta cursor-target" onNavigate={() => setMenuOpen(false)}>
+                Get Started
+              </GetStartedLink>
+            )}
           </nav>
         ) : null}
       </div>
