@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import PolicyLayout from "@/components/PolicyLayout";
+import { fetchPublishedLegalDocument } from "@/lib/legalDocuments";
+import { renderLegalDocument } from "@/lib/renderLegalMarkdown";
 
 export const metadata: Metadata = {
   title: "Community Guidelines — Blyth",
@@ -9,9 +11,13 @@ export const metadata: Metadata = {
   alternates: { canonical: "/community-guidelines" },
 };
 
-export default function CommunityGuidelinesPage() {
+// Date of the copy built into this page. Once a newer version is published
+// from the admin console (Legal Documents), that version is shown instead.
+const BUILT_IN_DATE = "Oct 9, 2026";
+
+function BuiltInCopy() {
   return (
-    <PolicyLayout title="Community guidelines" updated="Oct 9, 2026">
+    <PolicyLayout title="Community guidelines" updated={BUILT_IN_DATE}>
       <section className="policy-section">
         <p>
           These guidelines exist to keep Blyth a safe, trustworthy place for
@@ -100,6 +106,16 @@ export default function CommunityGuidelinesPage() {
           contact support so our team can take a look.
         </p>
       </section>
+    </PolicyLayout>
+  );
+}
+
+export default async function CommunityGuidelinesPage() {
+  const published = await fetchPublishedLegalDocument("guidelines", BUILT_IN_DATE);
+  if (!published) return <BuiltInCopy />;
+  return (
+    <PolicyLayout title={published.title} updated={published.updatedLabel}>
+      {renderLegalDocument(published.body)}
     </PolicyLayout>
   );
 }

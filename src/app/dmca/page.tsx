@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import PolicyLayout from "@/components/PolicyLayout";
+import { fetchPublishedLegalDocument } from "@/lib/legalDocuments";
+import { renderLegalDocument } from "@/lib/renderLegalMarkdown";
 
 export const metadata: Metadata = {
   title: "Copyright Policy — Blyth",
@@ -8,9 +10,13 @@ export const metadata: Metadata = {
   alternates: { canonical: "/dmca" },
 };
 
-export default function DmcaPolicyPage() {
+// Date of the copy built into this page. Once a newer version is published
+// from the admin console (Legal Documents), that version is shown instead.
+const BUILT_IN_DATE = "Oct 9, 2026";
+
+function BuiltInCopy() {
   return (
-    <PolicyLayout title="Copyright Policy" updated="Oct 9, 2026">
+    <PolicyLayout title="Copyright Policy" updated={BUILT_IN_DATE}>
       <section className="policy-section">
         <p>
           Blyth respects the intellectual property rights of others and expects
@@ -140,6 +146,16 @@ export default function DmcaPolicyPage() {
           support[at]blythapp.com and we&rsquo;ll route it appropriately.
         </p>
       </section>
+    </PolicyLayout>
+  );
+}
+
+export default async function DmcaPolicyPage() {
+  const published = await fetchPublishedLegalDocument("dmca", BUILT_IN_DATE);
+  if (!published) return <BuiltInCopy />;
+  return (
+    <PolicyLayout title={published.title} updated={published.updatedLabel}>
+      {renderLegalDocument(published.body)}
     </PolicyLayout>
   );
 }

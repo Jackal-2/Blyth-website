@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import HelperWaitlistForm from "./HelperWaitlistForm";
 
 const FOOTER_LINKS = [
   { href: "/support", label: "Support" },
@@ -38,6 +39,11 @@ export default function ComingSoon() {
           <br />
           Trusted, verified local Helpers and items nearby &mdash; <strong>almost here.</strong>
         </p>
+        <p className="cs-region">
+          <span className="cs-region-dot" aria-hidden="true" />
+          Launching first in Maryland
+        </p>
+        <HelperWaitlistForm />
         <div className="cs-stores">
           <div className="cs-store">
             <svg viewBox="0 0 24 24" aria-hidden="true">

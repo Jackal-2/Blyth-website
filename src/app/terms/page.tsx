@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import PolicyLayout from "@/components/PolicyLayout";
+import { fetchPublishedLegalDocument } from "@/lib/legalDocuments";
+import { renderLegalDocument } from "@/lib/renderLegalMarkdown";
 
 export const metadata: Metadata = {
   title: "Terms of Service — Blyth",
@@ -9,9 +11,13 @@ export const metadata: Metadata = {
   alternates: { canonical: "/terms" },
 };
 
-export default function TermsOfServicePage() {
+// Date of the copy built into this page. Once a newer version is published
+// from the admin console (Legal Documents), that version is shown instead.
+const BUILT_IN_DATE = "Oct 28, 2026";
+
+function BuiltInCopy() {
   return (
-    <PolicyLayout title="Terms of service" updated="Oct 28, 2026">
+    <PolicyLayout title="Terms of service" updated={BUILT_IN_DATE}>
       <section className="policy-section">
         <h2>Welcome to BLYTH</h2>
         <p>
@@ -594,6 +600,16 @@ export default function TermsOfServicePage() {
           dispute flow in the app.
         </p>
       </section>
+    </PolicyLayout>
+  );
+}
+
+export default async function TermsOfServicePage() {
+  const published = await fetchPublishedLegalDocument("terms", BUILT_IN_DATE);
+  if (!published) return <BuiltInCopy />;
+  return (
+    <PolicyLayout title={published.title} updated={published.updatedLabel}>
+      {renderLegalDocument(published.body)}
     </PolicyLayout>
   );
 }

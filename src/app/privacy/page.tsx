@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import PolicyLayout from "@/components/PolicyLayout";
+import { fetchPublishedLegalDocument } from "@/lib/legalDocuments";
+import { renderLegalDocument } from "@/lib/renderLegalMarkdown";
 
 export const metadata: Metadata = {
   title: "Privacy Policy — Blyth",
@@ -7,9 +9,13 @@ export const metadata: Metadata = {
   alternates: { canonical: "/privacy" },
 };
 
-export default function PrivacyPolicyPage() {
+// Date of the copy built into this page. Once a newer version is published
+// from the admin console (Legal Documents), that version is shown instead.
+const BUILT_IN_DATE = "Oct 28, 2026";
+
+function BuiltInCopy() {
   return (
-    <PolicyLayout title="Privacy policy" updated="Oct 28, 2026">
+    <PolicyLayout title="Privacy policy" updated={BUILT_IN_DATE}>
       <section className="policy-section">
         <h2>Welcome to Blyth</h2>
         <p>
@@ -306,6 +312,16 @@ export default function PrivacyPolicyPage() {
           Reach us at support[at]blythapp.com.
         </p>
       </section>
+    </PolicyLayout>
+  );
+}
+
+export default async function PrivacyPolicyPage() {
+  const published = await fetchPublishedLegalDocument("privacy", BUILT_IN_DATE);
+  if (!published) return <BuiltInCopy />;
+  return (
+    <PolicyLayout title={published.title} updated={published.updatedLabel}>
+      {renderLegalDocument(published.body)}
     </PolicyLayout>
   );
 }
