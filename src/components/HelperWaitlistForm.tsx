@@ -58,34 +58,42 @@ export default function HelperWaitlistForm() {
       <h2 className="wl-title">Become a Helper</h2>
       <p className="wl-sub">Be one of the first Helpers on Blyth. We&rsquo;ll email you when we launch.</p>
 
-      <label className="wl-label" htmlFor="wl-name">
-        Name
-      </label>
-      <input
-        id="wl-name"
-        className="wl-input"
-        type="text"
-        autoComplete="name"
-        placeholder="Your name"
-        maxLength={NAME_MAX}
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
-
-      <label className="wl-label" htmlFor="wl-email">
-        Email
-      </label>
-      <input
-        id="wl-email"
-        className="wl-input"
-        type="email"
-        inputMode="email"
-        autoComplete="email"
-        placeholder="you@example.com"
-        maxLength={EMAIL_MAX}
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
+      <div className="wl-row">
+        <div className="wl-field">
+          <label className="wl-label" htmlFor="wl-name">
+            Name
+          </label>
+          <input
+            id="wl-name"
+            className="wl-input"
+            type="text"
+            autoComplete="name"
+            placeholder="Your name"
+            maxLength={NAME_MAX}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+        </div>
+        <div className="wl-field">
+          <label className="wl-label" htmlFor="wl-email">
+            Email
+          </label>
+          <input
+            id="wl-email"
+            className="wl-input"
+            type="email"
+            inputMode="email"
+            autoComplete="email"
+            placeholder="you@example.com"
+            maxLength={EMAIL_MAX}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+        <button className="wl-btn" type="submit" disabled={status === "sending"}>
+          {status === "sending" ? "Joining…" : "Join the waitlist"}
+        </button>
+      </div>
 
       <div className="wl-hp" aria-hidden="true">
         <label htmlFor="wl-company">Company</label>
@@ -104,9 +112,6 @@ export default function HelperWaitlistForm() {
         </p>
       )}
 
-      <button className="wl-btn" type="submit" disabled={status === "sending"}>
-        {status === "sending" ? "Joining…" : "Join the waitlist"}
-      </button>
       <p className="wl-fine">
         We&rsquo;ll only use your email to tell you about Blyth&rsquo;s launch. <Link href="/privacy">Privacy</Link>
       </p>

@@ -2443,8 +2443,8 @@ img {
 
 .cs-pin:nth-child(1) { left: 14%; top: 26%; animation-delay: 0s; }
 .cs-pin:nth-child(2) { left: 82%; top: 22%; animation-delay: 0.8s; }
-.cs-pin:nth-child(3) { left: 22%; top: 74%; animation-delay: 1.6s; }
-.cs-pin:nth-child(4) { left: 76%; top: 70%; animation-delay: 2.4s; }
+.cs-pin:nth-child(3) { left: 6%; top: 82%; animation-delay: 1.6s; }
+.cs-pin:nth-child(4) { left: 94%; top: 78%; animation-delay: 2.4s; }
 .cs-pin:nth-child(5) { left: 91%; top: 46%; animation-delay: 1.2s; width: 7px; height: 7px; }
 
 .cs-header {
@@ -2626,10 +2626,10 @@ img {
 .wl-card {
   margin-top: 28px;
   width: 100%;
-  max-width: 420px;
+  max-width: 760px;
   text-align: left;
-  padding: 24px;
-  border-radius: 18px;
+  padding: 22px 24px;
+  border-radius: 10px;
   border: 1px solid var(--border);
   background: rgba(26, 26, 26, 0.78);
   backdrop-filter: blur(10px);
@@ -2649,9 +2649,21 @@ img {
   color: var(--text-muted);
 }
 
+.wl-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.wl-field {
+  flex: 1;
+  min-width: 0;
+}
+
 .wl-label {
   display: block;
-  margin: 14px 0 6px;
+  margin: 0 0 6px;
   font-size: 13px;
   font-weight: 700;
 }
@@ -2659,7 +2671,7 @@ img {
 .wl-input {
   width: 100%;
   padding: 12px 14px;
-  border-radius: 12px;
+  border-radius: 8px;
   border: 1.5px solid rgba(255, 255, 255, 0.14);
   background: rgba(255, 255, 255, 0.04);
   color: var(--text);
@@ -2691,11 +2703,11 @@ img {
 }
 
 .wl-btn {
-  margin-top: 18px;
-  width: 100%;
-  padding: 14px;
+  flex: none;
+  padding: 13px 22px;
   border: 0;
-  border-radius: 999px;
+  border-radius: 8px;
+  white-space: nowrap;
   background: var(--accent);
   color: #fff;
   font: inherit;
@@ -2715,7 +2727,6 @@ img {
 
 .wl-fine {
   margin: 12px 0 0;
-  text-align: center;
   font-size: 12px;
   color: var(--text-faint);
 }
@@ -2745,8 +2756,17 @@ img {
 @media (max-width: 560px) {
   .cs-header img { height: 36px; }
   .wl-card { padding: 20px; }
+  .wl-row { flex-direction: column; align-items: stretch; }
+  .wl-btn { margin-top: 4px; }
   .cs-store { min-width: 0; width: 100%; max-width: 300px; }
   .cs-pin { display: none; }
+}
+
+/* Between phone and wide screens the box fills most of the width, so keep the
+   lower dots out from behind it. */
+@media (min-width: 561px) and (max-width: 1100px) {
+  .cs-pin:nth-child(3),
+  .cs-pin:nth-child(4) { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
