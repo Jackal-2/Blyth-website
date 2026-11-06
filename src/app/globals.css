@@ -2688,6 +2688,25 @@ img {
   border-color: var(--accent);
 }
 
+/* Safari / iPhone autofill: keep the dark field and white text instead of
+   Safari's own colours, and make the contact/key icon light so it shows. */
+.wl-input {
+  color-scheme: dark;
+}
+.wl-input:-webkit-autofill,
+.wl-input:-webkit-autofill:hover,
+.wl-input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--text);
+  caret-color: var(--text);
+  -webkit-box-shadow: 0 0 0 1000px #1f1f1f inset;
+  box-shadow: 0 0 0 1000px #1f1f1f inset;
+  transition: background-color 600000s 0s;
+}
+.wl-input::-webkit-contacts-auto-fill-button,
+.wl-input::-webkit-credentials-auto-fill-button {
+  background-color: var(--text);
+}
+
 .wl-hp {
   position: absolute;
   left: -10000px;

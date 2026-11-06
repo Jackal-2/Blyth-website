@@ -75,7 +75,10 @@ export async function POST(req: NextRequest) {
   if (!(await isComingSoon())) {
     return reply(410, { error: "Blyth is live! Download the app to become a Helper." });
   }
-  if (!INTERNAL_KEY) return reply(503, { error: "Something went wrong. Please try again." });
+  if (!INTERNAL_KEY) {
+    console.error("[helper-waitlist] INTERNAL_SHARE_API_KEY is not set on the website");
+    return reply(503, { error: "Something went wrong. Please try again." });
+  }
 
   try {
     const res = await fetch(`${API_BASE}/public/helper-waitlist`, {
@@ -93,8 +96,11 @@ export async function POST(req: NextRequest) {
       return reply(400, { error: msg });
     }
     if (res.status === 429) return reply(429, { error: "Too many tries. Please wait a few minutes and try again." });
+    // 403 here means the website and backend INTERNAL_SHARE_API_KEY don't match.
+    console.error(`[helper-waitlist] backend replied ${res.status} from ${API_BASE}/public/helper-waitlist`);
     return reply(502, { error: "Something went wrong. Please try again." });
-  } catch {
+  } catch (err) {
+    console.error(`[helper-waitlist] could not reach the backend at ${API_BASE}:`, (err as Error)?.message ?? err);
     return reply(502, { error: "Something went wrong. Please try again." });
   }
 }
